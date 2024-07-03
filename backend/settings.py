@@ -29,7 +29,7 @@ SECRET_KEY = secret_data['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,6 +43,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_yasg",
+    'users',
+    'greats',
+    'profiles',
+    'quiz',
+    'statistic',
 ]
 
 MIDDLEWARE = [
