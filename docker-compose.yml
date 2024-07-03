@@ -11,6 +11,9 @@ services:
           - "3307:3306"
         env_file:
             - .env
+        environment:
+            MYSQL_ROOT_PASSWORD: 1234
+            MYSQL_DATABASE: mydatabase
         volumes:
             - ./var/lib/mysql/:/var/lib/mysql
     backend:
