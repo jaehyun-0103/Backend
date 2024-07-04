@@ -1,0 +1,128 @@
+[
+    {
+        "model": "story.story",
+        "pk": 1,
+        "fields": {
+            "name": "이순신",
+            "photo_url": "https://s3.amazonaws.com/yourbucket/이순신.jpg",
+            "silhouette_url": "https://s3.amazonaws.com/yourbucket/silhouette1.png",
+            "saying": "사람이 여러 사람의 잘난 체 하는 것을 보면 물 새는 곳을 보는 듯하다.",
+            "access_cnt": 1,
+            "nation": "한국",
+            "field": "정치",
+            "video_url": "https://s3.amazonaws.com/yourbucket/video1.mp4",
+            "gender": 1,
+            "life": "1879-1955",
+            "created_at": "2024-07-04 10:10",
+            "updated_at": "2024-07-04 10:10"
+        }
+    },
+    {
+        "model": "story.story",
+        "pk": 2,
+        "fields": {
+            "name": "을지문덕",
+            "photo_url": "https://s3.amazonaws.com/yourbucket/을지문덕.jpg",
+            "silhouette_url": "https://s3.amazonaws.com/yourbucket/silhouette2.png",
+            "saying": "군자는 화를 내지 않고, 화자는 싸우지 않는다.",
+            "access_cnt": 3,
+            "nation": "한국",
+            "field": "경제",
+            "video_url": "https://s3.amazonaws.com/yourbucket/video2.mp4",
+            "gender": 0,
+            "life": "1898-1996",
+            "created_at": "2024-07-04 10:10",
+            "updated_at": "2024-07-04 10:10"
+        }
+    },
+    {
+        "model": "story.story",
+        "pk": 3,
+        "fields": {
+            "name": "강감찬",
+            "photo_url": "https://s3.amazonaws.com/yourbucket/강감찬.jpg",
+            "silhouette_url": "https://s3.amazonaws.com/yourbucket/silhouette3.png",
+            "saying": "천자만홍이로 말미암아 말하자면 하늘에 따라 다른 성좌가 있음을 안다.",
+            "access_cnt": 4,
+            "nation": "유럽",
+            "field": "문화예술",
+            "video_url": "https://s3.amazonaws.com/yourbucket/video3.mp4",
+            "gender": 0,
+            "life": "1809-1882",
+            "created_at": "2024-07-04 10:10",
+            "updated_at": "2024-07-04 10:10"
+        }
+    },
+    {
+        "model": "story.story",
+        "pk": 4,
+        "fields": {
+            "name": "안중근",
+            "photo_url": "https://s3.amazonaws.com/yourbucket/안중근.jpg",
+            "silhouette_url": "https://s3.amazonaws.com/yourbucket/silhouette4.png",
+            "saying": "만사를 속일 천공이 아니면, 무엇을 속일 엄체가 있으랴.",
+            "access_cnt": 2,
+            "nation": "한국",
+            "field": "정치",
+            "video_url": "https://s3.amazonaws.com/yourbucket/video4.mp4",
+            "gender": 1,
+            "life": "1452-1519",
+            "created_at": "2024-07-04 10:10",
+            "updated_at": "2024-07-04 10:10"
+        }
+    },
+    {
+        "model": "story.story",
+        "pk": 5,
+        "fields": {
+            "name": "안창호",
+            "photo_url": "https://s3.amazonaws.com/yourbucket/안창호.jpg",
+            "silhouette_url": "https://s3.amazonaws.com/yourbucket/silhouette5.png",
+            "saying": "한 사람이 고생하는 동안에는 그의 자신에 대한 시험을 제대로 받는다고 한다.",
+            "access_cnt": 5,
+            "nation": "한국",
+            "field": "과학",
+            "video_url": "https://s3.amazonaws.com/yourbucket/video5.mp4",
+            "gender": 0,
+            "life": "1912-1954",
+            "created_at": "2024-07-04 10:10",
+            "updated_at": "2024-07-04 10:10"
+        }
+    },
+    {
+        "model": "story.story",
+        "pk": 6,
+        "fields": {
+            "name": "세종대왕",
+            "photo_url": "https://s3.amazonaws.com/yourbucket/윤봉길.jpg",
+            "silhouette_url": "https://s3.amazonaws.com/yourbucket/silhouette6.png",
+            "saying": "기록하지 않는다면 그 일은 없었다.",
+            "access_cnt": 6,
+            "nation": "유럽",
+            "field": "경제",
+            "video_url": "https://s3.amazonaws.com/yourbucket/video6.mp4",
+            "gender": 1,
+            "life": "1732-1799",
+            "created_at": "2024-07-04 10:10",
+            "updated_at": "2024-07-04 10:10"
+        }
+    },
+    {
+        "model": "story.story",
+        "pk": 7,
+        "fields": {
+            "name": "이성계",
+            "photo_url": "https://s3.amazonaws.com/yourbucket/권율.jpg",
+            "silhouette_url": "https://s3.amazonaws.com/yourbucket/silhouette7.png",
+            "saying": "미래는 현재의 기록이다.",
+            "access_cnt": 7,
+            "nation": "유럽",
+            "field": "정치",
+            "video_url": "https://s3.amazonaws.com/yourbucket/video7.mp4",
+            "gender": 0,
+            "life": "1815-1852",
+            "created_at": "2024-07-04 10:10",
+            "updated_at": "2024-07-04 10:10"
+        }
+    }
+]
