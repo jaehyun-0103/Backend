@@ -10,23 +10,24 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('story', '0001_initial'),
+        ('user', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Quiz',
+            name='Result',
             fields=[
                 ('id', models.AutoField(primary_key=True, serialize=False)),
-                ('question', models.CharField(max_length=255)),
-                ('answer', models.CharField(max_length=255)),
-                ('explanation', models.CharField(max_length=255)),
+                ('puzzle_cnt', models.IntegerField()),
+                ('correct_cnt', models.BigIntegerField()),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
                 ('is_deleted', models.BooleanField(default=False)),
                 ('story', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='story.story')),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='user.user')),
             ],
             options={
-                'db_table': 'Quiz',
+                'db_table': 'Result',
             },
         ),
     ]
