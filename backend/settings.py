@@ -43,11 +43,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "drf_yasg",
-    'users',
-    'greats',
-    'profiles',
     'quiz',
-    'statistic',
+    'result',
+    'story',
+    'user',
 ]
 
 MIDDLEWARE = [
