@@ -22,3 +22,6 @@ var/lib/mysql/
 # Dependency directories
 venv/
 env/
+
+# User-specific stuff
+.idea/
