@@ -10,7 +10,11 @@ from .serializers import QuizSerializer, UpdateResultSerializer
 
 # Create your views here.
 class GetQuizView(APIView):
-    def get(self, request, user_id, story_id):
+    def get(self, request, story_id):
+        user_id = request.data.get('user_id')
+        if not user_id:
+            return Response({"detail": "User ID not provided."}, status=status.HTTP_400_BAD_REQUEST)
+
         user = get_object_or_404(User, pk=user_id)
         story = get_object_or_404(Story, pk=story_id)
         result = Result.objects.filter(user=user, story=story).first()
@@ -35,7 +39,11 @@ class GetQuizView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 class UpdateQuizResult(APIView):
-    def put(self, request, user_id, story_id):
+    def put(self, request, story_id):
+        user_id = request.data.get('user_id')
+        if not user_id:
+            return Response({"detail": "User ID not provided."}, status=status.HTTP_400_BAD_REQUEST)
+
         user = get_object_or_404(User, pk=user_id)
         story = get_object_or_404(Story, pk=story_id)
         result = Result.objects.filter(user=user, story=story).first()
