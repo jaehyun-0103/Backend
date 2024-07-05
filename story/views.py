@@ -1,18 +1,24 @@
-from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
 from .models import Story
 from .serializers import GreatsSerializer
 
-class GreatsList(generics.ListAPIView):
-    serializer_class = GreatsSerializer
+class GreatsList(APIView):
+    def get(self, request):
+        user_id = request.data.get('user_id')
+        nation = request.query_params.get('nation')
+        field = request.query_params.get('field')
 
-    def get_queryset(self):
+        if not user_id:
+            return Response({"detail": "User ID not provided."}, status=status.HTTP_400_BAD_REQUEST)
+
         queryset = Story.objects.filter(is_deleted=False)
-        nation = self.request.GET.get('nation')
-        field = self.request.GET.get('field')
 
         if nation:
             queryset = queryset.filter(nation=nation)
         if field:
             queryset = queryset.filter(field=field)
 
-        return queryset
+        serializer = GreatsSerializer(queryset, many=True)
+        return Response(serializer.data)
