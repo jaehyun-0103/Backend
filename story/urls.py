@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import AllGreatsList
+from .views import GreatsList
 
 urlpatterns = [
-    path('greats/<int:user_id>/', AllGreatsList.as_view(), name='all_greats_list'),
+    path('<int:user_id>/', GreatsList.as_view(), name='greats_list'),
 ]
