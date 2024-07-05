@@ -12,3 +12,17 @@ class GreatsSerializer(serializers.ModelSerializer):
     def get_puzzle_cnt(self, obj):
         result = Result.objects.filter(story=obj).first()
         return result.puzzle_cnt if result else 0
+
+class GreatDetailSerializer(serializers.ModelSerializer):
+    gender = serializers.SerializerMethodField()
+    life = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Story
+        fields = ['video_url', 'gender', 'life']
+
+    def get_gender(self, obj):
+        return '남성' if obj.gender == 0 else '여성'
+
+    def get_life(self, obj):
+        return obj.life
