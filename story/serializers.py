@@ -4,11 +4,11 @@ from result.models import Result
 
 class GreatsSerializer(serializers.ModelSerializer):
     greatId = serializers.IntegerField(source='id')
-    puzzleCnt = serializers.SerializerMethodField()
+    puzzle_cnt = serializers.SerializerMethodField()
     class Meta:
         model = Story
-        fields = ['greatId', 'name', 'silhouette_url', 'photo_url', 'saying', 'puzzleCnt']
+        fields = ['greatId', 'name', 'silhouette_url', 'photo_url', 'saying', 'puzzle_cnt']
 
-    def get_puzzleCnt(self, obj):
+    def get_puzzle_cnt(self, obj):
         result = Result.objects.filter(story=obj).first()
-        return result.puzzleCnt if result else 0
+        return result.puzzle_cnt if result else 0
