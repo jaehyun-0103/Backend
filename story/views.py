@@ -35,7 +35,7 @@ class GreatsList(APIView):
             )
         ]
     )
-    def post(self, request):
+    def get(self, request):
         user_id = request.data.get('user_id')
         nation = request.query_params.get('nation')
         field = request.query_params.get('field')
@@ -69,7 +69,7 @@ class GreatDetail(APIView):
             )
         ]
     )
-    def post(self, request, story_id):
+    def get(self, request, story_id):
         user_id = request.data.get('user_id')
 
         if not user_id:
