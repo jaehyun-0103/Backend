@@ -10,9 +10,13 @@ class GreatsSerializer(serializers.ModelSerializer):
         fields = ['greatId', 'name', 'silhouette_url', 'photo_url', 'saying', 'puzzle_cnt']
 
     def get_puzzle_cnt(self, obj):
-        result = Result.objects.filter(story=obj).first()
-        return result.puzzle_cnt if result else 0
+        user_id = self.context.get('user_id')
+        if user_id is not None:
+            result = Result.objects.filter(story=obj, user_id=user_id).first()
+            if result:
+                return result.puzzle_cnt
 
+        return 0
 class GreatDetailSerializer(serializers.ModelSerializer):
     gender = serializers.SerializerMethodField()
     life = serializers.SerializerMethodField()

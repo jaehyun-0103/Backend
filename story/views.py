@@ -35,7 +35,7 @@ class GreatsList(APIView):
             )
         ]
     )
-    def get(self, request):
+    def post(self, request):
         user_id = request.data.get('user_id')
         nation = request.query_params.get('nation')
         field = request.query_params.get('field')
@@ -50,8 +50,9 @@ class GreatsList(APIView):
         if field:
             queryset = queryset.filter(field=field)
 
-        serializer = GreatsSerializer(queryset, many=True)
+        serializer = GreatsSerializer(queryset, many=True, context={'user_id': user_id})
         return Response(serializer.data)
+
 
 class GreatDetail(APIView):
     @swagger_auto_schema(
@@ -68,7 +69,7 @@ class GreatDetail(APIView):
             )
         ]
     )
-    def get(self, request, story_id):
+    def post(self, request, story_id):
         user_id = request.data.get('user_id')
 
         if not user_id:
