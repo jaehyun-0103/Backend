@@ -5,6 +5,10 @@ from .models import Story
 from .serializers import GreatsSerializer, GreatDetailSerializer
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
+import logging
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 class GreatsList(APIView):
     permission_classes = [permissions.AllowAny]
@@ -36,11 +40,15 @@ class GreatsList(APIView):
         ]
     )
     def get(self, request):
+        logger.info("GreatsList GET request initiated.")
         user_id = request.data.get('user_id')
         nation = request.query_params.get('nation')
         field = request.query_params.get('field')
 
+        logger.debug(f"Parameters received - user_id: {user_id}, nation: {nation}, field: {field}")
+
         if not user_id:
+            logger.warning("User ID not provided.")
             return Response({"detail": "User ID not provided."}, status=status.HTTP_400_BAD_REQUEST)
 
         queryset = Story.objects.filter(is_deleted=False)
@@ -51,6 +59,7 @@ class GreatsList(APIView):
             queryset = queryset.filter(field=field)
 
         serializer = GreatsSerializer(queryset, many=True, context={'user_id': user_id})
+        logger.info("GreatsList GET request successful.")
         return Response(serializer.data)
 
 
@@ -70,15 +79,21 @@ class GreatDetail(APIView):
         ]
     )
     def get(self, request, story_id):
+        logger.info(f"GreatDetail GET request initiated for story_id: {story_id}")
         user_id = request.data.get('user_id')
 
+        logger.debug(f"Parameters received - user_id: {user_id}")
+
         if not user_id:
+            logger.warning("User ID not provided.")
             return Response({"detail": "User ID not provided."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             story = Story.objects.get(pk=story_id, is_deleted=False)
         except Story.DoesNotExist:
+            logger.error(f"Story with id {story_id} not found.")
             return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = GreatDetailSerializer(story)
+        logger.info(f"GreatDetail GET request successful for story_id: {story_id}")
         return Response(serializer.data, status=status.HTTP_200_OK)
