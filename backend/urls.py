@@ -17,6 +17,8 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, re_path, include
+from django.conf.urls.static import static
+from django.conf import settings
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
@@ -41,4 +43,7 @@ urlpatterns = [
     path('users/', include('user.urls')),
     path('quizzes/', include('quiz.urls')),
     path('greats/', include('story.urls')),
+    path('chats/', include('chats.urls')),
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
