@@ -45,7 +45,6 @@ urlpatterns = [
     path('greats/', include('story.urls')),
     path('chats/', include('chats.urls')),
     path('dashboard/', include('dashboard.urls')),
-    path('ws/', include('chats.routing.websocket_urlpatterns')),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

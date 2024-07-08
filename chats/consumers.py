@@ -2,9 +2,9 @@ from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from channels.db import database_sync_to_async
 from .models import Talk
 from story.models import Story
-from users.models import User
+from user.models import User
 
-class MyConsumer(AsyncWebsocketConsumer):
+class MyConsumer(AsyncJsonWebsocketConsumer):
     async def connect(self):
         try:
             self.story_id = self.scope['url_route']['kwargs']['story_id']  # URL 경로에서 위인 ID를 추출
