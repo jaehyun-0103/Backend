@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'user',
     'chats',
     'channels',
+    'django_apscheduler',
 ]
 
 MIDDLEWARE = [
@@ -138,4 +139,15 @@ CHANNEL_LAYERS = {
             "hosts": [(os.environ.get('REDIS_HOST', 'localhost'), 6379)],
         },
     },
+}
+
+# Cache
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://redis:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
 }
