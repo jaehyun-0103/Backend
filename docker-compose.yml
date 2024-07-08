@@ -16,6 +16,7 @@ services:
             MYSQL_DATABASE: mydatabase
         volumes:
             - ./var/lib/mysql/:/var/lib/mysql
+
     backend:
         build:
             context: ./
@@ -31,5 +32,12 @@ services:
             - mysql:mysql
         depends_on:
             - mysql
+            - redis
         expose:
             - 8000
+
+    redis:
+        image: redis
+        container_name: redis
+        ports:
+            - "6379:6379"
