@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'chats',
     'channels',
     'django_apscheduler',
+    'django_celery_results',
+    'django_celery_beat',
+
 ]
 
 MIDDLEWARE = [
@@ -151,3 +154,12 @@ CACHES = {
         }
     }
 }
+
+# Celery settings
+CELERY_BROKER_URL = 'amqp://user:password@rabbitmq:5672//'
+CELERY_RESULT_BACKEND = 'django-db'
+
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'UTC'
