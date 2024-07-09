@@ -97,3 +97,46 @@ class GreatDetail(APIView):
         serializer = GreatDetailSerializer(story)
         logger.info(f"GreatDetail GET request successful for story_id: {story_id}")
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+class IncrementAccessCount(APIView):
+    @swagger_auto_schema(
+        operation_id="대화창 접속 수 증가하기",
+        operation_description="Redis Cache를 통해 대화창에 접속한 횟수만큼 증가하기",
+        responses={"200": "성공"},
+        manual_parameters=[
+            openapi.Parameter(
+                'access_cnt',
+                openapi.IN_QUERY,
+                description="대화창 접속 여부",
+                type=openapi.TYPE_INTEGER,
+                required=True
+            )
+        ]
+    )
+    def put(self, request, story_id):
+        logger.info(f"IncrementAccessCount PUT request initiated for story_id: {story_id}")
+
+        # Get access_cnt from request data
+        access_cnt = request.data.get('access_cnt')
+
+        if access_cnt is None or not isinstance(access_cnt, bool):
+            logger.warning("Invalid or missing access_cnt in request data.")
+            return Response({"detail": "access_cnt가 제공되지 않았습니다."}, status=status.HTTP_400_BAD_REQUEST)
+
+        if access_cnt:
+            try:
+                story = Story.objects.filter(pk=story_id, is_deleted=False).first()
+                if story:
+                    story.access_cnt += 1
+                    story.save()
+                    logger.info(f"Access count incremented successfully for story_id: {story_id}")
+                    return Response({"detail": "성공"}, status=status.HTTP_200_OK)
+                else:
+                    logger.error(f"Story with id {story_id} not found.")
+                    return Response({"detail": "해당 위인을 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+            except Exception as e:
+                logger.error(f"Failed to increment access count for story_id {story_id}: {str(e)}")
+                return Response({"detail": "접속 수 증가가 실패했습니다."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        else:
+            logger.warning("access_cnt is false, no action taken.")
+            return Response({"detail": "access_cnt가 올바르지 않습니다."}, status=status.HTTP_400_BAD_REQUEST)
