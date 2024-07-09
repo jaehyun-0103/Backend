@@ -14,5 +14,8 @@ COPY . /backend
 # 포트 설정 (필요에 따라 수정 가능)
 EXPOSE 8000
 
+# Celery Worker 실행 명령어 추가
+CMD celery -A backend worker -l info
+
 # 컨테이너 실행 명령
 # CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

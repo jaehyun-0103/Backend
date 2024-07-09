@@ -1,4 +1,5 @@
 # compose 파일 버전
+
 version: '3'
 
 services:
@@ -12,6 +13,7 @@ services:
         env_file:
             - .env
         environment:
+            MYSQL_ROOT_HOST: "%"
             MYSQL_ROOT_PASSWORD: 1234
             MYSQL_DATABASE: mydatabase
         volumes:
@@ -33,6 +35,7 @@ services:
         depends_on:
             - mysql
             - redis
+            - rabbitmq
         expose:
             - 8000
 
@@ -41,3 +44,26 @@ services:
         container_name: redis
         ports:
             - "6379:6379"
+
+    rabbitmq:
+        image: "rabbitmq:3-management"
+        container_name: rabbitmq
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        environment:
+            RABBITMQ_DEFAULT_USER: user
+            RABBITMQ_DEFAULT_PASS: password
+
+    celery:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        container_name: celery
+        command: celery -A backend worker -l info
+        volumes:
+            - .:/backend
+        depends_on:
+            - backend
+            - rabbitmq
+            - redis

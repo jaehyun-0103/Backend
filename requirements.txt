@@ -36,3 +36,6 @@ uritemplate==4.1.1
 urllib3==2.2.2
 views==0.3
 virtualenv==20.26.3
+celery==5.4.0
+django-celery-beat==2.6.0
+django-celery-results==2.5.1
