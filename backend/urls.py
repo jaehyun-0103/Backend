@@ -43,7 +43,7 @@ urlpatterns = [
     path('users/', include('user.urls')),
     path('quizzes/', include('quiz.urls')),
     path('greats/', include('story.urls')),
-    path('chats/', include('chats.urls')),
+    path('chat/', include('chat.urls')),
     path('dashboard/', include('dashboard.urls')),
 ]
 

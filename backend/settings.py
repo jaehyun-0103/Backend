@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -47,8 +48,9 @@ INSTALLED_APPS = [
     'result',
     'story',
     'user',
-    'chats',
+    'chat',
     'channels',
+    'corsheaders',
     'django_apscheduler',
     'django_celery_results',
     'django_celery_beat',
@@ -70,7 +72,7 @@ ROOT_URLCONF = "backend.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'templates')],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -86,7 +88,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
-ASGI_APPLICATION = 'backend.routing.application'
+ASGI_APPLICATION = 'backend.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
