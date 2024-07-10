@@ -14,6 +14,9 @@ import json, os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', 'your-openai-api-key')
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load secret.json

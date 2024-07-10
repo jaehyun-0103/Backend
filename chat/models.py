@@ -1,4 +1,4 @@
-#models.py
+#chat/models.py
 from django.db import models
 from story.models import Story
 from user.models import User
