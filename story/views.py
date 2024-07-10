@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from .models import Story
 from .serializers import GreatsSerializer, GreatDetailSerializer
+from django_redis import get_redis_connection
+
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 import logging
@@ -116,27 +118,24 @@ class IncrementAccessCount(APIView):
     def put(self, request, story_id):
         logger.info(f"IncrementAccessCount PUT request initiated for story_id: {story_id}")
 
-        # Get access_cnt from request data
         access_cnt = request.data.get('access_cnt')
 
         if access_cnt is None or not isinstance(access_cnt, bool):
             logger.warning("Invalid or missing access_cnt in request data.")
-            return Response({"detail": "access_cnt가 제공되지 않았습니다."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": "적절한 access_cnt가 제공되지 않았습니다."}, status=status.HTTP_400_BAD_REQUEST)
 
         if access_cnt:
             try:
-                story = Story.objects.filter(pk=story_id, is_deleted=False).first()
-                if story:
-                    story.access_cnt += 1
-                    story.save()
-                    logger.info(f"Access count incremented successfully for story_id: {story_id}")
-                    return Response({"detail": "성공"}, status=status.HTTP_200_OK)
-                else:
-                    logger.error(f"Story with id {story_id} not found.")
-                    return Response({"detail": "해당 위인을 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+                redis_conn = get_redis_connection("default")
+                redis_key = f"story:{story_id}:access_cnt"
+                logger.debug(f"Fetching data from Redis with key: {redis_key}")
+                redis_conn.incr(redis_key)
+
+                logger.info(f"Access count incremented in Redis for story_id: {story_id}")
+                return Response({"detail": "성공"}, status=status.HTTP_200_OK)
             except Exception as e:
                 logger.error(f"Failed to increment access count for story_id {story_id}: {str(e)}")
-                return Response({"detail": "접속 수 증가가 실패했습니다."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({"detail": "실패"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         else:
             logger.warning("access_cnt is false, no action taken.")
-            return Response({"detail": "access_cnt가 올바르지 않습니다."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": "access_cnt 값이 올바르지 않습니다."}, status=status.HTTP_400_BAD_REQUEST)

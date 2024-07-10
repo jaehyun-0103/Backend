@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'quiz',
     'result',
     'story',
+    'dashboard',
     'user',
     'chat',
     'channels',
