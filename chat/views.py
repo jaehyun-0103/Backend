@@ -8,13 +8,16 @@ from story.models import Story
 from user.models import User
 import requests
 from django.views.generic import TemplateView
+from django.shortcuts import get_object_or_404
 
 class ChatTemplateView(TemplateView):
     template_name = 'text.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['story_id'] = kwargs.get('story_id')
+        story_id = kwargs.get('story_id')
+        story = get_object_or_404(Story, pk=story_id)
+        context['story_name'] = story.name
         return context
 
 class TalkView(APIView):
