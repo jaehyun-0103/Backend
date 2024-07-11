@@ -1,16 +1,21 @@
-# chat/views.py
+#chat/views.py
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from .models import Talk
+from .serializers import MessageSerializer
 from story.models import Story
 from user.models import User
-from .serializers import MessageSerializer
-from django.views.generic import TemplateView
 import requests
+from django.views.generic import TemplateView
 
 class ChatTemplateView(TemplateView):
     template_name = 'text.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['story_id'] = kwargs.get('story_id')
+        return context
 
 class TalkView(APIView):
     serializer_class = MessageSerializer
@@ -32,33 +37,10 @@ class TalkView(APIView):
             story = Story.objects.get(pk=story_id, is_deleted=False)
             user = User.objects.get(pk=user_id)
         except Story.DoesNotExist:
-            return Response({"detail": "해당 이야기를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"detail": "해당 스토리를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
         except User.DoesNotExist:
             return Response({"detail": "해당 사용자를 찾을 수 없습니다."}, status=status.HTTP_404_NOT_FOUND)
 
-        # Save user's message to database
         talk = Talk.objects.create(story=story, user=user, text=text)
         serializer = MessageSerializer(talk)
-
-        # Call GPT API to generate response
-        gpt_api_url = 'http://127.0.0.1:8000/chat/<int:story_id>/talk'  # Replace with your GPT API endpoint
-        gpt_data = {
-            'user_id': user_id,
-            'message': text
-        }
-
-        try:
-            response = requests.post(gpt_api_url, json=gpt_data)
-            gpt_response = response.json()
-            gpt_message = gpt_response.get('message', 'GPT API did not respond correctly')
-        except requests.exceptions.RequestException as e:
-            gpt_message = f'Error calling GPT API: {str(e)}'
-
-        # Prepare response for the client
-        response_data = {
-            'user_id': user_id,
-            'text': text,
-            'gpt_response': gpt_message  # Add GPT response to the data sent back to the client
-        }
-
-        return Response(response_data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
