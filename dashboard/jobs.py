@@ -157,28 +157,28 @@ def start():
 
     scheduler.add_job(
         update_date_visits,
-        trigger=IntervalTrigger(seconds=10),
+        trigger=IntervalTrigger(seconds=1000),
         id="update_date_visits",
         max_instances=1,
         replace_existing=True,
     )
     scheduler.add_job(
         update_age_visits,
-        trigger=IntervalTrigger(seconds=10),
+        trigger=IntervalTrigger(seconds=1000),
         id="update_age_visits",
         max_instances=1,
         replace_existing=True,
     )
     scheduler.add_job(
         update_chat_visits,
-        trigger=IntervalTrigger(seconds=10),
+        trigger=IntervalTrigger(seconds=1000),
         id="update_chat_visits",
         max_instances=1,
         replace_existing=True,
     )
     scheduler.add_job(
         update_correct_rate,
-        trigger=IntervalTrigger(seconds=10),
+        trigger=IntervalTrigger(seconds=1000),
         id="update_correct_rate",
         max_instances=1,
         replace_existing=True,
