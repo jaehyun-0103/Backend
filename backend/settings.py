@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
-
+#backend/settings.py
 import json, os
 from pathlib import Path
 
@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'django_apscheduler',
     'django_celery_results',
     'django_celery_beat',
+    'tts',
 
 ]
 
@@ -91,7 +92,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "backend.wsgi.application"
-
 ASGI_APPLICATION = 'backend.asgi.application'
 
 # Database
@@ -123,11 +123,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = "en-us"
-
 TIME_ZONE = "UTC"
-
 USE_I18N = True
-
 USE_TZ = True
 
 
@@ -141,6 +138,7 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+#Channels
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels_redis.core.RedisChannelLayer',
@@ -164,8 +162,17 @@ CACHES = {
 # Celery settings
 CELERY_BROKER_URL = 'amqp://user:password@rabbitmq:5672//'
 CELERY_RESULT_BACKEND = 'django-db'
-
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'UTC'
+
+#Naver Clova API Keys
+NAVER_CLIENT_ID = secret_data['NAVER_CLIENT_ID']
+NAVER_CLIENT_SECRET = secret_data['NAVER_CLIENT_SECRET']
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+#Media files - tts변환 결과로 생성된 음성 파일을 저장하기 위함.
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

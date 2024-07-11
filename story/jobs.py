@@ -37,7 +37,7 @@ def start():
 
     scheduler.add_job(
         update_access_counts,
-        trigger=IntervalTrigger(seconds=10),
+        trigger=IntervalTrigger(seconds=1000),
         id="update_access_counts",
         max_instances=1,
         replace_existing=True,
