@@ -1,91 +1,64 @@
-<!-- chat/templates/text.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat Room</title>
+    <title>Chat</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        .chat-messages {
-            max-height: 400px;
-            overflow-y: auto;
+        #chat {
             border: 1px solid #ccc;
             padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
         }
-        .chat-form {
-            margin-top: 10px;
+        .message {
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="chat-messages" id="chat-messages">
-        <!-- 메시지가 추가될 부분 -->
-    </div>
-    <form class="chat-form" id="chat-form">
-        <input type="text" id="message-input" placeholder="메시지를 입력하세요">
-        <button type="submit">전송</button>
-    </form>
+    <div id="chat"></div>
+    <input type="text" id="message" placeholder="Enter your message">
+    <button id="send">Send</button>
 
     <script>
-        const messageInput = document.getElementById('message-input');
-        const chatForm = document.getElementById('chat-form');
-        const chatMessages = document.getElementById('chat-messages');
-        const storyId = 1;  // 사용할 story ID를 입력하세요
+        const story_id = {{ story_id }};
+        const user_id = 1;  // 사용자의 ID를 여기에 입력하거나 동적으로 설정해야 합니다.
 
-        // 메시지를 가져와서 화면에 표시하는 함수
-        function loadMessages() {
-            const url = `/chat/${storyId}/talk/`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    chatMessages.innerHTML = '';  // 이전 메시지 초기화
-                    data.forEach(message => {
-                        const newMessage = document.createElement('div');
-                        newMessage.textContent = message.text;
-                        chatMessages.appendChild(newMessage);
+        function fetchMessages() {
+            $.ajax({
+                url: `/chat/${story_id}/`,
+                method: 'GET',
+                success: function(data) {
+                    $('#chat').empty();
+                    data.forEach(function(message) {
+                        $('#chat').append(`<div class="message"><strong>${message.user.username}:</strong> ${message.text}</div>`);
                     });
-                })
-                .catch(error => {
-                    console.error('Error loading messages:', error);
-                });
+                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
+                }
+            });
         }
 
-        // 메시지 전송 함수
-        chatForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            const message = messageInput.value.trim();
-            if (message) {
-                const user_id = 1;  // 사용할 사용자 ID를 입력하세요
-                const url = `/chat/${storyId}/talk/`;
-                const data = {
-                    user_id: user_id,
-                    text: message
-                };
+        $(document).ready(function() {
+            fetchMessages();
+            setInterval(fetchMessages, 3000);
 
-                fetch(url, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const newMessage = document.createElement('div');
-                    newMessage.textContent = data.text;
-                    chatMessages.appendChild(newMessage);
-                    messageInput.value = '';
-                })
-                .catch(error => {
-                    console.error('Error sending message:', error);
-                });
-            }
-        });
-
-        // 페이지 로드 시 초기 메시지 가져오기
-        document.addEventListener('DOMContentLoaded', function() {
-            loadMessages();
+            $('#send').click(function() {
+                const text = $('#message').val();
+                if (text.trim() !== '') {
+                    $.ajax({
+                        url: `/chat/${story_id}/`,
+                        method: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify({ user_id: user_id, text: text }),
+                        success: function(data) {
+                            $('#message').val('');
+                            fetchMessages();
+                        }
+                    });
+                }
+            });
         });
     </script>
 </body>
