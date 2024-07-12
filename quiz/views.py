@@ -20,24 +20,9 @@ class GetQuizView(APIView):
         operation_id="해당 위인의 퀴즈 불러오기",
         operation_description="0개 : 1~5번, 1개: 6~10번 2개: 11~15번 3개: 16~20번 4개: 모든 문제(1~20번)",
         responses={"200": QuizSerializer},
-        manual_parameters=[
-            openapi.Parameter(
-                'user_id',
-                openapi.IN_QUERY,
-                description="사용자 ID",
-                type=openapi.TYPE_INTEGER,
-                required=True
-            )
-        ]
     )
-    def get(self, request, story_id):
-        user_id = request.data.get('user_id')
-
-        if user_id:
-            logger.info(f"GetQuizView called with user_id={user_id} and story_id={story_id}")
-        else:
-            logger.error("User ID not provided")
-            return Response({"detail": "사용자 ID가 제공되지 않았습니다."}, status=status.HTTP_400_BAD_REQUEST)
+    def get(self, request, user_id, story_id):
+        logger.info(f"GetQuizView called with user_id={user_id} and story_id={story_id}")
 
         try:
             user = User.objects.get(pk=user_id)
