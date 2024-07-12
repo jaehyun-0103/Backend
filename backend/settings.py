@@ -162,6 +162,12 @@ CACHES = {
     }
 }
 
+#AWS
+AWS_ACCESS_KEY_ID = secret_data['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = secret_data['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = secret_data['AWS_BUCKET_NAME']
+AWS_S3_REGION_NAME = secret_data['AWS_S3_REGION_NAME']
+
 # Celery settings
 CELERY_BROKER_URL = 'amqp://user:password@rabbitmq:5672//'
 CELERY_RESULT_BACKEND = 'django-db'
