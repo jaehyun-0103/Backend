@@ -1,8 +1,9 @@
-#chat/serializers.py
-from rest_framework import serializers
-from .models import Talk
+# chat/serializers.py
 
-class MessageSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Talk
-        fields = ['id', 'story', 'user', 'text']
+from rest_framework import serializers
+
+class GPTChatSerializer(serializers.Serializer):
+    gpt_message = serializers.CharField()
+
+class UserChatSerializer(serializers.Serializer):
+    user_message = serializers.CharField()
