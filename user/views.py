@@ -19,16 +19,7 @@ logging.basicConfig(level=logging.INFO)
     operation_id="사용자의 정보 저장하기",
     operation_description="사용자의 이름과 출생연도 저장하기",
     request_body=UserSerializer,
-    responses={"200": UserSerializer},
-    manual_parameters=[
-        openapi.Parameter(
-            'user_id',
-            openapi.IN_QUERY,
-            description="사용자 ID",
-            type=openapi.TYPE_INTEGER,
-            required=True
-        )
-    ]
+    responses={"200": UserSerializer}
 )
 @api_view(['POST'])
 def create_user(request):
