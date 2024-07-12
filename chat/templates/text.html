@@ -1,67 +1,88 @@
-<!-- templates/text.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>위인과 대화하기</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
-        #chat {
-            border: 1px solid #ccc;
-            padding: 10px;
-            height: 300px;
-            overflow-y: scroll;
+        .chat-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-top: 50px;
         }
         .message {
             margin-bottom: 10px;
         }
+        .user-message {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .gpt-message {
+            background-color: #d3f8e2;
+            padding: 10px;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
-    <h1>Chat with {{ story_name }}</h1>
-    <div id="chat"></div>
-    <input type="text" id="message" placeholder="Enter your message">
-    <button id="send">Send</button>
+    <div class="container chat-container">
+        <h2>위인과 대화하기</h2>
+        <div id="chat-messages">
+        </div>
+        <div class="input-group mt-3">
+            <input type="text" id="user-input" class="form-control" placeholder="메시지를 입력하세요...">
+            <div class="input-group-append">
+                <button class="btn btn-primary" id="send-btn">전송</button>
+            </div>
+        </div>
+    </div>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-        const story_id = {{ story_id }};
-        const user_id = 1;  // 사용자의 ID를 여기에 입력하거나 동적으로 설정해야 합니다.
+    $(document).ready(function() {
+        var story_id = "{{ story_id }}";
 
-        function fetchMessages() {
-            $.ajax({
-                url: `/chat/${story_id}/`,
-                method: 'GET',
-                success: function(data) {
-                    $('#chat').empty();
-                    data.forEach(function(message) {
-                        $('#chat').append(`<div class="message"><strong>${message.user.username}:</strong> ${message.text}</div>`);
-                    });
-                    $('#chat').scrollTop($('#chat')[0].scrollHeight);
-                }
-            });
-        }
+        var socket = new WebSocket(
+            'ws://' + window.location.host +
+            '/ws/chat/' + story_id + '/'
+        );
 
-        $(document).ready(function() {
-            fetchMessages();
-            setInterval(fetchMessages, 3000);
+        socket.onmessage = function(e) {
+            var data = JSON.parse(e.data);
+            var gptMessage = data['message'];
 
-            $('#send').click(function() {
-                const text = $('#message').val();
-                if (text.trim() !== '') {
-                    $.ajax({
-                        url: `/chat/${story_id}/`,
-                        method: 'PUT',
-                        contentType: 'application/json',
-                        data: JSON.stringify({ user_id: user_id, text: text }),
-                        success: function(data) {
-                            $('#message').val('');
-                            fetchMessages();
-                        }
-                    });
-                }
-            });
+            var gptMessageHTML = '<div class="message gpt-message"><strong>GPT:</strong> ' + gptMessage + '</div>';
+            $("#chat-messages").append(gptMessageHTML);
+        };
+
+        $("#send-btn").click(function() {
+            sendMessage();
         });
+
+        $("#user-input").keypress(function(event) {
+            if (event.which === 13) {
+                sendMessage();
+            }
+        });
+
+        function sendMessage() {
+            var userMessage = $("#user-input").val().trim();
+            if (userMessage !== "") {
+                var userMessageHTML = '<div class="message user-message"><strong>당신:</strong> ' + userMessage + '</div>';
+                $("#chat-messages").append(userMessageHTML);
+
+                socket.send(JSON.stringify({
+                    'message': userMessage
+                }));
+
+                $("#user-input").val("");
+            }
+        }
+    });
     </script>
 </body>
 </html>

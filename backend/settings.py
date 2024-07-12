@@ -15,8 +15,6 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', 'your-openai-api-key')
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load secret.json
@@ -28,6 +26,10 @@ with open(BASE_DIR / 'secrets.json') as f:
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = secret_data['SECRET_KEY']
+
+# OpenAI API Key
+OPENAI_API_KEY = secret_data['OPENAI_API_KEY']
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -70,6 +72,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -140,10 +143,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 #Channels
 CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            "hosts": [(os.environ.get('REDIS_HOST', 'localhost'), 6379)],
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis", 6379)],
         },
     },
 }
@@ -176,3 +179,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 #Media files - tts변환 결과로 생성된 음성 파일을 저장하기 위함.
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CORS_ALLOWED_ORIGINS = [
+    "https://platform.openai.com",
+]
+
+CORS_URLS_REGEX = r'^/static/.*$'
