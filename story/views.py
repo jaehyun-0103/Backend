@@ -21,13 +21,6 @@ class GreatsList(APIView):
         responses={"200": GreatsSerializer},
         manual_parameters=[
             openapi.Parameter(
-                'user_id',
-                openapi.IN_QUERY,
-                description="사용자 ID",
-                type=openapi.TYPE_INTEGER,
-                required=True
-            ),
-            openapi.Parameter(
                 'nation',
                 openapi.IN_QUERY,
                 description="국가",
@@ -41,9 +34,8 @@ class GreatsList(APIView):
             )
         ]
     )
-    def get(self, request):
+    def get(self, request, user_id):
         logger.info("GreatsList GET request initiated.")
-        user_id = request.data.get('user_id')
         nation = request.query_params.get('nation')
         field = request.query_params.get('field')
 
@@ -69,26 +61,11 @@ class GreatDetail(APIView):
     @swagger_auto_schema(
         operation_id="선택한 위인 정보 불러오기",
         operation_description="위인 목록에서 선택한 위인의 정보 불러오기",
-        responses={"200": GreatsSerializer},
-        manual_parameters=[
-            openapi.Parameter(
-                'user_id',
-                openapi.IN_QUERY,
-                description="사용자 ID",
-                type=openapi.TYPE_INTEGER,
-                required=True
-            )
-        ]
+        responses={"200": GreatsSerializer}
     )
-    def get(self, request, story_id):
+    def get(self, request, user_id, story_id):
+        logger.info(f"GreatDetail GET request initiated for story_id: {user_id}")
         logger.info(f"GreatDetail GET request initiated for story_id: {story_id}")
-        user_id = request.data.get('user_id')
-
-        logger.debug(f"Parameters received - user_id: {user_id}")
-
-        if not user_id:
-            logger.warning("User ID not provided.")
-            return Response({"detail": "User ID not provided."}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             story = Story.objects.get(pk=story_id, is_deleted=False)
