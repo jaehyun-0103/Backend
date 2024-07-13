@@ -1,19 +1,16 @@
-import requests
-from openai import OpenAI
+# chat/views.py
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import status
 from .serializers import GPTChatSerializer
-from story.models import Story
-from user.models import User
+from .consumers import ChatConsumer
 from django.views.generic import TemplateView
-from django.shortcuts import get_object_or_404
-from django.conf import settings
-from backend.settings import OPENAI_API_KEY
-from django.core.cache import cache
+from drf_yasg.utils import swagger_auto_schema
+import logging
 
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
+logger = logging.getLogger(__name__)
 
+# 구현한 API 기능 확인할 수 있는 템플릿뷰
 class ChatTemplateView(TemplateView):
     template_name = 'text.html'
 
@@ -21,35 +18,25 @@ class ChatTemplateView(TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
-
+# GPT와 대화하는 API뷰
 class GPTChatView(APIView):
     serializer_class = GPTChatSerializer
 
-    def put(self, request, *args, **kwargs):
+    @swagger_auto_schema(
+        operation_id="위인과 대화하기",
+        operation_description="이 API는 웹소켓 통신을 사용하므로 별 다른 내용이 없음",
+        responses={"200": GPTChatSerializer}
+    )
+
+    async def put(self, request, *args, **kwargs):
         gpt_message = request.data.get("message")
         story_id = self.kwargs['story_id']
 
-        gpt_chat_content = self.generate_gpt_chat(gpt_message)
+        # 예시로 DEBUG 레벨의 로그 기록
+        logger.debug(f'Received request for story_id {story_id} with message "{gpt_message}"')
+
+        gpt_chat_content = await get_gpt_response(story_id, gpt_message)
+
+        logger.info(f'Generated GPT response for story_id {story_id}')
 
         return Response({"message": "GPTChat 생성 완료", "gpt_chat_content": gpt_chat_content}, status=status.HTTP_201_CREATED)
-
-    def generate_gpt_chat(self, gpt_message):
-        try:
-            response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "user", "content": gpt_message},
-                    {"role": "system", "content": f"GPT said: {gpt_message}"},
-                ],
-            )
-
-            if response and response.choices and len(response.choices) > 0:
-                gpt_chat_content = response.choices[0].message.get('content', '')
-            else:
-                gpt_chat_content = "Sorry, I couldn't generate a response at the moment."
-
-        except Exception as e:
-            print(f"Error while calling OpenAI API: {str(e)}")
-            gpt_chat_content = "Error while generating response from GPT."
-
-        return gpt_chat_content

@@ -1,4 +1,5 @@
-import json
+#chat/consumers.py
+import json, logging
 from channels.generic.websocket import AsyncWebsocketConsumer
 from openai import OpenAI
 from django.conf import settings
@@ -7,10 +8,12 @@ from langchain_community.docstore.wikipedia import Wikipedia
 import requests
 from bs4 import BeautifulSoup
 
+logger = logging.getLogger(__name__)
+
 client = OpenAI(api_key=settings.OPENAI_API_KEY)
 redis_conn = get_redis_connection("default")
 
-# 위키피디아 페이지 내용 가져오기
+# langchain을 이용한 Wikipedia 내용 가져오기
 def get_wikipedia_content(url, max_length=10000):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
@@ -32,6 +35,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
         await self.accept()
 
+        logger.info(f'WebSocket connected: Story ID {self.story_id}')
+
     # 비동기식으로 Websocket 연결 종료할 때 로직
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(
@@ -39,21 +44,28 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
 
+        logger.info(f'WebSocket disconnected: Story ID {self.story_id}')
+
+    #사용자가 JSON 형식으로 메시지를 보내면 호출
     async def receive(self, text_data):
         try:
             text_data_json = json.loads(text_data)
             user_message = text_data_json.get('message', '')
 
             if user_message:
+                logger.info(f'Received message from user (Story ID {self.story_id}): {user_message}')
+
                 gpt_response = await self.get_gpt_response(user_message)
                 await self.send(text_data=json.dumps({
                     'message': gpt_response
                 }))
         except json.JSONDecodeError:
-            print("Invalid JSON format received from client.")
+            logger.error("Invalid JSON format received from client.")
             return
 
     async def get_gpt_response(self, user_message):
+        logger.info(f'Generating GPT response for user message (Story ID {self.story_id}): {user_message}')
+        # redis를 통해 캐시에 대화 내용을 저장하기 위한 로직
         cache_key = f'gptchat_{self.story_id}'
         chat_history = redis_conn.lrange(cache_key, 0, -1)
 
@@ -86,7 +98,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
             # 파인튜닝 인식을 위한 인퍼런스
             studying_content_map = {
-                '1': "넌 GPT가 아니라 겸손한 이순신 장군이야. 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 장군의 말투로 하면 돼."
+                '1': "넌 겸손한 이순신 장군님이 되어 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 장군의 말투로 하면 돼."
                 # 파인튜닝 진행될 떄 마다 추가
                 # '2': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
                 # '3': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
@@ -99,7 +111,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 # '10': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
             }
 
-            # langchain을 이용한 위키피디아 내용 가져오기
+            # Wikipedia url 가져오기
             wikipedia_url_map = {
                 '1': get_wikipedia_content('https://ko.wikipedia.org/wiki/이순신'),
                 # 파인튜닝 진행될 떄 마다 추가
@@ -136,7 +148,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                      "content": f"{studying_content}, 다음은 인물에 대한 정보야: {wikipedia_content} 인물의 말투가 일관되게 답변해줘."},
                     {"role": "user", "content": user_message},
                     # 캐시에 저장된 대화 내용 불러오기
-                    {"role": "system", "content": f"다음은 유저의 최근 대화 내용이야:{user_messages_history} 인물의 말투가 일관되게 답변해줘."},
+                    {"role": "system", "content": f"다음은 너와 대화하는 'user'의 최근 대화 내용이야:{user_messages_history} 'user'가 이 내용에 대해 물으면 인물의 말투가 일관되게 답변해줘."},
                     {"role": "system", "content": f"다음은 너의 최근 대화 내용이야:{assistant_messages_history} 인물의 말투가 일관되게 답변해줘."},
                 ]
 
@@ -156,15 +168,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
             #story_id를 할당하지 못했을 때 빈 객체 값으로 반환
             else:
-                gpt_response = f"Invalid story_id: {self.story_id}"
+                gpt_response = f"잘못된 story_id: {self.story_id}입니다."
                 return gpt_response
 
         except KeyError as ke:
-            print(f"KeyError while processing OpenAI API response: {str(ke)}")
+            print(f"OpenAI API 응답 처리 중 KeyError: {str(ke)}가 발생했습니다.")
             gpt_response = "GPT가 예상하지 못한 응답 형식입니다."
 
         except Exception as e:
-            print(f"Error while calling OpenAI API: {str(e)}")
+            print(f"OpenAI API를 호출하는 중 Error: {str(e)}가 발생했습니다")
             gpt_response = f"GPT에서 응답 생성 중 오류가 발생했습니다: {str(e)}"
 
         return gpt_response
