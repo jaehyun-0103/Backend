@@ -53,42 +53,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             message = json.loads(item)
             messages.append({"role": message["role"], "content": message["content"]})
 
-        # 첫 번째 메시지가 시스템 메시지인지 확인하여 추가
-        # 첫 번째 메시지에 파인튜닝 정보 제공하여 gpt가 더 수월하게 파인튜닝 되도록 진행
-        if not messages:
-            if self.story_id == '1':
-                initial_message = {"role": "system",
-                                   "content": "너는 이순신이야. 이순신이 되어서 사용자가 물어보는 것에 대해 답변을 해주면 돼. 말투도 최대한 조선시대 사람처럼, 그리고 이순신처럼 얘기해주면 돼."}
-                messages.append(initial_message)
-                #파인튜닝 진행될 떄 마다 추가
-            # if self.story_id == '2':
-            #     initial_message = {"role": "system", "content": "너는 'story_id'=2야"}
-            #     messages.append(initial_message)
-            # if self.story_id == '3':
-            #     initial_message = {"role": "system", "content": "너는 'story_id'=3야"}
-            #     messages.append(initial_message)
-            # if self.story_id == '4':
-            #     initial_message = {"role": "system", "content": "너는 'story_id'=4야"}
-            #     messages.append(initial_message)
-            # if self.story_id == '5':
-            #     initial_message = {"role": "system", "content": "너는 'story_id'=5야"}
-            #     messages.append(initial_message)
-            # if self.story_id == '6':
-            #     initial_message = {"role": "system", "content": "너는 'story_id'=6야"}
-            #     messages.append(initial_message)
-            # if self.story_id == '7':
-            #     initial_message = {"role": "system", "content": "너는 'story_id'=7야"}
-            #     messages.append(initial_message)
-            # if self.story_id == '8':
-            #     initial_message = {"role": "system", "content": "너는 'story_id'=8야"}
-            #     messages.append(initial_message)
-            # if self.story_id == '9':
-            #     initial_message = {"role": "system", "content": "너는 'story_id'=9야"}
-            #     messages.append(initial_message)
-            # if self.story_id == '10':
-            #     initial_message = {"role": "system", "content": "너는 'story_id'=10야"}
-            #     messages.append(initial_message)
-
         # 사용자 메시지 추가
         messages.append({"role": "user", "content": user_message})
 
@@ -107,13 +71,30 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 # '9': "gpt-3.5-turbo-1106:personal9",
                 # '10': "gpt-3.5-turbo-1106:personal10",
             }
+            # 파인튜닝 인식을 위한 인퍼런스
+            gpt_message_map = {
+                '1': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
+                # 파인튜닝 진행될 떄 마다 추가
+                # '2': "gpt-3.5-turbo-1106:personal2",
+                # '3': "gpt-3.5-turbo-1106:personal3",
+                # '4': "gpt-3.5-turbo-1106:personal4",
+                # '5': "gpt-3.5-turbo-1106:personal5",
+                # '6': "gpt-3.5-turbo-1106:personal6",
+                # '7': "gpt-3.5-turbo-1106:personal7",
+                # '8': "gpt-3.5-turbo-1106:personal8",
+                # '9': "gpt-3.5-turbo-1106:personal9",
+                # '10': "gpt-3.5-turbo-1106:personal10",
+            }
 
             if self.story_id in model_map:
                 model = model_map[self.story_id]
+                gpt_message = gpt_message_map[self.story_id]
                 response = client.chat.completions.create(
                     model=model,
-                    messages=messages
-                )
+                    messages=[
+                        {"role": "system", "content": gpt_message},
+                        {"role": "user", "content": user_message},
+                ])
 
                 if response and response.choices and len(response.choices) > 0:
                     gpt_response = response.choices[0].message.content
