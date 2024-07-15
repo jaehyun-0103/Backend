@@ -1,4 +1,14 @@
+# 베이스 이미지 설정
 FROM python:3.11.9
+
+# 시스템 패키지 업데이트 및 필수 패키지 설치
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    python3-dev \
+    libffi-dev \
+    libssl-dev \
+    gcc \
+    && apt-get clean
 
 # 작업 디렉토리 설정
 WORKDIR /backend

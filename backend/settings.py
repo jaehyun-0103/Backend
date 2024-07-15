@@ -177,14 +177,14 @@ CELERY_RESULT_BACKEND = 'django-db'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
-
-#Naver Clova API Keys
-NAVER_CLIENT_ID = secret_data['NAVER_CLIENT_ID']
-NAVER_CLIENT_SECRET = secret_data['NAVER_CLIENT_SECRET']
+CELERY_TIMEZONE = 'Asia/Seoul'
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+#Elevenlabs API Keys
+ELEVENLABS_API_KEY = secret_data['ELEVENLABS_API_KEY']
+ELEVENLABS_VOICE_ID = secret_data['ELEVENLABS_VOICE_ID']
+ELEVENLABS_MODEL_ID = secret_data['ELEVENLABS_MODEL_ID']
+
 #Media files - tts변환 결과로 생성된 음성 파일을 저장하기 위함.
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
