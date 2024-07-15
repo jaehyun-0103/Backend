@@ -26,6 +26,9 @@
             padding: 10px;
             border-radius: 5px;
         }
+        .btn-group {
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -37,6 +40,10 @@
             <input type="text" id="user-input" class="form-control" placeholder="메시지를 입력하세요...">
             <div class="input-group-append">
                 <button class="btn btn-primary" id="send-btn">전송</button>
+            </div>
+            <div class="btn-group">
+                <button id="record-btn" class="btn btn-secondary">마이크</button>
+                <button id="stop-btn" class="btn btn-secondary" style="display:none;">중지</button>
             </div>
         </div>
     </div>
@@ -67,6 +74,55 @@
             if (event.which === 13) {
                 sendMessage();
             }
+        });
+
+        var recognition;
+
+        $("#record-btn").click(function() {
+            recognition = new webkitSpeechRecognition(); // Chrome 사용을 위해 webkitSpeechRecognition 사용
+            recognition.lang = 'ko-KR'; // 인식할 언어 설정
+            recognition.continuous = true; // 연속적인 음성 인식 활성화
+
+            recognition.onstart = function() {
+                console.log('음성 인식 시작');
+                $("#record-btn").hide();
+                $("#stop-btn").show();
+            };
+
+            recognition.onresult = function(event) {
+                var interim_transcript = '';
+                for (var i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        var final_transcript = event.results[i][0].transcript;
+                        console.log('최종 인식 내용:', final_transcript);
+                        $("#user-input").val(final_transcript); // 입력 창에 인식된 최종 내용 표시
+                        sendMessage(); // 자동으로 메시지 전송
+                    } else {
+                        interim_transcript += event.results[i][0].transcript;
+                    }
+                }
+                console.log('중간 인식 내용:', interim_transcript);
+            };
+
+            recognition.onerror = function(event) {
+                console.error('음성 인식 오류 발생:', event.error);
+                $("#record-btn").show();
+                $("#stop-btn").hide();
+            };
+
+            recognition.onend = function() {
+                console.log('음성 인식 종료');
+                $("#record-btn").show();
+                $("#stop-btn").hide();
+            };
+
+            recognition.start();
+        });
+
+        $("#stop-btn").click(function() {
+            recognition.stop();
+            $("#record-btn").show();
+            $("#stop-btn").hide();
         });
 
         function sendMessage() {

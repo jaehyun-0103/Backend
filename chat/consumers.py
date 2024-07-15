@@ -37,6 +37,29 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         logger.info(f'WebSocket connected: Story ID {self.story_id}')
 
+        # GPT가 "안녕하세요"라고 인사하는 메시지 생성
+        # story_id에 따른 모델을 선정하는 로직
+        initial_message_map = {
+            '1': "반갑소, 소인 이순신 장군이라 하오.",
+            # 파인튜닝 진행될 떄 마다 추가
+            # '2': "반갑소, 소인 이순신 장군이라 하오.",
+            # '3': "반갑소, 소인 이순신 장군이라 하오.",
+            # '4': "반갑소, 소인 이순신 장군이라 하오.",
+            # '5': "반갑소, 소인 이순신 장군이라 하오.",
+            # '6': "반갑소, 소인 이순신 장군이라 하오.",
+            # '7': "반갑소, 소인 이순신 장군이라 하오.",
+            # '8': "반갑소, 소인 이순신 장군이라 하오.",
+            # '9': "반갑소, 소인 이순신 장군이라 하오.",
+            # '10': "반갑소, 소인 이순신 장군이라 하오.",
+        }
+
+        initial_message = initial_message_map[self.story_id]
+
+        # 클라이언트에게 초기 인사 메시지 전송
+        await self.send(text_data=json.dumps({
+            'message': initial_message
+        }))
+
     # 비동기식으로 Websocket 연결 종료할 때 로직
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(
@@ -62,6 +85,36 @@ class ChatConsumer(AsyncWebsocketConsumer):
         except json.JSONDecodeError:
             logger.error("Invalid JSON format received from client.")
             return
+
+    #stt 처리 로직
+    async def stt_process(self, speech_data):
+        try:
+            # Base64 디코딩
+            audio_data = base64.b64decode(speech_data)
+
+            # STT 처리를 위한 API 호출 (여기서는 네이버 STT API 예시)
+            # 네이버 STT API 연동 코드
+            client_id = settings.NAVER_CLIENT_ID
+            client_secret = settings.NAVER_CLIENT_SECRET
+            stt_url = 'https://naveropenapi.apigw.ntruss.com/recog/v1/stt'
+
+            headers = {
+                'Content-Type': 'application/octet-stream',
+                'X-NCP-APIGW-API-KEY-ID': client_id,
+                'X-NCP-APIGW-API-KEY': client_secret,
+            }
+
+            response = requests.post(stt_url, headers=headers, data=audio_data)
+            if response.status_code == 200:
+                stt_text = response.json()['text']
+                return stt_text
+            else:
+                logger.error(f"STT API request failed with status code: {response.status_code}")
+                return None
+
+        except Exception as e:
+            logger.error(f"Error during STT processing: {str(e)}")
+            return None
 
     async def get_gpt_response(self, user_message):
         logger.info(f'Generating GPT response for user message (Story ID {self.story_id}): {user_message}')
