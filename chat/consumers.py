@@ -37,8 +37,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         logger.info(f'WebSocket connected: Story ID {self.story_id}')
 
-        # GPT가 "안녕하세요"라고 인사하는 메시지 생성
-        # story_id에 따른 모델을 선정하는 로직
+        # 각 모델의 초기 인사
         initial_message_map = {
             '1': "반갑소, 소인 이순신 장군이라 하오.",
             # 파인튜닝 진행될 떄 마다 추가
@@ -53,7 +52,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # '10': "반갑소, 소인 이순신 장군이라 하오.",
         }
 
-        initial_message = initial_message_map[self.story_id]
+        # 초기 인사 메시지 설정
+        if self.story_id in initial_message_map:
+            initial_message = initial_message_map[self.story_id]
+        else:
+            # 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
+            initial_message = "아직 개발 진행 중인 모델입니다."
 
         # 클라이언트에게 초기 인사 메시지 전송
         await self.send(text_data=json.dumps({
@@ -137,7 +141,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         try:
             #story_id에 따른 모델을 선정하는 로직
             model_map = {
-                '1': "ft:gpt-3.5-turbo-1106:personal::9kAzcucS",
+                '1': "ft:gpt-3.5-turbo-1106:personal::9lFLU1pj",
                 # 파인튜닝 진행될 떄 마다 추가
                 # '2': "gpt-3.5-turbo-1106:personal2",
                 # '3': "gpt-3.5-turbo-1106:personal3",
@@ -221,7 +225,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
             #story_id를 할당하지 못했을 때 빈 객체 값으로 반환
             else:
-                gpt_response = f"잘못된 story_id: {self.story_id}입니다."
+                gpt_response = f"아직 개발이 완료되지 않은 모델 story_id:{self.story_id}입니다."
                 return gpt_response
 
         except KeyError as ke:
