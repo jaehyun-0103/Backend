@@ -192,6 +192,10 @@ ELEVENLABS_MODEL_ID = secret_data['ELEVENLABS_MODEL_ID']
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+#media디렉토리가 없을 경우, 자동 생성
+if not os.path.exists(MEDIA_ROOT):
+    os.makedirs(MEDIA_ROOT)
+
 CORS_ALLOWED_ORIGINS = [
     "https://platform.openai.com",
 ]
