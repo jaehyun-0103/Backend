@@ -61,7 +61,7 @@ class GreatDetail(APIView):
     @swagger_auto_schema(
         operation_id="선택한 위인 정보 불러오기",
         operation_description="위인 목록에서 선택한 위인의 정보 불러오기",
-        responses={"200": GreatsSerializer}
+        responses={"200": GreatDetailSerializer}
     )
     def get(self, request, user_id, story_id):
         logger.info(f"GreatDetail GET request initiated for story_id: {user_id}")
