@@ -15,9 +15,9 @@ def process_tts(sentence):
         "text": sentence,
         "model_id": settings.ELEVENLABS_MODEL_ID,
         "voice_settings": {
-            "stability": 0.50,
-            "similarity_boost": 0.02,
-            "style": 0.90,
+            "stability": 1.00,
+            "similarity_boost": 0.50,
+            "style": 0.02,
             "use_speaker_boost": True
         }
     }
