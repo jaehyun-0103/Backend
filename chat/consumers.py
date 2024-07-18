@@ -40,30 +40,26 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         logger.info(f'WebSocket connected: Story ID {self.story_id}')
 
-        # 각 모델의 초기 인사
+        # 각 모델의 초기 인사, 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
         initial_message_map = {
             '1': "반갑소, 소인 이순신 장군이라 하오. 아직 대화할 준비가 안되었으니 잠시 기다려 주시면 감사하겠소.",
-            # 파인튜닝 진행될 떄 마다 추가
-            # '2': "반갑소, 소인 이순신 장군이라 하오.",
-            # '3': "반갑소, 소인 이순신 장군이라 하오.",
-            # '4': "반갑소, 소인 이순신 장군이라 하오.",
-            # '5': "반갑소, 소인 이순신 장군이라 하오.",
-            # '6': "반갑소, 소인 이순신 장군이라 하오.",
-            # '7': "반갑소, 소인 이순신 장군이라 하오.",
-            # '8': "반갑소, 소인 이순신 장군이라 하오.",
+            '2': "아직 개발 진행 중인 모델입니다.",
+            '3': "아직 개발 진행 중인 모델입니다.",
+            '4': "아직 개발 진행 중인 모델입니다.",
+            '5': "아직 개발 진행 중인 모델입니다.",
+            '6': "아직 개발 진행 중인 모델입니다.",
+            '7': "아직 개발 진행 중인 모델입니다.",
+            '8': "아직 개발 진행 중인 모델입니다.",
         }
 
         # 초기 인사 메시지 설정
         if self.story_id in initial_message_map:
             initial_message = initial_message_map[self.story_id]
-        else:
-            # 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
-            initial_message = "아직 개발 진행 중인 모델입니다."
 
-        # 클라이언트에게 초기 인사 메시지 전송
-        await self.send(text_data=json.dumps({
-            'message': initial_message
-        }))
+            # 클라이언트에게 초기 인사 메시지 전송
+            await self.send(text_data=json.dumps({
+                'message': initial_message
+            }))
 
         # 벡터 스토어 생성 작업 비동기 실행
         await self.initialize_vectorstore()
