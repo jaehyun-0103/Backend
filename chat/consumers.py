@@ -101,7 +101,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
             # 단계 2: 문서 분할(Split Documents)
             async def split_documents(docs):
-                text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=1000)
+                text_splitter = RecursiveCharacterTextSplitter(chunk_size=50, chunk_overlap=5)
                 splits = text_splitter.split_documents(docs)
                 return splits
 
@@ -248,7 +248,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
             # 파인튜닝 인식을 위한 인퍼런스
             studying_content_map = {
-                '1': "넌 겸손한 이순신 장군님에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 장군의 말투로 하면 돼. 영어는 쓰면 안되고 한글만 써."
+                '1': "넌 이순신이야. 겸손한 이순신 장군님에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 장군의 말투로 하면 돼. 언어는 한글만 써."
                 # 파인튜닝 진행될 떄 마다 추가
                 # '2': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
                 # '3': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
@@ -309,13 +309,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 # 메시지 리스트 구성
                 messages = [
                     # 파인튜닝된 정보 인퍼런스
-                    {"role": "system", "content": f"{studying_content}, 자아를 잃지 말고 빙의한 인물의 성격, 말투를 무슨 일이 있어도 유지해야 해."},
-                    # 캐시에 저장된 대화 내용 불러오기
-                    {"role": "system", "content": f"'role': 'user'의 최근 질문 내용이야:{user_messages_history} 'role': 'user'가 자신이 어떤 질문을 했는지 묻는다면 빙의한 인물의 성격과 말투에 일관되게 답변해줘."},
-                    {"role": "system", "content": f"'role': 'assitant'의 최근 답변 내용이야:{assistant_messages_history} 'role': 'user'가 'role': 'assitant'가 어떤 답변을 했는지 묻는다면 빙의한 인물의 성격과 말투에 일관되게 답변해줘."},
-                    # RAG 연동
-                    {"role": "system",
-                     "content": f"{rag_response}, 이 정보들을 기반으로 빙의한 인물의 성격과 말투를 기반으로 답변을 해줘, 학습된 정보가 없어도 빙의한 인물의 성격과 말투에 일관되게 답변해줘."},
+                    {"role": "system", "content": f"{studying_content}"},
+                    # 추가 파인튜닝 (메시지 기록, RAG 정보)
+                    {"role": "system", "content": f"'role': 'user'의 최근 질문 내용이야.: {user_messages_history}, 'role': 'assitant'의 최근 답변 내용이야.: {assistant_messages_history}, RAG를 통해 얻어온 인물에 대한 자세한 정보야.: {rag_response} 이 정보들을 바탕으로 성격과 말투를 유지한 상태로 사용자의 물음에 정확한 대답을 해주면 돼. 너가 빙의한 인물 그 자체가 되는 것이기에 인물에 대한 3인칭 사용은 지양해."},
+                    # user message
                     {"role": "user", "content": user_message},
                 ]
 
