@@ -13,7 +13,7 @@ class GreatsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Story
-        fields = ['greatId', 'name', 'silhouette_url', 'photo_url', 'saying', 'puzzle_cnt', 'saying', 'saying_url', 'nation', 'field']
+        fields = ['greatId', 'name', 'silhouette_url', 'front_url', 'back_url', 'saying', 'puzzle_cnt', 'saying', 'saying_url', 'nation', 'field']
 
     def get_puzzle_cnt(self, obj):
         user_id = self.context.get('user_id')
