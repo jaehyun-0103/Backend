@@ -314,6 +314,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     {"role": "system", "content": f"'role': 'user'의 최근 질문 내용이야.: {user_messages_history}, 'role': 'assitant'의 최근 답변 내용이야.: {assistant_messages_history}, RAG를 통해 얻어온 인물에 대한 자세한 정보야.: {rag_response} 이 정보들을 바탕으로 성격과 말투를 유지한 상태로 사용자의 물음에 정확한 대답을 해주면 돼. 너가 빙의한 인물 그 자체가 되는 것이기에 인물에 대한 3인칭 사용은 지양해. 그리고 동일한 답변을 반복하지 마. 또한, 사용자의 질문에 명확히 답변하고, 관련 없는 내용은 피해."},
                     # user message
                     {"role": "user", "content": user_message},
+                    # 사용자의 인사에 대응하는 간단한 인삿말
+                    {"role": "system", "content": "'role': 'user'가 '안녕하세요'와 같이 인사를 하면 '안녕하세요'로만 대답을 해. 단, 성격과 말투가 유지되어야 해."},
+                    # 기타 추가
+                    {"role": "system", "content": "맥락에 맞지 않는 단어나 이해할 수 없는 단어는 말하지 않도록 헤."},
                 ]
 
                 response = client.chat.completions.create(
