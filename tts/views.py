@@ -87,3 +87,5 @@ class GetAudioResultView(APIView):
 
             else:
                 return Response({"error": "파일을 찾을 수 없습니다."}, status = status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({"error": "결과가 아직 준비되지 않았습니다"}, status = status.HTTP_202_ACCEPTED)
