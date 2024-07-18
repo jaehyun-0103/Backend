@@ -7,10 +7,13 @@ class GreatsSerializer(serializers.ModelSerializer):
     greatId = serializers.IntegerField(source='id')
     puzzle_cnt = serializers.SerializerMethodField()
     silhouette_url = serializers.SerializerMethodField()
-    photo_url = serializers.SerializerMethodField()
+    front_url = serializers.SerializerMethodField()
+    back_url = serializers.SerializerMethodField()
+    saying_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Story
-        fields = ['greatId', 'name', 'silhouette_url', 'photo_url', 'saying', 'puzzle_cnt']
+        fields = ['greatId', 'name', 'silhouette_url', 'front_url', 'back_url', 'saying_url', 'saying', 'puzzle_cnt']
 
     def get_puzzle_cnt(self, obj):
         user_id = self.context.get('user_id')
@@ -23,8 +26,14 @@ class GreatsSerializer(serializers.ModelSerializer):
     def get_silhouette_url(self, obj):
         return self.get_s3_url(obj.silhouette_url)
 
-    def get_photo_url(self, obj):
-        return self.get_s3_url(obj.photo_url)
+    def get_front_url(self, obj):
+        return self.get_s3_url(obj.front_url)
+
+    def get_back_url(self, obj):
+        return self.get_s3_url(obj.back_url)
+
+    def get_saying_url(self, obj):
+        return self.get_s3_url(obj.saying_url)
 
     def get_s3_url(self, file_path):
         if not file_path:
