@@ -28,10 +28,36 @@ client = OpenAI(api_key=settings.OPENAI_API_KEY)
 redis_conn = get_redis_connection("default")
 
 class ChatConsumer(AsyncWebsocketConsumer):
+    # 각 모델의 초기 인사, 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
+    initial_message_map = {
+        '1': "반갑소, 이순신이라 하오. 아직 대화할 준비가 안되었으니 잠시 기다려 주시면 감사하겠소.",
+        '2': "아직 개발 진행 중인 모델입니다.",
+        '3': "아직 개발 진행 중인 모델입니다.",
+        '4': "아직 개발 진행 중인 모델입니다.",
+        '5': "아직 개발 진행 중인 모델입니다.",
+        '6': "아직 개발 진행 중인 모델입니다.",
+        '7': "아직 개발 진행 중인 모델입니다.",
+        '8': "아직 개발 진행 중인 모델입니다.",
+    }
+
+    # 각 모델의 대화 준비 완료 문구
+    ready_message_map = {
+        '1': "오래 기다리셨소, 기다리게 해서 미안하오. 이제야 대화할 준비가 다 되었구려. 무엇이 궁금하시오?",
+        # 파인튜닝 진행될 떄 마다 추가
+        # '2': "반갑소, 소인 이순신 장군이라 하오.",
+        # '3': "반갑소, 소인 이순신 장군이라 하오.",
+        # '4': "반갑소, 소인 이순신 장군이라 하오.",
+        # '5': "반갑소, 소인 이순신 장군이라 하오.",
+        # '6': "반갑소, 소인 이순신 장군이라 하오.",
+        # '7': "반갑소, 소인 이순신 장군이라 하오.",
+        # '8': "반갑소, 소인 이순신 장군이라 하오.",
+    }
+
     # 비동기식으로 Websocket 연결 되었을 때 로직
     async def connect(self):
         self.story_id = self.scope['url_route']['kwargs']['story_id']
         self.room_group_name = f'chat_{self.story_id}'
+
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
@@ -40,21 +66,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         logger.info(f'WebSocket connected: Story ID {self.story_id}')
 
-        # 각 모델의 초기 인사, 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
-        initial_message_map = {
-            '1': "반갑소, 소인 이순신 장군이라 하오. 아직 대화할 준비가 안되었으니 잠시 기다려 주시면 감사하겠소.",
-            '2': "아직 개발 진행 중인 모델입니다.",
-            '3': "아직 개발 진행 중인 모델입니다.",
-            '4': "아직 개발 진행 중인 모델입니다.",
-            '5': "아직 개발 진행 중인 모델입니다.",
-            '6': "아직 개발 진행 중인 모델입니다.",
-            '7': "아직 개발 진행 중인 모델입니다.",
-            '8': "아직 개발 진행 중인 모델입니다.",
-        }
+        # Redis 캐시 초기화
+        cache_key = f'gptchat_{self.story_id}'
+        redis_conn.delete(cache_key)
+        logger.info(f'Redis cache reset for Story ID {self.story_id}')
 
         # 초기 인사 메시지 설정
-        if self.story_id in initial_message_map:
-            initial_message = initial_message_map[self.story_id]
+        if self.story_id in self.initial_message_map:
+            initial_message = self.initial_message_map[self.story_id]
 
             # 클라이언트에게 초기 인사 메시지 전송
             await self.send(text_data=json.dumps({
@@ -101,7 +120,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
             # 단계 2: 문서 분할(Split Documents)
             async def split_documents(docs):
-                text_splitter = RecursiveCharacterTextSplitter(chunk_size=50, chunk_overlap=5)
+                text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=5)
                 splits = text_splitter.split_documents(docs)
                 return splits
 
@@ -134,22 +153,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.vectorstore = await vectorstore_task
             logger.info('벡터스토어 생성이 완료되었습니다.')
 
-            # 각 모델의 대화 준비 완료 문구
-            ready_message_map = {
-                '1': "오래 기다리셨소, 기다리게 해서 미안하오. 이제야 대화할 준비가 다 되었구려. 무엇이 궁금하시오?",
-                # 파인튜닝 진행될 떄 마다 추가
-                # '2': "반갑소, 소인 이순신 장군이라 하오.",
-                # '3': "반갑소, 소인 이순신 장군이라 하오.",
-                # '4': "반갑소, 소인 이순신 장군이라 하오.",
-                # '5': "반갑소, 소인 이순신 장군이라 하오.",
-                # '6': "반갑소, 소인 이순신 장군이라 하오.",
-                # '7': "반갑소, 소인 이순신 장군이라 하오.",
-                # '8': "반갑소, 소인 이순신 장군이라 하오.",
-            }
-
             # 준비 완료 메시지 설정
-            if self.story_id in ready_message_map:
-                ready_message = ready_message_map[self.story_id]
+            if self.story_id in self.ready_message_map:
+                ready_message = self.ready_message_map[self.story_id]
 
             # 클라이언트에게 준비 완료 메시지 전송
             await self.send(text_data=json.dumps({
@@ -232,6 +238,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # 사용자 메시지 추가
         messages_history.append({"role": "user", "content": user_message})
+        # 첫 인사 메시지 추가
+        messages_history.append({"role": "system", "content": self.initial_message_map[self.story_id]})
+        # 준비 완료 메시지 추가
+        messages_history.append({"role": "system", "content": self.ready_message_map[self.story_id]})
 
         try:
             #story_id에 따른 모델을 선정하는 로직
@@ -248,7 +258,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
             # 파인튜닝 인식을 위한 인퍼런스
             studying_content_map = {
-                '1': "넌 이순신이야. 겸손한 이순신 장군님에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 장군의 말투로 하면 돼. 언어는 한글만 써."
+                '1': "넌 겸손한 성격의 이순신이 되어 사용자에게 이순신에 관한 정보를 알려주며 대화를 진행할거야. 언어는 영어나 한자 사용하지 말고, 한글만 사용해. 조선시대 장군의 말투를 사용해야 하며, 하오체를 사용해. 사용자가 해요체 사용해도 넌 이순신이니까 해요체를 절대로 사용해서는 안돼."
                 # 파인튜닝 진행될 떄 마다 추가
                 # '2': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
                 # '3': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
@@ -309,15 +319,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 # 메시지 리스트 구성
                 messages = [
                     # 파인튜닝된 정보 인퍼런스
-                    {"role": "system", "content": f"{studying_content}"},
-                    # 추가 파인튜닝 (메시지 기록, RAG 정보)
-                    {"role": "system", "content": f"'role': 'user'의 최근 질문 내용이야.: {user_messages_history}, 'role': 'assitant'의 최근 답변 내용이야.: {assistant_messages_history}, RAG를 통해 얻어온 인물에 대한 자세한 정보야.: {rag_response} 이 정보들을 바탕으로 성격과 말투를 유지한 상태로 사용자의 물음에 정확한 대답을 해주면 돼. 너가 빙의한 인물 그 자체가 되는 것이기에 인물에 대한 3인칭 사용은 지양해. 그리고 동일한 답변을 반복하지 마. 또한, 사용자의 질문에 명확히 답변하고, 관련 없는 내용은 피해."},
-                    # user message
-                    {"role": "user", "content": user_message},
+                    {"role": "system", "content": f"다음은 너가 되어야 할 인물에 대한 추가적인 정보야.: {studying_content} 설정한 인물의 이름을 언급하는 것과 같이 3인칭을 써서는 안돼."},
+                    # 과거 메시지 기억
+                    {"role": "system", "content": f"사용자의 최근 질문 내용이야.: {user_messages_history}, 너의 최근 답변 내용이야.: {assistant_messages_history}, 사용자가 이에 관한 질문을 하였을 때에만 참고를 해. 동일한 답변을 반복해서는 안돼."},
+                    # RAG에서 얻어온 정보
+                    {"role": "system", "content": f"인물에 대한 자세한 정보야.: {rag_response} 사용자가 인물에 대한 정보를 물으면 위 정보를 바탕으로 자세하고 정확한 대답을 해."},
                     # 사용자의 인사에 대응하는 간단한 인삿말
-                    {"role": "system", "content": "'role': 'user'가 '안녕하세요'와 같이 인사를 하면 '안녕하세요'로만 대답을 해. 단, 성격과 말투가 유지되어야 해."},
-                    # 기타 추가
-                    {"role": "system", "content": "맥락에 맞지 않는 단어나 이해할 수 없는 단어는 말하지 않도록 헤."},
+                    {"role": "system", "content": "사용자의 인삿말에는 짧은 한 마디의 인사로 답변을 해. 단, 인물의 성격과 말투에 맞게 변형시켜서 답변해야 해."},
+                    # 유의사항 추가
+                    {"role": "system", "content": "대화 맥락에 맞지 않는 단어나 이해할 수 없는 단어는 말하지 않도록 해. 또한, 어려운 단어 사용은 지양해."},
+                    {"role": "system", "content": "사용자의 질문에 관련한 대답만 짧고 굵게 해야 하며, 관련 없는 대답은 하지 않도록 해."},
+                    {"role": "system", "content": "넌 사용자의 성별을 몰라. 너 임의로 사용자의 성별을 지정하지 마."},
+                    {"role": "system", "content": "어떠한 내용의 답변이라도 성격과 말투를 일관되게 유지시켜야 해."},
                 ]
 
                 response = client.chat.completions.create(
