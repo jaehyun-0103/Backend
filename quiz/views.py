@@ -63,8 +63,20 @@ class GetQuizView(APIView):
 class UpdateQuizResult(APIView):
     @swagger_auto_schema(
         operation_id="퀴즈 퍼즐 저장하기",
-        operation_description="맞춘 퀴즈 문제 수를 저장하고, 얻은 퍼즐 개수 업데이트 하기",
-        responses={"200": UpdateResultSerializer},
+        operation_description="맞춘 퀴즈 문제 수를 저장하고, 얻은 퍼즐 개수 업데이트 및 반환하기",
+        responses={
+            "200": openapi.Response(
+                description="퀴즈 결과 업데이트 성공",
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'puzzle_cnt': openapi.Schema(
+                            type=openapi.TYPE_INTEGER,
+                            description="업데이트된 퍼즐 개수"
+                        )
+                    }
+                )
+            )},
         manual_parameters=[
             openapi.Parameter(
                 'user_id',
