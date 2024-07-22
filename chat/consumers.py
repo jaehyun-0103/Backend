@@ -234,7 +234,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }
             # 파인튜닝 인식을 위한 인퍼런스
             studying_content_map = {
-                '1': "너는 이제부터 이순신이야. 이순신이 되어서 사용자와 대화를 진행할거야. 조선시대 장군의 말투를 사용하며, 해요체는 사용해서는 안되고, 하오체를 사용해야 해."
+                '1': "너는 이제부터 이순신이야. 이순신 챗봇이 아닌 이순신 역할을 맡아 나랑 대화를 진행할거야. 조선시대 장군의 말투를 사용하며, 해요체는 사용해서는 안되고, 하오체를 사용해야 해."
                 # 파인튜닝 진행될 떄 마다 추가
                 # '2': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
                 # '3': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
@@ -256,8 +256,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 # "role"이 "user"일 때의 가장 최근 1개의 "content" 추출
                 user_messages_history = [msg["content"] for msg in messages_history if msg["role"] == "user"][-1:]
 
-                # "role"이 "assistant"일 때의 가장 최근 2개의 "content" 추출
-                assistant_messages_history = [msg["content"] for msg in messages_history if msg["role"] == "assistant"][-2:]
+                # "role"이 "assistant"일 때의 가장 최근 1개의 "content" 추출
+                assistant_messages_history = [msg["content"] for msg in messages_history if msg["role"] == "assistant"][-1:]
 
                  # 단계 4: 검색(Search)
                 # 위키피디아에 포함되어 있는 정보를 검색하고 생성합니다.
@@ -297,18 +297,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     # 파인튜닝된 정보 인퍼런스
                     {"role": "system", "content": f"{studying_content}"},
                     {"role": "user", "content": user_message},
-                    # 과거 메시지 기억
-                    {"role": "system", "content": f"사용자의 최근 질문 내용이야.: '{user_messages_history}'"},
+                    # 추출한 과거 메시지를 학습하는 과정
+                    {"role": "system", "content": f"나의 최근 질문 내용이야.: '{user_messages_history}'"},
                     {"role": "system", "content": f"너의 최근 답변 내용이야. 이 답변에 이어서 대답을 해줘.: '{assistant_messages_history}'"},
                     # RAG에서 얻어온 정보
                     {"role": "system", "content": f"인물에 대한 자세한 정보야.: '{rag_response}'"},
                     # 유의사항 추가
                     {"role": "system", "content": "대화 맥락에 맞지 않는 단어나 이해할 수 없는 단어는 말하지 않도록 해. 또한, 어려운 단어 사용은 지양해."},
-                    {"role": "system", "content": "사용자의 질문에 관련한 대답만 해야 하며, 관련 없는 대답은 하지 않도록 해."},
-                    {"role": "system", "content": "넌 사용자의 성별을 몰라. 너 임의로 사용자의 성별을 지정하지 마."},
-                    {"role": "system", "content": "괄호 사용 금지, 한자랑 영어 사용 금지."},
-                    {"role": "system", "content": "답변을 할 때 해당 인물의 이름은 제외하고 답변해줘."},
-                    {"role": "system", "content": "어떠한 내용의 답변이라도 성격과 말투를 일관되게 유지시켜야 해."},
+                    {"role": "system", "content": "너는 내 질문에 관련한 대답만 해야 하며, 관련 없는 대답은 하지 않도록 해."},
+                    {"role": "system", "content": "넌 나의 성별을 몰라. 너 임의로 내 성별을 지정하지 마."},
+                    {"role": "system", "content": "괄호 사용 금지. 한자랑 영어 사용 금지. 기술적 용어 사용 금지. 했던 말 반복 금지."},
+                    {"role": "system", "content": "너에게 주어진 역할에 대해 최선을 다하며, 1인칭 시점으로 얘기를 해. 넌 챗봇이 아닌 인물 그 자체가 되는거야."},
+                    {"role": "system", "content": "어떠한 내용의 답변이라도 너에게 주어진 성격과 말투를 일관되게 유지시켜야 해."},
                 ]
 
                 response = client.chat.completions.create(
