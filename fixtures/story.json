@@ -1,135 +1,162 @@
 [
-    {
-        "model": "story.story",
-        "pk": 1,
-        "fields": {
-            "name": "이순신",
-            "silhouette_url": "silhouette/이순신 실루엣.png",
-            "front_url": "front/이순신 앞면.png",
-            "back_url": "back/이순신 뒷면.png",
-            "saying_url": "saying/이순신 명언.png",
-            "saying": "나의 죽음을 적에게 알리지 마라",
-            "nation": "한국",
-            "field": "정치",
-            "video_url": "video/말하는 영상.mp4",
-            "gender": 1,
-            "life": "1879-1955",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "story.story",
-        "pk": 2,
-        "fields": {
-            "name": "을지문덕",
-            "silhouette_url": "silhouette/이순신 실루엣.png",
-            "front_url": "front/이순신 앞면.png",
-            "back_url": "back/이순신 뒷면.png",
-            "saying_url": "saying/이순신 명언.png",
-            "saying": "군자는 화를 내지 않고, 화자는 싸우지 않는다.",
-            "nation": "한국",
-            "field": "경제",
-            "video_url": "video/말하는 영상.mp4",
-            "gender": 0,
-            "life": "1898-1996",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "story.story",
-        "pk": 3,
-        "fields": {
-            "name": "강감찬",
-            "silhouette_url": "silhouette/이순신 실루엣.png",
-            "front_url": "front/이순신 앞면.png",
-            "back_url": "back/이순신 뒷면.png",
-            "saying_url": "saying/이순신 명언.png",
-            "saying": "천자만홍이로 말미암아 말하자면 하늘에 따라 다른 성좌가 있음을 안다.",
-            "nation": "유럽",
-            "field": "문화예술",
-            "video_url": "video/말하는 영상.mp4",
-            "gender": 0,
-            "life": "1809-1882",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "story.story",
-        "pk": 4,
-        "fields": {
-            "name": "안중근",
-            "silhouette_url": "silhouette/이순신 실루엣.png",
-            "front_url": "front/이순신 앞면.png",
-            "back_url": "back/이순신 뒷면.png",
-            "saying_url": "saying/이순신 명언.png",
-            "saying": "만사를 속일 천공이 아니면, 무엇을 속일 엄체가 있으랴.",
-            "nation": "한국",
-            "field": "정치",
-            "video_url": "video/말하는 영상.mp4",
-            "gender": 1,
-            "life": "1452-1519",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "story.story",
-        "pk": 5,
-        "fields": {
-            "name": "안창호",
-            "silhouette_url": "silhouette/이순신 실루엣.png",
-            "front_url": "front/이순신 앞면.png",
-            "back_url": "back/이순신 뒷면.png",
-            "saying_url": "saying/이순신 명언.png",
-            "saying": "한 사람이 고생하는 동안에는 그의 자신에 대한 시험을 제대로 받는다고 한다.",
-            "nation": "한국",
-            "field": "과학",
-            "video_url": "video/말하는 영상.mp4",
-            "gender": 0,
-            "life": "1912-1954",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "story.story",
-        "pk": 6,
-        "fields": {
-            "name": "세종대왕",
-            "silhouette_url": "silhouette/이순신 실루엣.png",
-            "front_url": "front/이순신 앞면.png",
-            "back_url": "back/이순신 뒷면.png",
-            "saying_url": "saying/이순신 명언.png",
-            "saying": "기록하지 않는다면 그 일은 없었다.",
-            "nation": "유럽",
-            "field": "경제",
-            "video_url": "video/말하는 영상.mp4",
-            "gender": 1,
-            "life": "1732-1799",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "story.story",
-        "pk": 7,
-        "fields": {
-            "name": "이성계",
-            "silhouette_url": "silhouette/이순신 실루엣.png",
-            "front_url": "front/이순신 앞면.png",
-            "back_url": "back/이순신 뒷면.png",
-            "saying_url": "saying/이순신 명언.png",
-            "saying": "미래는 현재의 기록이다.",
-            "nation": "유럽",
-            "field": "정치",
-            "video_url": "video/말하는 영상.mp4",
-            "gender": 0,
-            "life": "1815-1852",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
+  {
+    "model": "story.story",
+    "pk": 1,
+    "fields": {
+      "name": "이순신",
+      "silhouette_url": "silhouette/이순신 실루엣.png",
+      "front_url": "front/이순신 앞면.png",
+      "back_url": "back/이순신 뒷면.png",
+      "saying_url": "saying/이순신 명언.png",
+      "saying": "나의 죽음을 적에게 알리지 마라",
+      "nation": "한국",
+      "field": "정치",
+      "video_url": "video/이순신 말하는 영상.mp4",
+      "gender": 0,
+      "life": "1545 ~ 1598",
+      "information_url": "fQUYjseeAE4&t",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
     }
+  },
+  {
+    "model": "story.story",
+    "pk": 2,
+    "fields": {
+      "name": "세종대왕",
+      "silhouette_url": "silhouette/세종대왕 실루엣.png",
+      "front_url": "front/세종대왕 앞면.png",
+      "back_url": "back/세종대왕 뒷면.png",
+      "saying_url": "saying/세종대왕 명언.png",
+      "saying": "나랏말이 중국과 달라 훈민정음을 창제하노니",
+      "nation": "한국",
+      "field": "정치",
+      "video_url": "video/세종대왕 말하는 영상.mp4",
+      "gender": 0,
+      "life": "1397 ~ 1450",
+      "information_url": "9a34V5g8qM8",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "story.story",
+    "pk": 3,
+    "fields": {
+      "name": "장영실",
+      "silhouette_url": "silhouette/장영실 실루엣.png",
+      "front_url": "front/장영실 앞면.png",
+      "back_url": "back/장영실 뒷면.png",
+      "saying_url": "saying/장영실 명언.png",
+      "saying": "내가 남을 알지 못하는 것이 죄일 뿐이다. 남이 알아주지 않는 데 무슨 죄란 말인가",
+      "nation": "한국",
+      "field": "과학",
+      "video_url": "video/장영실 말하는 영상.mp4",
+      "gender": 0,
+      "life": "1388 ~ 1450",
+      "information_url": "DF-33xPqHl4",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "story.story",
+    "pk": 4,
+    "fields": {
+      "name": "유관순",
+      "silhouette_url": "silhouette/유관순 실루엣.png",
+      "front_url": "front/유관순 앞면.png",
+      "back_url": "back/유관순 뒷면.png",
+      "saying_url": "saying/유관순 명언.png",
+      "saying": "나라를 위해 독립만세를 부르는 것도 죄가 되느냐",
+      "nation": "한국",
+      "field": "정치",
+      "video_url": "video/유관순 말하는 영상.mp4",
+      "gender": 1,
+      "life": "1902 ~ 1920",
+      "information_url": "IklbsjwyYr8",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "story.story",
+    "pk": 5,
+    "fields": {
+      "name": "스티브 잡스",
+      "silhouette_url": "silhouette/스티브 잡스 실루엣.png",
+      "front_url": "front/스티브 잡스 앞면.png",
+      "back_url": "back/스티브 잡스 뒷면.png",
+      "saying_url": "saying/스티브 잡스 명언.png",
+      "saying": "어제를 뒤돌아보는 건 그만하자. 그 대신 내일을 발전시켜 나가자.",
+      "nation": "미국",
+      "field": "경제",
+      "video_url": "video/스티브 잡스 말하는 영상.mp4",
+      "gender": 0,
+      "life": "1955 ~ 2011",
+      "information_url": "JxpSuxBMVXo",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "story.story",
+    "pk": 6,
+    "fields": {
+      "name": "나폴레옹",
+      "silhouette_url": "silhouette/나폴레옹 실루엣.png",
+      "front_url": "front/나폴레옹 앞면.png",
+      "back_url": "back/나폴레옹 뒷면.png",
+      "saying_url": "saying/나폴레옹 명언.png",
+      "saying": "내 사전에 불가능은 없다",
+      "nation": "프랑스",
+      "field": "정치",
+      "video_url": "video/나폴레옹 말하는 영상.mp4",
+      "gender": 0,
+      "life": "1769 ~ 1821",
+      "information_url": "HHCMZcq3RRw",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "story.story",
+    "pk": 7,
+    "fields": {
+      "name": "반 고흐",
+      "silhouette_url": "silhouette/반 고흐 실루엣.png",
+      "front_url": "front/반 고흐 앞면.png",
+      "back_url": "back/반 고흐 뒷면.png",
+      "saying_url": "saying/반 고흐 명언.png",
+      "saying": "지루하게 사느니 차라리 열정적으로 죽는 것을 택하겠다.",
+      "nation": "네덜란드",
+      "field": "예술",
+      "video_url": "video/반 고흐 말하는 영상.mp4",
+      "gender": 0,
+      "life": "1853 ~ 1890",
+      "information_url": "ocFjEN-3xwY",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "story.story",
+    "pk": 8,
+    "fields": {
+      "name": "아인슈타인",
+      "silhouette_url": "silhouette/아인슈타인 실루엣.png",
+      "front_url": "front/아인슈타인 앞면.png",
+      "back_url": "back/아인슈타인 뒷면.png",
+      "saying_url": "saying/아인슈타인 명언.png",
+      "saying": "성공한 사람보다는 가치 있는 사람이 되려 하라.",
+      "nation": "독일",
+      "field": "과학",
+      "video_url": "video/아인슈타인 말하는 영상.mp4",
+      "gender": 0,
+      "life": "1879 ~ 1955",
+      "information_url": "ttAA2cwyyFI",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  }
 ]
