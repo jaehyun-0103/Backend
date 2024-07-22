@@ -1,1682 +1,1922 @@
 [
-    {
-        "model": "quiz.quiz",
-        "pk": 1,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 조선 시대 해군 장군이었다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 조선 시대의 유명한 해군 장군으로, 임진왜란에서 큰 공을 세웠습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 2,
-        "fields": {
-            "story": 1,
-            "question": "이순신의 본관은 전주 출신이다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신의 본관은 전주 전진이며, 전주 출신임을 자랑스러워 했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 3,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 한반도 최초의 철갑선을 건조하였다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 '거북선'이라 불리는 철갑선을 건조하여 일본과의 해전에서 효과를 보았습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 4,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 조선 후기에 살았다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 조선 후반기인 16세기 후반부터 17세기 초반까지 활동했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 5,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 최초로 '잠수함'을 개발한 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 임진왜란 당시 '거북선'을 통해 현대의 잠수함과 유사한 기술을 사용했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 6,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 조선 시대 해군 장군이었다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 조선 시대의 유명한 해군 장군으로, 임진왜란에서 큰 공을 세웠습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 7,
-        "fields": {
-            "story": 1,
-            "question": "이순신의 본관은 전주 출신이다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신의 본관은 전주 전진이며, 전주 출신임을 자랑스러워 했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 8,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 한반도 최초의 철갑선을 건조하였다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 '거북선'이라 불리는 철갑선을 건조하여 일본과의 해전에서 효과를 보았습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 9,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 조선 후기에 살았다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 조선 후반기인 16세기 후반부터 17세기 초반까지 활동했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 10,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 최초로 '잠수함'을 개발한 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 임진왜란 당시 '거북선'을 통해 현대의 잠수함과 유사한 기술을 사용했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 11,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 조선 시대 해군 장군이었다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 조선 시대의 유명한 해군 장군으로, 임진왜란에서 큰 공을 세웠습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 12,
-        "fields": {
-            "story": 1,
-            "question": "이순신의 본관은 전주 출신이다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신의 본관은 전주 전진이며, 전주 출신임을 자랑스러워 했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 13,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 한반도 최초의 철갑선을 건조하였다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 '거북선'이라 불리는 철갑선을 건조하여 일본과의 해전에서 효과를 보았습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 14,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 조선 후기에 살았다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 조선 후반기인 16세기 후반부터 17세기 초반까지 활동했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 15,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 최초로 '잠수함'을 개발한 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 임진왜란 당시 '거북선'을 통해 현대의 잠수함과 유사한 기술을 사용했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 16,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 조선 시대 해군 장군이었다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 조선 시대의 유명한 해군 장군으로, 임진왜란에서 큰 공을 세웠습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 17,
-        "fields": {
-            "story": 1,
-            "question": "이순신의 본관은 전주 출신이다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신의 본관은 전주 전진이며, 전주 출신임을 자랑스러워 했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 18,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 한반도 최초의 철갑선을 건조하였다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 '거북선'이라 불리는 철갑선을 건조하여 일본과의 해전에서 효과를 보았습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 19,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 조선 후기에 살았다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 조선 후반기인 16세기 후반부터 17세기 초반까지 활동했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 20,
-        "fields": {
-            "story": 1,
-            "question": "이순신은 최초로 '잠수함'을 개발한 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "이순신은 임진왜란 당시 '거북선'을 통해 현대의 잠수함과 유사한 기술을 사용했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 21,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 고려 시대의 무신이다. (O/X)",
-            "answer": "O",
-            "explanation": "을지문덕은 고려 시대 무신으로, 안창호와 함께 고려 말기에 외적과 싸웠습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 22,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 경상남도 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 경상북도 영주 출신입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 23,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 신라 시대에 활동했다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 고려 시대에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 24,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 '백성을 구하고 나라를 구한다'는 신념을 가졌다. (O/X)",
-            "answer": "O",
-            "explanation": "을지문덕은 백성을 보호하고 나라를 지키는 데에 그 신념을 가졌습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 25,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 고려 말기 왕건의 신하였다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 고려 말기에 외적과 싸우며 잘 알려진 인물입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 26,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 고려 시대의 무신이다. (O/X)",
-            "answer": "O",
-            "explanation": "을지문덕은 고려 시대 무신으로, 안창호와 함께 고려 말기에 외적과 싸웠습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 27,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 경상남도 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 경상북도 영주 출신입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 28,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 신라 시대에 활동했다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 고려 시대에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 29,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 '백성을 구하고 나라를 구한다'는 신념을 가졌다. (O/X)",
-            "answer": "O",
-            "explanation": "을지문덕은 백성을 보호하고 나라를 지키는 데에 그 신념을 가졌습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 30,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 고려 말기 왕건의 신하였다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 고려 말기에 외적과 싸우며 잘 알려진 인물입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 31,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 고려 시대의 무신이다. (O/X)",
-            "answer": "O",
-            "explanation": "을지문덕은 고려 시대 무신으로, 안창호와 함께 고려 말기에 외적과 싸웠습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 32,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 경상남도 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 경상북도 영주 출신입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 33,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 신라 시대에 활동했다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 고려 시대에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 34,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 '백성을 구하고 나라를 구한다'는 신념을 가졌다. (O/X)",
-            "answer": "O",
-            "explanation": "을지문덕은 백성을 보호하고 나라를 지키는 데에 그 신념을 가졌습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 35,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 고려 말기 왕건의 신하였다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 고려 말기에 외적과 싸우며 잘 알려진 인물입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 36,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 고려 시대의 무신이다. (O/X)",
-            "answer": "O",
-            "explanation": "을지문덕은 고려 시대 무신으로, 안창호와 함께 고려 말기에 외적과 싸웠습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 37,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 경상남도 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 경상북도 영주 출신입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 38,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 신라 시대에 활동했다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 고려 시대에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 39,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 '백성을 구하고 나라를 구한다'는 신념을 가졌다. (O/X)",
-            "answer": "O",
-            "explanation": "을지문덕은 백성을 보호하고 나라를 지키는 데에 그 신념을 가졌습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 40,
-        "fields": {
-            "story": 2,
-            "question": "을지문덕은 고려 말기 왕건의 신하였다. (O/X)",
-            "answer": "X",
-            "explanation": "을지문덕은 고려 말기에 외적과 싸우며 잘 알려진 인물입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 41,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 고려 시대의 어진이다. (O/X)",
-            "answer": "O",
-            "explanation": "강감찬은 고려 시대 어진으로, 왜구와의 싸움에서 큰 역할을 했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 42,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 경상북도 포항 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 경상남도 함양 출신입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 43,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 안창호와 함께 일본과 싸웠다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 고려 시대에 왜구와 싸웠으며, 안창호와는 시대적으로 다릅니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 44,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 고려 말기에 임금을 제거하고 왕건을 책임지고 싶었다. (O/X)",
-            "answer": "O",
-            "explanation": "강감찬은 고려 말기 신라의 책임자였으며, 왕건을 책임지고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 45,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 신라에서 태어났다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 고려에서 태어났으며, 고려 시대에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 46,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 고려 시대의 어진이다. (O/X)",
-            "answer": "O",
-            "explanation": "강감찬은 고려 시대 어진으로, 왜구와의 싸움에서 큰 역할을 했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 47,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 경상북도 포항 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 경상남도 함양 출신입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 48,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 안창호와 함께 일본과 싸웠다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 고려 시대에 왜구와 싸웠으며, 안창호와는 시대적으로 다릅니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 49,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 고려 말기에 임금을 제거하고 왕건을 책임지고 싶었다. (O/X)",
-            "answer": "O",
-            "explanation": "강감찬은 고려 말기 신라의 책임자였으며, 왕건을 책임지고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 50,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 신라에서 태어났다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 고려에서 태어났으며, 고려 시대에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 51,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 고려 시대의 어진이다. (O/X)",
-            "answer": "O",
-            "explanation": "강감찬은 고려 시대 어진으로, 왜구와의 싸움에서 큰 역할을 했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 52,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 경상북도 포항 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 경상남도 함양 출신입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 53,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 안창호와 함께 일본과 싸웠다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 고려 시대에 왜구와 싸웠으며, 안창호와는 시대적으로 다릅니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 54,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 고려 말기에 임금을 제거하고 왕건을 책임지고 싶었다. (O/X)",
-            "answer": "O",
-            "explanation": "강감찬은 고려 말기 신라의 책임자였으며, 왕건을 책임지고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 55,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 신라에서 태어났다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 고려에서 태어났으며, 고려 시대에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 56,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 고려 시대의 어진이다. (O/X)",
-            "answer": "O",
-            "explanation": "강감찬은 고려 시대 어진으로, 왜구와의 싸움에서 큰 역할을 했습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 57,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 경상북도 포항 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 경상남도 함양 출신입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 58,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 안창호와 함께 일본과 싸웠다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 고려 시대에 왜구와 싸웠으며, 안창호와는 시대적으로 다릅니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 59,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 고려 말기에 임금을 제거하고 왕건을 책임지고 싶었다. (O/X)",
-            "answer": "O",
-            "explanation": "강감찬은 고려 말기 신라의 책임자였으며, 왕건을 책임지고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 60,
-        "fields": {
-            "story": 3,
-            "question": "강감찬은 신라에서 태어났다. (O/X)",
-            "answer": "X",
-            "explanation": "강감찬은 고려에서 태어났으며, 고려 시대에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 61,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 대한민국 임시정부의 중요 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 대한민국 임시정부에서 활동한 독립운동가로, 일제 강점기에 저항하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 62,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 20세기 초반에 활동한 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 20세기 초반에 활동하였으며, 그의 활동은 일본의 식민지 지배에 저항하는 데 집중되었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 63,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 대한독립 만세운동에서 중요한 역할을 했다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 대한독립 만세운동에서 중요한 인물로, 기술한 것과 맞습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 64,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 서울에서 태어났다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 1879년 서울에서 태어났습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 65,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 식민지 저항운동의 핵심 사람으로 잘 알려져 있다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 일본의 식민지 지배에 저항하는 데 중요한 인물로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 66,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 대한민국 임시정부의 중요 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 대한민국 임시정부에서 활동한 독립운동가로, 일제 강점기에 저항하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 67,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 20세기 초반에 활동한 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 20세기 초반에 활동하였으며, 그의 활동은 일본의 식민지 지배에 저항하는 데 집중되었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 68,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 대한독립 만세운동에서 중요한 역할을 했다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 대한독립 만세운동에서 중요한 인물로, 기술한 것과 맞습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 69,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 서울에서 태어났다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 1879년 서울에서 태어났습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 70,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 식민지 저항운동의 핵심 사람으로 잘 알려져 있다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 일본의 식민지 지배에 저항하는 데 중요한 인물로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 71,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 대한민국 임시정부의 중요 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 대한민국 임시정부에서 활동한 독립운동가로, 일제 강점기에 저항하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 72,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 20세기 초반에 활동한 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 20세기 초반에 활동하였으며, 그의 활동은 일본의 식민지 지배에 저항하는 데 집중되었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 73,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 대한독립 만세운동에서 중요한 역할을 했다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 대한독립 만세운동에서 중요한 인물로, 기술한 것과 맞습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 74,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 서울에서 태어났다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 1879년 서울에서 태어났습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 75,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 식민지 저항운동의 핵심 사람으로 잘 알려져 있다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 일본의 식민지 지배에 저항하는 데 중요한 인물로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 76,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 대한민국 임시정부의 중요 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 대한민국 임시정부에서 활동한 독립운동가로, 일제 강점기에 저항하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 77,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 20세기 초반에 활동한 인물이다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 20세기 초반에 활동하였으며, 그의 활동은 일본의 식민지 지배에 저항하는 데 집중되었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 78,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 대한독립 만세운동에서 중요한 역할을 했다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 대한독립 만세운동에서 중요한 인물로, 기술한 것과 맞습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 79,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 서울에서 태어났다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 1879년 서울에서 태어났습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 80,
-        "fields": {
-            "story": 4,
-            "question": "안중근은 식민지 저항운동의 핵심 사람으로 잘 알려져 있다. (O/X)",
-            "answer": "O",
-            "explanation": "안중근은 일본의 식민지 지배에 저항하는 데 중요한 인물로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 81,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 한국의 사회운동가이자 교육자이다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 한국의 사회운동가이자 교육자로, 그의 활동은 일제 강점기에 교육적 저항으로 알려져 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 82,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 19세기에 활동한 인물이다. (O/X)",
-            "answer": "X",
-            "explanation": "안창호는 20세기 초반에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 83,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 독립운동의 한 축을 담당했다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 한국 독립운동의 중요한 인물로, 여러 단체를 통해 독립운동을 이끌었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 84,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 평양에서 태어났다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 1878년 평양에서 태어났습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 85,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 도산 서원이라는 교육기관을 설립했다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 도산 서원을 설립하여 교육을 통한 민족 계몽운동을 전개하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 86,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 한국의 사회운동가이자 교육자이다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 한국의 사회운동가이자 교육자로, 그의 활동은 일제 강점기에 교육적 저항으로 알려져 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 87,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 19세기에 활동한 인물이다. (O/X)",
-            "answer": "X",
-            "explanation": "안창호는 20세기 초반에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 88,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 독립운동의 한 축을 담당했다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 한국 독립운동의 중요한 인물로, 여러 단체를 통해 독립운동을 이끌었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 89,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 평양에서 태어났다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 1878년 평양에서 태어났습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 90,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 도산 서원이라는 교육기관을 설립했다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 도산 서원을 설립하여 교육을 통한 민족 계몽운동을 전개하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 91,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 한국의 사회운동가이자 교육자이다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 한국의 사회운동가이자 교육자로, 그의 활동은 일제 강점기에 교육적 저항으로 알려져 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 92,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 19세기에 활동한 인물이다. (O/X)",
-            "answer": "X",
-            "explanation": "안창호는 20세기 초반에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 93,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 독립운동의 한 축을 담당했다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 한국 독립운동의 중요한 인물로, 여러 단체를 통해 독립운동을 이끌었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 94,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 평양에서 태어났다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 1878년 평양에서 태어났습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 95,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 도산 서원이라는 교육기관을 설립했다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 도산 서원을 설립하여 교육을 통한 민족 계몽운동을 전개하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 96,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 한국의 사회운동가이자 교육자이다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 한국의 사회운동가이자 교육자로, 그의 활동은 일제 강점기에 교육적 저항으로 알려져 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 97,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 19세기에 활동한 인물이다. (O/X)",
-            "answer": "X",
-            "explanation": "안창호는 20세기 초반에 활동하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 98,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 독립운동의 한 축을 담당했다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 한국 독립운동의 중요한 인물로, 여러 단체를 통해 독립운동을 이끌었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 99,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 평양에서 태어났다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 1878년 평양에서 태어났습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 100,
-        "fields": {
-            "story": 5,
-            "question": "안창호는 도산 서원이라는 교육기관을 설립했다. (O/X)",
-            "answer": "O",
-            "explanation": "안창호는 도산 서원을 설립하여 교육을 통한 민족 계몽운동을 전개하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 101,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 조선 시대의 제4대 왕이다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 조선 시대 제4대 왕으로, 한글을 창제한 등 많은 문화 발전을 이루었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 102,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 문신 왕조의 왕인다. (O/X)",
-            "answer": "X",
-            "explanation": "세종대왕은 문신 왕조의 왕이 아니라, 조선의 세종시대를 대표하는 왕입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 103,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 하늘과 산을 사랑하는 왕으로 알려져 있다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 하늘과 산을 사랑하는 왕으로, 사대부들에게 인정받는 왕으로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 104,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 한글 창제 외에도 과학 기술 발전에 크게 기여하였다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 한글 창제 외에도 천문학, 의학, 농업 등 다양한 분야에서 기술 발전에 기여하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 105,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 광해군의 아버지이다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 광해군의 아버지로, 조선 시대를 대표하는 왕으로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 106,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 조선 시대의 제4대 왕이다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 조선 시대 제4대 왕으로, 한글을 창제한 등 많은 문화 발전을 이루었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 107,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 문신 왕조의 왕인다. (O/X)",
-            "answer": "X",
-            "explanation": "세종대왕은 문신 왕조의 왕이 아니라, 조선의 세종시대를 대표하는 왕입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 108,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 하늘과 산을 사랑하는 왕으로 알려져 있다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 하늘과 산을 사랑하는 왕으로, 사대부들에게 인정받는 왕으로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 109,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 한글 창제 외에도 과학 기술 발전에 크게 기여하였다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 한글 창제 외에도 천문학, 의학, 농업 등 다양한 분야에서 기술 발전에 기여하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 110,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 광해군의 아버지이다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 광해군의 아버지로, 조선 시대를 대표하는 왕으로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 111,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 조선 시대의 제4대 왕이다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 조선 시대 제4대 왕으로, 한글을 창제한 등 많은 문화 발전을 이루었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 112,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 문신 왕조의 왕인다. (O/X)",
-            "answer": "X",
-            "explanation": "세종대왕은 문신 왕조의 왕이 아니라, 조선의 세종시대를 대표하는 왕입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 113,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 하늘과 산을 사랑하는 왕으로 알려져 있다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 하늘과 산을 사랑하는 왕으로, 사대부들에게 인정받는 왕으로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 114,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 한글 창제 외에도 과학 기술 발전에 크게 기여하였다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 한글 창제 외에도 천문학, 의학, 농업 등 다양한 분야에서 기술 발전에 기여하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 115,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 광해군의 아버지이다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 광해군의 아버지로, 조선 시대를 대표하는 왕으로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 116,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 조선 시대의 제4대 왕이다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 조선 시대 제4대 왕으로, 한글을 창제한 등 많은 문화 발전을 이루었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 117,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 문신 왕조의 왕인다. (O/X)",
-            "answer": "X",
-            "explanation": "세종대왕은 문신 왕조의 왕이 아니라, 조선의 세종시대를 대표하는 왕입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 118,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 하늘과 산을 사랑하는 왕으로 알려져 있다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 하늘과 산을 사랑하는 왕으로, 사대부들에게 인정받는 왕으로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 119,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 한글 창제 외에도 과학 기술 발전에 크게 기여하였다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 한글 창제 외에도 천문학, 의학, 농업 등 다양한 분야에서 기술 발전에 기여하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 120,
-        "fields": {
-            "story": 6,
-            "question": "세종대왕은 광해군의 아버지이다. (O/X)",
-            "answer": "O",
-            "explanation": "세종대왕은 광해군의 아버지로, 조선 시대를 대표하는 왕으로 평가받고 있습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 121,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려 시대의 건국 이념가이다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려 시대 건국 이념가로, 고려의 건국과 통일을 이루었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 122,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려의 첫 번째 왕이다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려의 건국 이후 첫 번째 왕으로 탄생하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 123,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 '태조'라는 시호를 받았다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려를 건국한 후 '태조'라는 시호를 받았습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 124,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 전주 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "이성계의 본관은 전주가 아니라 충청북도 충주입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 125,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려 건국 이후 왕건과 함께 한반도를 통일하였다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 왕건과 협력하여 고려 건국 이후 한반도 통일에 중대한 기여를 하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 126,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려 시대의 건국 이념가이다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려 시대 건국 이념가로, 고려의 건국과 통일을 이루었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 127,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려의 첫 번째 왕이다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려의 건국 이후 첫 번째 왕으로 탄생하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 128,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 '태조'라는 시호를 받았다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려를 건국한 후 '태조'라는 시호를 받았습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 129,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 전주 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "이성계의 본관은 전주가 아니라 충청북도 충주입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 130,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려 건국 이후 왕건과 함께 한반도를 통일하였다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 왕건과 협력하여 고려 건국 이후 한반도 통일에 중대한 기여를 하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 131,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려 시대의 건국 이념가이다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려 시대 건국 이념가로, 고려의 건국과 통일을 이루었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 132,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려의 첫 번째 왕이다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려의 건국 이후 첫 번째 왕으로 탄생하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 133,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 '태조'라는 시호를 받았다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려를 건국한 후 '태조'라는 시호를 받았습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 134,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 전주 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "이성계의 본관은 전주가 아니라 충청북도 충주입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 135,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려 건국 이후 왕건과 함께 한반도를 통일하였다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 왕건과 협력하여 고려 건국 이후 한반도 통일에 중대한 기여를 하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 136,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려 시대의 건국 이념가이다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려 시대 건국 이념가로, 고려의 건국과 통일을 이루었습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 137,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려의 첫 번째 왕이다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려의 건국 이후 첫 번째 왕으로 탄생하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 138,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 '태조'라는 시호를 받았다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 고려를 건국한 후 '태조'라는 시호를 받았습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 139,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 전주 출신이다. (O/X)",
-            "answer": "X",
-            "explanation": "이성계의 본관은 전주가 아니라 충청북도 충주입니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
-    },
-    {
-        "model": "quiz.quiz",
-        "pk": 140,
-        "fields": {
-            "story": 7,
-            "question": "이성계는 고려 건국 이후 왕건과 함께 한반도를 통일하였다. (O/X)",
-            "answer": "O",
-            "explanation": "이성계는 왕건과 협력하여 고려 건국 이후 한반도 통일에 중대한 기여를 하였습니다.",
-            "created_at": "2024-07-04 10:10",
-            "updated_at": "2024-07-04 10:10"
-        }
+  {
+    "model": "quiz.quiz",
+    "pk": 1,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 조선의 해군 장군이었다.",
+      "answer": "O",
+      "explanation": "이순신은 조선 시대의 해군 장군으로, 임진왜란 때 활약했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
     }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 2,
+    "fields": {
+      "story": 1,
+      "question": "이순신의 명언 중 하나는 '나의 죽음을 적에게 알리지 마라'이다.",
+      "answer": "O",
+      "explanation": "이순신의 유명한 명언 중 하나입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 3,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 임진왜란 때 사망했다.",
+      "answer": "O",
+      "explanation": "이순신은 1598년 노량해전에서 전사했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 4,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 임진왜란에서 총 23회의 전투에서 한 번도 패하지 않았다.",
+      "answer": "O",
+      "explanation": "이순신은 23전 23승이라는 놀라운 전적을 남겼습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 5,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 거북선을 처음 만든 장군이다.",
+      "answer": "O",
+      "explanation": "이순신은 거북선을 설계하고 사용한 장군으로 유명합니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 6,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 한 번도 일본과의 전투에서 승리한 적이 없다.",
+      "answer": "X",
+      "explanation": "이순신은 임진왜란에서 일본군을 상대로 많은 승리를 거두었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 7,
+    "fields": {
+      "story": 1,
+      "question": "이순신의 출생 연도는 1845년이다.",
+      "answer": "X",
+      "explanation": "이순신은 1545년에 태어났습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 8,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 한산도 대첩에서 패배했다.",
+      "answer": "X",
+      "explanation": "한산도 대첩은 이순신이 일본군을 상대로 큰 승리를 거둔 해전입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 9,
+    "fields": {
+      "story": 1,
+      "question": "이순신의 군사 전략은 지금까지도 연구되고 있다.",
+      "answer": "O",
+      "explanation": "이순신의 뛰어난 군사 전략은 오늘날까지도 연구되고 있습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 10,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 전투 중에 자신의 부상을 숨기고 지휘를 계속했다.",
+      "answer": "O",
+      "explanation": "이순신은 전투 중 부상을 입고도 끝까지 지휘를 계속했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 11,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 죽기 직전, '필사즉생 필생즉사'라고 말했다.",
+      "answer": "O",
+      "explanation": "이순신은 '필사즉생 필생즉사', 즉 '죽고자 하면 살고 살고자 하면 죽는다'는 신념을 가지고 있었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 12,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 12세기 후반에 활동한 장군이다.",
+      "answer": "X",
+      "explanation": "이순신은 16세기 후반, 주로 임진왜란 중에 활동했다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 13,
+    "fields": {
+      "story": 1,
+      "question": "이순신의 거북선은 철갑으로 되어 있었다.",
+      "answer": "O",
+      "explanation": "이순신의 거북선은 철갑으로 되어 있어 적의 화살과 총알을 막을 수 있었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 14,
+    "fields": {
+      "story": 1,
+      "question": "이순신의 직책은 '조선 수군 통제사'였다.",
+      "answer": "O",
+      "explanation": "이순신은 조선 수군 통제사로 임명되어 조선의 해군을 지휘했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 15,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 명량해전에서 대승을 거두었다.",
+      "answer": "O",
+      "explanation": "명량해전에서 이순신은 12척의 배로 일본군의 330척을 상대하여 대승을 거두었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 16,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 청나라와의 전투에서 활약했다.",
+      "answer": "X",
+      "explanation": "이순신은 주로 일본과의 전투에서 활약했으며, 청나라와의 전투는 없었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 17,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 군사 전략서인 '난중일기'를 남겼다.",
+      "answer": "O",
+      "explanation": "이순신은 전쟁 중의 기록을 담은 '난중일기'를 남겼습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 18,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 서울에서 군사 훈련을 받았다.",
+      "answer": "X",
+      "explanation": "이순신은 전라남도에서 군사 훈련을 받았으며, 서울에서 훈련을 받지는 않았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 19,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 전투 중에 배를 침몰시키는 전략을 주로 사용했다.",
+      "answer": "O",
+      "explanation": "이순신은 전투 중 배를 침몰시키는 전략인 '함포사격' 등을 사용하여 전투를 승리로 이끌었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 20,
+    "fields": {
+      "story": 1,
+      "question": "이순신은 경상도에서 출생했다.",
+      "answer": "X",
+      "explanation": "이순신은 한양에서 출생했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 21,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 한글을 창제했다.",
+      "answer": "O",
+      "explanation": "세종대왕은 백성을 위해 한글, 훈민정음을 창제했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 22,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 조선의 제4대 왕이다.",
+      "answer": "O",
+      "explanation": "세종대왕은 조선의 제4대 왕으로, 태종의 셋째 아들입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 23,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 태종의 손자이다.",
+      "answer": "X",
+      "explanation": "세종대왕은 조선을 건국한 태조 이성계의 손자입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 24,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕의 본명은 이도이다.",
+      "answer": "O",
+      "explanation": "세종대왕의 본명은 이도입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 25,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 과학 기술 발전에 큰 관심을 가졌다.",
+      "answer": "O",
+      "explanation": "세종대왕은 측우기, 해시계 등 다양한 과학 기구를 개발하고 보급했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 26,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 주자소를 설립하여 활자 인쇄술을 발전시켰다.",
+      "answer": "O",
+      "explanation": "세종대왕은 주자소를 설립하여 금속 활자 인쇄술을 발전시켰습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 27,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 조선왕조실록을 편찬했다.",
+      "answer": "X",
+      "explanation": "조선왕조실록은 세종대왕 이후에 편찬되기 시작했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 28,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 농업 발전을 위해 농사직설을 편찬했다.",
+      "answer": "O",
+      "explanation": "세종대왕은 농사직설을 편찬하여 농업 기술을 발전시키고 보급했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 29,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 외교적으로도 큰 업적을 남겼다.",
+      "answer": "O",
+      "explanation": "세종대왕은 명나라와의 관계를 강화하고, 여진족과 왜구를 토벌하는 등 외교적으로도 큰 업적을 남겼습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 30,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 과거 제도를 약화하여 인재를 등용했다.",
+      "answer": "X",
+      "explanation": "세종대왕은 과거 제도를 강화하여 다양한 인재를 등용하고 국가를 발전시켰습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 31,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 병자호란 때 조선을 방어했다.",
+      "answer": "X",
+      "explanation": "병자호란은 세종대왕이 사망한 후, 인조 때 발생한 사건입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 32,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 칠정산이라는 천문학 서적을 편찬했다.",
+      "answer": "O",
+      "explanation": "세종대왕은 칠정산을 편찬하여 천문학 지식을 발전시켰습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 33,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 태종의 맏아들이다.",
+      "answer": "X",
+      "explanation": "세종대왕은 태종의 셋째 아들입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 34,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 언문청을 설치하여 훈민정음을 연구하고 보급했다.",
+      "answer": "O",
+      "explanation": "세종대왕은 언문청을 설치하여 훈민정음을 연구하고 보급했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 35,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 훈민정음을 창제한 후 바로 사용하지 않았다.",
+      "answer": "X",
+      "explanation": "세종대왕은 훈민정음을 창제한 후 바로 사용하고 널리 반포했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 36,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 수양대군의 아버지이다.",
+      "answer": "O",
+      "explanation": "세종대왕은 수양대군(세조)의 아버지입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 37,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 경복궁에서 태어났다.",
+      "answer": "X",
+      "explanation": "세종대왕은 한양부 인수방에서 태어났습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 38,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 국악 발전에도 기여했다.",
+      "answer": "O",
+      "explanation": "세종대왕은 국악 발전을 위해 악기와 음악 이론을 정립하고, 아악을 정리했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 39,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 세종실록을 편찬했다.",
+      "answer": "X",
+      "explanation": "세종실록은 세종대왕이 사망한 후에 편찬된 기록물입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 40,
+    "fields": {
+      "story": 2,
+      "question": "세종대왕은 측우기를 발명했다.",
+      "answer": "X",
+      "explanation": "측우기는 세종대왕의 치세 동안 발명된 것이 맞지만, 발명자는 장영실이라는 과학자입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 41,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 조선시대의 과학자였다.",
+      "answer": "O",
+      "explanation": "장영실은 조선시대의 대표적인 과학자였습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 42,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 측우기를 발명했다.",
+      "answer": "O",
+      "explanation": "장영실은 세계 최초의 강수량 측정 기구인 측우기를 발명했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 43,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 세종대왕의 명을 받아 해시계를 제작했다.",
+      "answer": "O",
+      "explanation": "장영실은 세종대왕의 명령을 받아 자격루와 앙부일구 등의 해시계를 제작했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 44,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 귀족 출신이었다.",
+      "answer": "X",
+      "explanation": "장영실은 노비 출신이었지만, 뛰어난 능력으로 과학자로서 인정받았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 45,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 천문학에도 많은 기여를 했다.",
+      "answer": "O",
+      "explanation": "장영실은 천문학 기구인 혼천의를 제작하여 천문학 발전에 기여했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 46,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 화약 무기를 개발했다.",
+      "answer": "X",
+      "explanation": "장영실은 주로 과학 기구와 천문학 기구를 개발했고, 화약 무기와는 관련이 없습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 47,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 세종대왕 시절에 활동했다.",
+      "answer": "O",
+      "explanation": "장영실은 세종대왕 시절에 많은 과학 기구를 제작하며 활동했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 48,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 백성과의 소통을 중요시했다.",
+      "answer": "O",
+      "explanation": "장영실은 백성들이 쉽게 이해하고 사용할 수 있는 기구를 만드는 것을 중요시했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 49,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 자격루를 혼자서 만들었다.",
+      "answer": "X",
+      "explanation": "장영실은 여러 과학자들과 협력하여 자격루를 제작했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 50,
+    "fields": {
+      "story": 3,
+      "question": "장영실의 발명품 중 일부는 현재까지도 남아 있다.",
+      "answer": "X",
+      "explanation": "장영실의 발명품 대부분은 현재 남아 있지 않지만, 문헌 기록을 통해 그 존재를 확인할 수 있습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 51,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 혼천의를 발명했다.",
+      "answer": "O",
+      "explanation": "장영실은 천문학 기구인 혼천의를 제작했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 52,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 중국의 기술을 도입하여 기구를 제작했다.",
+      "answer": "O",
+      "explanation": "장영실은 중국의 기술을 연구하고 이를 조선에 맞게 개량하여 기구를 제작했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 53,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 나침반을 발명했다.",
+      "answer": "X",
+      "explanation": "장영실은 나침반을 발명하지 않았지만, 다양한 천문학 기구를 제작했다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 54,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 왕명에 의해 종종 멀리 여행을 다녔다.",
+      "answer": "O",
+      "explanation": "장영실은 왕명에 의해 중국 등지를 여행하며 다양한 과학 기술을 연구했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 55,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 노비 출신이었기 때문에 관직에 오르지 못했다.",
+      "answer": "X",
+      "explanation": "장영실은 노비 출신이었지만, 그의 뛰어난 능력으로 인해 관직에 오를 수 있었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 56,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 조선에서 태어났다.",
+      "answer": "O",
+      "explanation": "장영실은 1388년에 조선에서 태어났습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 57,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 한글의 창제에 직접 참여했다.",
+      "answer": "X",
+      "explanation": "장영실은 한글의 창제에는 직접 참여하지 않았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 58,
+    "fields": {
+      "story": 3,
+      "question": "장영실의 업적은 그의 생애 동안 전부 인정받지 못했다.",
+      "answer": "O",
+      "explanation": "장영실의 업적은 그의 생애 동안에는 충분히 인정받지 못했으며, 사후에 그 가치를 인정받았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 59,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 군사 전략과 관련된 연구를 했다.",
+      "answer": "X",
+      "explanation": "장영실은 군사 전략보다는 과학과 기술 분야에서 연구와 발명을 했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 60,
+    "fields": {
+      "story": 3,
+      "question": "장영실은 '경회루'를 설계한 것으로 알려져 있다.",
+      "answer": "X",
+      "explanation": "경회루는 장영실의 업적과 관련이 없습니다. 경회루는 조선시대의 건축물로, 장영실의 발명품에는 포함되지 않습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 61,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 1902년에 태어났다.",
+      "answer": "O",
+      "explanation": "유관순은 1902년에 태어났습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 62,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 대한민국 독립 운동의 상징적인 인물이다.",
+      "answer": "O",
+      "explanation": "유관순은 대한민국 독립 운동의 상징적인 인물로 잘 알려져 있습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 63,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 독립운동으로 인해 투옥되었다.",
+      "answer": "O",
+      "explanation": "유관순은 3.1 운동 참여로 인해 일본 당국에 의해 투옥되었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 64,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 평양에서 출생했다.",
+      "answer": "X",
+      "explanation": "유관순은 충청남도 천안에서 태어났습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 65,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 이화학당에서 교육을 받았다.",
+      "answer": "O",
+      "explanation": "유관순은 서울의 이화학당에서 교육을 받았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 66,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 3.1 운동 당시 만세운동을 주도했다.",
+      "answer": "O",
+      "explanation": "유관순은 3.1 운동 당시 천안 아우내 장터에서 만세운동을 주도했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 67,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 1920년에 사망했다.",
+      "answer": "O",
+      "explanation": "유관순은 1920년 9월 28일에 서대문형무소에서 사망했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 68,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 17세의 나이에 투옥되었다.",
+      "answer": "O",
+      "explanation": "유관순은 17세의 나이에 3.1 운동에 참여하여 투옥되었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 69,
+    "fields": {
+      "story": 4,
+      "question": "유관순의 부모님도 독립운동에 참여했다.",
+      "answer": "O",
+      "explanation": "유관순의 부모님도 독립운동에 참여했고, 아우내 장터에서 일본군에게 사망했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 70,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 사망 후 대한민국 건국훈장을 받았다.",
+      "answer": "O",
+      "explanation": "유관순은 사망 후 대한민국 정부로부터 건국훈장 독립장을 받았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 71,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 일제강점기 때 활동했다.",
+      "answer": "O",
+      "explanation": "유관순은 일제강점기 때 독립운동을 했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 72,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 일본 유학 중에 독립운동에 참여했다.",
+      "answer": "X",
+      "explanation": "유관순은 일본 유학 중이 아니었으며, 국내에서 독립운동에 참여했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 73,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 생전에 독립운동 자금 모금을 주도했다.",
+      "answer": "X",
+      "explanation": "유관순은 주로 만세운동과 같은 직접적인 독립운동에 참여했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 74,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 3.1 운동 당시 독립선언서를 작성했다.",
+      "answer": "X",
+      "explanation": "유관순은 독립선언서를 작성하지는 않았지만, 만세운동을 적극적으로 주도했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 75,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 이화학당에서 퇴학당했다.",
+      "answer": "O",
+      "explanation": "유관순은 3.1 운동에 참여한 후, 이화학당에서 퇴학당했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 76,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 투옥 중에도 독립운동을 멈추지 않았다.",
+      "answer": "O",
+      "explanation": "유관순은 투옥 중에도 계속해서 독립운동을 이어갔습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 77,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 서대문형무소에서 사망했다.",
+      "answer": "O",
+      "explanation": "유관순은 서대문형무소에서 1920년에 사망했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 78,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 18세에 사망했다.",
+      "answer": "O",
+      "explanation": "유관순은 1920년 18세의 나이에 서대문형무소에서 사망했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 79,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 독립운동 중 손가락을 잃었다.",
+      "answer": "X",
+      "explanation": "유관순은 독립운동 중에 손가락을 잃지 않았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 80,
+    "fields": {
+      "story": 4,
+      "question": "유관순은 생전에 결혼했다.",
+      "answer": "X",
+      "explanation": "유관순은 독립운동에 헌신하느라 결혼하지 않았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 81,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 애플의 공동 창업자이다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 1976년 스티브 워즈니악과 함께 애플을 공동 창업했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 82,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 마이크로소프트의 공동 창업자이다.",
+      "answer": "X",
+      "explanation": "마이크로소프트는 빌 게이츠와 폴 앨런이 공동 창업했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 83,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 아이폰을 개발했다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 2007년에 처음 출시된 아이폰 개발을 주도했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 84,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 맥킨토시 컴퓨터를 처음으로 발표했다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 1984년에 처음으로 맥킨토시 컴퓨터를 발표했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 85,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 1985년에 애플을 떠났다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 1985년에 애플에서 해고되었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 86,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 애플을 떠난 후 픽사를 설립했다.",
+      "answer": "X",
+      "explanation": "스티브 잡스는 픽사를 설립한 것이 아니라 루카스필름의 컴퓨터 그래픽스 부서를 인수하여 픽사로 재창립했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 87,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 애플로 복귀한 후 아이맥을 출시했다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 1997년에 애플로 복귀한 후 1998년에 아이맥을 출시했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 88,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 애플의 최고경영자(CEO)로 복귀했다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 애플의 CEO로 복귀했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 89,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 넥스트(NeXT)를 설립했다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 1985년에 애플을 떠난 후 넥스트를 설립했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 90,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 아이팟을 개발했다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 2001년에 아이팟을 발표했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 91,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 아이튠즈 스토어를 개설했다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 2003년에 아이튠즈 스토어를 개설했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 92,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 아이패드를 개발했다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 2010년에 아이패드를 발표했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 93,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 애플 복귀 후 애플의 재정 상황을 극적으로 개선했다.",
+      "answer": "O",
+      "explanation": "스티브 잡스의 복귀 후 애플의 재정 상황은 크게 개선되었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 94,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 애플에서 해고된 후 마이크로소프트에 입사했다.",
+      "answer": "X",
+      "explanation": "스티브 잡스는 애플에서 해고된 후 넥스트를 설립했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 95,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 전기차 개발에 참여했다.",
+      "answer": "X",
+      "explanation": "스티브 잡스는 전기차 개발에 참여한 적이 없습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 96,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 캘리포니아주에서 태어났다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 1955년 캘리포니아주 샌프란시스코에서 태어났습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 97,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 2011년에 사망했다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 2011년 10월 5일에 사망했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 98,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 디자인에 대한 강한 열정을 가졌다.",
+      "answer": "O",
+      "explanation": "스티브 잡스는 디자인에 대해 강한 열정을 가졌습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 99,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 스탠포드 대학교를 졸업했다.",
+      "answer": "X",
+      "explanation": "스티브 잡스는 리드 대학교를 중퇴했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 100,
+    "fields": {
+      "story": 5,
+      "question": "스티브 잡스는 '스테이 헝그리, 스테이 풀리시'라는 말을 남겼다. ",
+      "answer": "O",
+      "explanation": "스티브 잡스는 2005년 스탠포드 대학교 졸업식 연설에서 이 말을 했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 101,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 프랑스에서 태어났다.",
+      "answer": "X",
+      "explanation": "나폴레옹은 1769년 코르시카 섬에서 태어났습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 102,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 프랑스 혁명 중에 권력을 잡았다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 프랑스 혁명 후 1799년에 쿠데타를 일으켜 권력을 잡았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 103,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 자신을 황제로 선언했다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 1804년에 스스로를 프랑스 황제로 선언했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 104,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 러시아 원정에서 대승을 거두었다.",
+      "answer": "X",
+      "explanation": "나폴레옹은 1812년 러시아 원정에서 큰 실패를 겪었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 105,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 영국과의 전투에서 트라팔가 해전에서 승리했다.",
+      "answer": "X",
+      "explanation": "나폴레옹의 해군은 트라팔가 해전(1805)에서 영국 해군에게 패배했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 106,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 워털루 전투에서 최종적으로 패배했다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 1815년 워털루 전투에서 패배하여 몰락했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 107,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 엘바 섬에 유배되었다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 1814년에 엘바 섬으로 유배되었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 108,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 엘바 섬에서 탈출하여 프랑스로 돌아왔다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 1815년에 엘바 섬에서 탈출하여 프랑스로 돌아왔습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 109,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 두 번 유배되었다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 엘바 섬과 세인트 헬레나 섬으로 두 번 유배되었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 110,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 코르시카 섬에서 이탈리아어를 모국어로 사용했다.",
+      "answer": "O",
+      "explanation": "나폴레옹의 모국어는 이탈리아어였습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 111,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 프랑스 법전을 제정했다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 나폴레옹 법전(Code Napoléon)을 제정했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 112,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 이집트 원정을 통해 로제타석을 발견했다. ",
+      "answer": "O",
+      "explanation": "나폴레옹의 이집트 원정 중에 로제타석이 발견되었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 113,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 이탈리아 왕국의 왕이 되었다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 1805년에 이탈리아 왕국의 왕이 되었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 114,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 나일 전투에서 넬슨 제독을 물리쳤다.",
+      "answer": "X",
+      "explanation": "나폴레옹의 군대는 나일 전투(1798)에서 넬슨 제독에게 패배했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 115,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 한 번도 이혼하지 않았다.",
+      "answer": "X",
+      "explanation": "나폴레옹은 첫 번째 부인 조제핀과 이혼하고 마리 루이즈와 재혼했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 116,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 과학과 예술을 후원했다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 과학과 예술을 적극 후원했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 117,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 자신의 후계자로 동생을 지목했다.",
+      "answer": "X",
+      "explanation": "나폴레옹은 아들 나폴레옹 2세를 후계자로 지목했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 118,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 프랑스 대학교를 설립했다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 프랑스 대학교를 설립하여 교육 체계를 정비했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 119,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 1815년에 사망했다.",
+      "answer": "X",
+      "explanation": "나폴레옹은 1821년에 세인트 헬레나 섬에서 사망했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 120,
+    "fields": {
+      "story": 6,
+      "question": "나폴레옹은 혁명 전쟁에서 군사적 성공을 거두었다.",
+      "answer": "O",
+      "explanation": "나폴레옹은 혁명 전쟁에서 여러 차례 군사적 성공을 거두었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 121,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 네덜란드에서 태어났다.",
+      "answer": "O",
+      "explanation": "반 고흐는 1853년 네덜란드에서 태어났습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 122,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 한쪽 귀를 스스로 잘라냈다.",
+      "answer": "O",
+      "explanation": "1888년에 반 고흐는 자신의 왼쪽 귀를 자른 것으로 알려져 있습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 123,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 평생 동안 단 한 점의 그림만 팔았다.",
+      "answer": "X",
+      "explanation": "반 고흐는 생전에 적어도 두 점 이상의 그림을 팔았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 124,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐의 동생 테오는 그가 생계를 유지하는 데 큰 도움을 주었다.",
+      "answer": "O",
+      "explanation": "반 고흐의 동생 테오는 그에게 재정적 지원을 아끼지 않았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 125,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 37세에 자살로 생을 마감했다.",
+      "answer": "O",
+      "explanation": "반 고흐는 1890년에 37세의 나이로 자살했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 126,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 파리에 머무는 동안 인상주의 화가들과 교류했다. ",
+      "answer": "O",
+      "explanation": "반 고흐는 파리에서 인상주의 화가들과 교류하며 자신의 화풍에 영향을 받았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 127,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 일생 동안 정신 질환을 앓았다.",
+      "answer": "O",
+      "explanation": "반 고흐는 일생 동안 정신 질환에 시달렸습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 128,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 유화 기법을 사용하여 그림을 그렸다.",
+      "answer": "O",
+      "explanation": "반 고흐는 주로 유화 기법을 사용하여 그림을 그렸습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 129,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐의 유명한 작품 중 하나는 ‘별이 빛나는 밤’이다.",
+      "answer": "O",
+      "explanation": "‘별이 빛나는 밤’은 그의 대표적인 작품 중 하나입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 130,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 스스로 독학으로 그림을 배웠다.",
+      "answer": "O",
+      "explanation": "반 고흐는 주로 독학으로 그림을 배웠습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 131,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 주로 자연 풍경을 그렸다.",
+      "answer": "O",
+      "explanation": "반 고흐는 자연 풍경을 주제로 한 많은 작품을 남겼습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 132,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 결혼을 두 번 했다.",
+      "answer": "X",
+      "explanation": "반 고흐는 결혼하지 않았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 133,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 주로 밝고 화려한 색감을 사용했다.",
+      "answer": "O",
+      "explanation": "반 고흐는 밝고 화려한 색감을 사용하는 것으로 유명합니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 134,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐의 작품은 그의 생전에 인정을 받지 못했다.",
+      "answer": "O",
+      "explanation": "반 고흐는 생전에 거의 인정을 받지 못했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 135,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 생애 동안 프랑스 남부에서 많은 시간을 보냈다.",
+      "answer": "O",
+      "explanation": "반 고흐는 프랑스 남부의 아를에서 많은 시간을 보냈습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 136,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 고갱과 함께 살았다.",
+      "answer": "O",
+      "explanation": "반 고흐는 고갱과 함께 살았던 시기가 있습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 137,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 그림을 그리기 전에는 목사로 일했다.",
+      "answer": "O",
+      "explanation": "반 고흐는 잠시 동안 목사로 일한 적이 있습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 138,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐의 작품 ‘해바라기’는 여러 버전이 있다.",
+      "answer": "O",
+      "explanation": "반 고흐의 ‘해바라기’는 여러 버전이 존재합니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 139,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 스위스에서 사망했다.",
+      "answer": "X",
+      "explanation": "반 고흐는 프랑스에서 사망했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 140,
+    "fields": {
+      "story": 7,
+      "question": "반 고흐는 생전에 매우 부유했다.",
+      "answer": "X",
+      "explanation": "반 고흐는 생전에 가난했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 141,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 1879년에 독일에서 태어났다.",
+      "answer": "O",
+      "explanation": "알버트 아인슈타인은 1879년 3월 14일 독일 울름에서 태어났습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 142,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 그의 생애 동안 두 번 노벨 물리학상을 수상했다.",
+      "answer": "X",
+      "explanation": "아인슈타인은 1921년에 한 번 노벨 물리학상을 수상했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 143,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인의 유명한 방정식은 E=mc^2이다.",
+      "answer": "O",
+      "explanation": "이 방정식은 질량과 에너지의 등가성을 나타내는 유명한 방정식입니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 144,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 상대성 이론을 제안한 과학자이다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 특수 상대성 이론과 일반 상대성 이론을 제안했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 145,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 프린스턴 대학교에서 교수로 재직했다. ",
+      "answer": "O",
+      "explanation": "아인슈타인은 프린스턴 대학교 고등연구소에서 연구원으로 활동했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 146,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 제2차 세계대전 동안 원자폭탄 개발을 적극적으로 지원했다.",
+      "answer": "X",
+      "explanation": "아인슈타인은 원자폭탄 개발 프로젝트인 맨해튼 프로젝트에 직접 참여하지 않았지만, 프로젝트의 필요성을 주장하는 편지를 루즈벨트 대통령에게 보낸 바 있습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 147,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 퀸틀란 왕립학회(FRS)의 회원이었다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 영국 왕립학회의 회원으로 선출되었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 148,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 유대인으로 태어났다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 유대인 가정에서 태어났습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 149,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 미국 시민권을 얻기 전에 스위스 시민권을 가졌다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 1901년에 스위스 시민권을 얻었고, 나중에 미국 시민권을 취득했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 150,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 대학 시절에 물리학과 수학을 전공했다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 스위스 취리히 연방 공과대학교에서 물리학과 수학을 전공했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 151,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 어린 시절 언어 발달이 늦었다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 언어 발달이 늦어 어린 시절 말을 잘하지 못한 것으로 알려져 있습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 152,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 제1차 세계대전 동안 독일에서 살았다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 제1차 세계대전 기간 동안 독일에서 거주했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 153,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 광전효과에 대한 연구로 노벨상을 받았다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 광전효과에 대한 연구로 1921년 노벨 물리학상을 받았습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 154,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 그의 삶 동안 세 번 결혼했다.",
+      "answer": "X",
+      "explanation": "아인슈타인은 두 번 결혼했습니다. 첫 번째 아내는 밀레바 마리치, 두 번째 아내는 엘사 아인슈타인이었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 155,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 평생 동안 미국에서만 거주했다. ",
+      "answer": "X",
+      "explanation": "아인슈타인은 독일, 스위스, 체코슬로바키아 등 여러 나라에서 살았고, 1933년에 미국으로 이주하여 평생을 보냈습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 156,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 평생 동안 여러 차례 베토벤의 음악을 즐겼다고 알려져 있다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 베토벤의 음악을 좋아했으며 바이올린을 연주하는 취미를 즐겼습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 157,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 양자 역학을 완전히 받아들였다.",
+      "answer": "X",
+      "explanation": "아인슈타인은 양자 역학의 많은 부분을 받아들였지만, 확률 해석에 대해 회의적이었습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 158,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 1955년에 사망했다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 1955년 4월 18일에 사망했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 159,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 제2차 세계대전 후 국제 연합의 창설을 지지했다.",
+      "answer": "O",
+      "explanation": "아인슈타인은 국제 연합의 창설을 지지하며 평화와 국제 협력을 촉구했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  },
+  {
+    "model": "quiz.quiz",
+    "pk": 160,
+    "fields": {
+      "story": 8,
+      "question": "아인슈타인은 벨 연설에서 ‘신은 주사위 놀이를 하지 않는다’고 말했다.",
+      "answer": "X",
+      "explanation": "아인슈타인은 이 말을 벨 연설에서 한 것이 아니라, 양자 역학에 대한 자신의 회의적인 입장을 표현할 때 했습니다.",
+      "created_at": "2024-07-04 10:10",
+      "updated_at": "2024-07-04 10:10"
+    }
+  }
 ]
