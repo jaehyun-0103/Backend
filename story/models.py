@@ -20,7 +20,7 @@ class Story(models.Model):
     video_url = models.CharField(max_length=255)
     gender = models.BooleanField(choices=GENDER_CHOICES)
     life = models.CharField(max_length=20)
-    information_url = models.CharField(max_length=255)
+    information_url = models.CharField(max_length=255, default="https://www.youtube.com/")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     is_deleted = models.BooleanField(default=False)

@@ -13,7 +13,8 @@ class GreatsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Story
-        fields = ['greatId', 'name', 'silhouette_url', 'front_url', 'back_url', 'saying', 'puzzle_cnt', 'saying', 'saying_url', 'nation', 'field', 'information_url']
+        fields = ['greatId', 'name', 'silhouette_url', 'front_url', 'back_url', 'saying', 'puzzle_cnt', 'saying',
+                  'saying_url', 'nation', 'field']
 
     def get_puzzle_cnt(self, obj):
         user_id = self.context.get('user_id')
@@ -47,7 +48,7 @@ class GreatDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Story
-        fields = ['video_url', 'gender', 'life']
+        fields = ['video_url', 'gender', 'life', 'information_url']
 
     def get_gender(self, obj):
         return '남성' if obj.gender == 0 else '여성'
