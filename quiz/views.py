@@ -115,7 +115,7 @@ class UpdateQuizResult(APIView):
                 result.puzzle_cnt += 1
                 logger.info(f"Updated result: correct_cnt={result.correct_cnt}, puzzle_cnt={result.puzzle_cnt}")
             result.save()
-            return Response({"detail": "성공"}, status=status.HTTP_200_OK)
+            return Response({"puzzle_cnt": result.puzzle_cnt}, status=status.HTTP_200_OK)
         else:
             logger.error(f"Serializer errors: {serializer.errors}")
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
