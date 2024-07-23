@@ -64,6 +64,22 @@ class UpdateQuizResult(APIView):
     @swagger_auto_schema(
         operation_id="퀴즈 퍼즐 저장하기",
         operation_description="맞춘 퀴즈 문제 수를 저장하고, 얻은 퍼즐 개수 업데이트 및 반환하기",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'user_id': openapi.Schema(
+                    type=openapi.TYPE_INTEGER,
+                    description="사용자 ID",
+                    example=1
+                ),
+                'correct_cnt': openapi.Schema(
+                    type=openapi.TYPE_INTEGER,
+                    description="맞춘 퀴즈 문제 수",
+                    example=4
+                ),
+            },
+            required=['user_id', 'correct_cnt']
+        ),
         responses={
             "200": openapi.Response(
                 description="퀴즈 결과 업데이트 성공",
@@ -76,16 +92,7 @@ class UpdateQuizResult(APIView):
                         )
                     }
                 )
-            )},
-        manual_parameters=[
-            openapi.Parameter(
-                'user_id',
-                openapi.IN_QUERY,
-                description="사용자 ID",
-                type=openapi.TYPE_INTEGER,
-                required=True
-            )
-        ]
+            )}
     )
     def put(self, request, story_id):
         user_id = request.data.get('user_id')
