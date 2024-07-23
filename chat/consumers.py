@@ -74,40 +74,141 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # 속도 증진을 위해 웹소켓 연결이 되었을 때 벡터스토어 생성까지 해둔다.
     async def initialize_vectorstore(self):
         try:
-            # Wikipedia url 가져오기
-            wikipedia_url_map = {
-                '1': 'https://ko.wikipedia.org/wiki/이순신',
-                # 파인튜닝 진행될 떄 마다 추가
-                # '2': get_wikipedia_content('https://ko.wikipedia.org/wiki/이순신'),
-                # '3': get_wikipedia_content('https://ko.wikipedia.org/wiki/이순신'),
-                # '4': get_wikipedia_content('https://ko.wikipedia.org/wiki/이순신'),
-                # '5': get_wikipedia_content('https://ko.wikipedia.org/wiki/이순신'),
-                # '6': get_wikipedia_content('https://ko.wikipedia.org/wiki/이순신'),
-                # '7': get_wikipedia_content('https://ko.wikipedia.org/wiki/이순신'),
-                # '8': get_wikipedia_content('https://ko.wikipedia.org/wiki/이순신'),
+            # url 가져오기
+            url1_map = {
+                '1': 'https://ko.wikipedia.org/wiki/이순신', #이순신 위키피디아
+                # 추후 고도화 작업 시 추가.
+                # '2': 'https://ko.wikipedia.org/wiki/세종대왕'),
+                # '3': 'https://ko.wikipedia.org/wiki/장영실'),
+                # '4': 'https://ko.wikipedia.org/wiki/유관순'),
+                # '5': 'https://ko.wikipedia.org/wiki/스티브잡스'),
+                # '6': 'https://ko.wikipedia.org/wiki/나폴레옹'),
+                # '7': 'https://ko.wikipedia.org/wiki/반고흐'),
+                # '8': 'https://ko.wikipedia.org/wiki/아인슈타인'),
+            }
+
+            url2_map = {
+                '1': 'https://ko.wikipedia.org/wiki/거북선', # 이순신 거북선 위키피디아
+
+            }
+
+            url3_map = {
+                '1': 'https://ko.wikipedia.org/wiki/학익진',  # 이순신 학익진 위키피디아
+            }
+
+            url4_map = {
+                '1': 'https://ko.wikipedia.org/wiki/한산도_대첩',  # 이순신 한산도 대첩 위키피디아
+            }
+
+            url5_map = {
+                '1': 'https://ko.wikipedia.org/wiki/명량_해전',  # 이순신 명량 해전 위키피디아
+            }
+
+            url6_map = {
+                '1': 'https://ko.wikipedia.org/wiki/노량_해전',  # 이순신 노량 해전 위키피디아
             }
 
             story_id = self.story_id
 
             # 단계 1: 문서 로드(Load Documents)
-            # Wikipedia 내용을 로드하고, 청크로 나누고, 인덱싱합니다.
+            # URL에서 내용을 로드하고, 청크로 나누고, 인덱싱합니다.
             async def load_documents(story_id):
-                wikipedia_url = wikipedia_url_map[story_id]
-                loader = WebBaseLoader(
-                    web_paths=(wikipedia_url,),
-                    bs_kwargs=dict(
-                        parse_only=bs4.SoupStrainer(
-                            "div",
-                            attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]},
-                        )
-                    ),
+                url1 = url1_map[story_id]
+                url2 = url2_map[story_id]
+                url3 = url3_map[story_id]
+                url4 = url4_map[story_id]
+                url5 = url5_map[story_id]
+                url6 = url6_map[story_id]
+
+                # 여러 url에서 데이터를 불러오기 위해 각기 다른 bs_kwargs를 설정
+                url1_bs_kwargs = dict(
+                    parse_only=bs4.SoupStrainer(
+                        "div",
+                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                    )
                 )
-                docs = loader.load()
+
+                url2_bs_kwargs = dict(
+                    parse_only=bs4.SoupStrainer(
+                        "div",
+                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                    )
+                )
+
+                url3_bs_kwargs = dict(
+                    parse_only=bs4.SoupStrainer(
+                        "div",
+                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                    )
+                )
+
+                url4_bs_kwargs = dict(
+                    parse_only=bs4.SoupStrainer(
+                        "div",
+                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                    )
+                )
+
+                url5_bs_kwargs = dict(
+                    parse_only=bs4.SoupStrainer(
+                        "div",
+                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                    )
+                )
+
+                url6_bs_kwargs = dict(
+                    parse_only=bs4.SoupStrainer(
+                        "div",
+                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                    )
+                )
+
+                # 각각의 URL에 맞는 bs_kwargs를 사용하여 데이터를 로드
+                url1_loader = WebBaseLoader(
+                    web_paths=[url1],
+                    bs_kwargs=url1_bs_kwargs,
+                )
+
+                url2_loader = WebBaseLoader(
+                    web_paths=[url2],
+                    bs_kwargs=url2_bs_kwargs,
+                )
+
+                url3_loader = WebBaseLoader(
+                    web_paths=[url3],
+                    bs_kwargs=url3_bs_kwargs,
+                )
+
+                url4_loader = WebBaseLoader(
+                    web_paths=[url4],
+                    bs_kwargs=url4_bs_kwargs,
+                )
+
+                url5_loader = WebBaseLoader(
+                    web_paths=[url5],
+                    bs_kwargs=url5_bs_kwargs,
+                )
+
+                url6_loader = WebBaseLoader(
+                    web_paths=[url6],
+                    bs_kwargs=url6_bs_kwargs,
+                )
+
+                # 각각의 문서들을 로드하여 합치기
+                url1_docs = url1_loader.load()
+                url2_docs = url2_loader.load()
+                url3_docs = url3_loader.load()
+                url4_docs = url4_loader.load()
+                url5_docs = url5_loader.load()
+                url6_docs = url6_loader.load()
+
+                docs = url1_docs + url2_docs + url3_docs + url4_docs + url5_docs + url6_docs
+
                 return docs
 
             # 단계 2: 문서 분할(Split Documents)
             async def split_documents(docs):
-                text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=5)
+                text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
                 splits = text_splitter.split_documents(docs)
                 return splits
 
@@ -235,14 +336,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # 파인튜닝 인식을 위한 인퍼런스
             studying_content_map = {
                 '1': "너는 이제부터 이순신이야. 이순신 챗봇이 아닌 이순신 역할을 맡아 나랑 대화를 진행할거야. 조선시대 장군의 말투를 사용하며, 해요체는 사용해서는 안되고, 하오체를 사용해야 해."
-                # 파인튜닝 진행될 떄 마다 추가
-                # '2': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
-                # '3': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
-                # '4': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
-                # '5': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
-                # '6': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
-                # '7': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
-                # '8': "넌 겸손한 이순신에 빙의해서 사용자와 대화를 진행할거야. 말투는 최대한 일관되게 조선시대 말투로 하면 돼.",
             }
 
             if self.story_id in model_map:
@@ -260,7 +353,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 assistant_messages_history = [msg["content"] for msg in messages_history if msg["role"] == "assistant"][-1:]
 
                  # 단계 4: 검색(Search)
-                # 위키피디아에 포함되어 있는 정보를 검색하고 생성합니다.
+                # URL에 포함되어 있는 정보를 검색하고 생성합니다.
                 retriever = self.vectorstore.as_retriever(search_kwargs=dict(k=1))
                 retrieved_docs = retriever.get_relevant_documents(user_message)
                 logger.info(f"검색된 문서: {retrieved_docs}")
