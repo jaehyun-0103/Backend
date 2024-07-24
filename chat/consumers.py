@@ -74,9 +74,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
         '1': 'https://ko.wikipedia.org/wiki/노량_해전',  # 이순신 노량 해전 위키피디아
     }
 
+    url7_map = {
+        '1': 'https://ko.wikipedia.org/wiki/난중일기', # 이순신 난중일기 위키피디아
+    }
+
     # 특정 키워드가 포함되었을 때만 RAG 검색
     search_keywords_map = {
-        '1': ['이순신', '거북선', '학익진', '한산도대첩', '명량해전', '노량해전'],
+        '1': ['이순신', '거북선', '학익진', '한산도대첩', '명량해전', '노량해전', '난중일기'],
     }
     # 비동기식으로 Websocket 연결 되었을 때 로직
     async def connect(self):
@@ -148,6 +152,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 '4': self.url4_map.get(self.story_id, ''),
                 '5': self.url5_map.get(self.story_id, ''),
                 '6': self.url6_map.get(self.story_id, ''),
+                '7': self.url7_map.get(self.story_id, ''),
             }
 
             tasks = [asyncio.create_task(create_vectorstore_for_url(url, key)) for key, url in urls.items() if url]
@@ -239,14 +244,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
             model_map = {
                 '1': "ft:gpt-3.5-turbo-1106:personal::9nQeXXmm",
             }
-            # 파인튜닝 인식을 위한 인퍼런스
-            studying_content_map = {
-                '1': "너는 이제부터 이순신이야. 이순신 챗봇이 아닌 이순신 역할을 맡아 나랑 대화를 진행할거야. 조선시대 장군의 말투를 사용하며, 해요체는 사용해서는 안되고, 하오체를 사용해야 해."
-            }
 
             if self.story_id in model_map:
                 model = model_map[self.story_id]
-                studying_content = studying_content_map[self.story_id]
                 search_keywords = self.search_keywords_map[self.story_id]
 
                 # "role"이 "user"일 때의 가장 최근 1개의 "content" 추출
@@ -273,6 +273,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                             vectorstores.append(self.vectorstores.get('5'))
                         if "노량해전" in user_message:
                             vectorstores.append(self.vectorstores.get('6'))
+                        if "난중일기" in user_message:
+                            vectorstores.append(self.vectorstores.get('7'))
                         return vectorstores
 
                     # RAG 검색에 사용될 벡터스토어 선택
@@ -321,24 +323,29 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 else:
                     rag_response = None
 
-                # 메시지 리스트 구성
-                messages = [
-                    # 파인튜닝된 정보 인퍼런스
-                    {"role": "system", "content": f"{studying_content}"},
-                    {"role": "user", "content": user_message},
-                    # 추출한 과거 메시지를 학습하는 과정
-                    {"role": "system", "content": f"나의 최근 질문 내용이야.: '{user_messages_history}'"},
-                    {"role": "system", "content": f"너의 최근 답변 내용이야. 이 답변에 이어서 대답을 해줘.: '{assistant_messages_history}'"},
-                    # RAG에서 얻어온 정보
-                    {"role": "system", "content": f"인물에 대한 자세한 정보야.: '{rag_response}'"},
-                    # 유의사항 추가
-                    {"role": "system", "content": "대화 맥락에 맞지 않는 단어나 이해할 수 없는 단어는 말하지 않도록 해. 또한, 어려운 단어 사용은 지양해."},
-                    {"role": "system", "content": "너는 내 질문에 관련한 대답만 해야 하며, 관련 없는 대답은 하지 않도록 해."},
-                    {"role": "system", "content": "넌 나의 성별을 몰라. 너 임의로 내 성별을 지정하지 마."},
-                    {"role": "system", "content": "괄호 사용 금지. 한자랑 영어 사용 금지. 기술적 용어 사용 금지. 했던 말 반복 금지."},
-                    {"role": "system", "content": "너에게 주어진 역할에 대해 최선을 다하며, 1인칭 시점으로 얘기를 해. 넌 챗봇이 아닌 인물 그 자체가 되는거야."},
-                    {"role": "system", "content": "어떠한 내용의 답변이라도 너에게 주어진 성격과 말투를 일관되게 유지시켜야 해."},
-                ]
+                # 모델별 메시지 리스트 구성
+                if self.story_id == '1':
+                    messages = [
+                        # 프롬프트
+                        {"role": "system", "content": "너는 이제부터 이순신이야. 이순신 장군의 말투로 하오체를 사용하여 대답해."},
+                        {"role": "system", "content": "모든 대화는 자연스럽게 이어가고, 사용자의 질문에 어울리는 대답해. 해요체를 절대 사용하지 마."},
+                        {"role": "system", "content": "이순신 장군의 말투를 유지하고, 절대 자신을 '이순신 챗봇'이나 '이순신에 빙의했다'라고 하지 마."},
+                        {"role": "system", "content": "너의 대답에 '이순신'이라는 단어가 포함되면 이를 '소인'으로 바꿔."},
+                        {"role": "system", "content": "괄호, 한자, 영어를 사용하지 말고, 모든 정보를 자연스럽게 설명해."},
+                        # 사용자 메시지
+                        {"role": "user", "content": user_message},
+                        # 최근 대화 내역
+                        {"role": "system", "content": f"나의 최근 질문: '{user_messages_history}'"},
+                        {"role": "system", "content": f"너의 최근 답변: '{assistant_messages_history}'"},
+                        # RAG에서 얻어온 정보
+                        {"role": "system",
+                         "content": f"이 내용에 대해서 구체적으로 자세하게 설명해. 이순신 장군의 자랑스러운 말투를 사용해.: '{rag_response}'"},
+                    ]
+                #elif self.story_id == '2':
+                    #messages = [
+                        #{"role": "assistant", "content": "너는 이제부터 세종대왕이야."},
+                        #{"role": "assistant", "content": user_message},
+                    #]
 
                 response = client.chat.completions.create(
                     model=model,
