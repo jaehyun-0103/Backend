@@ -186,3 +186,8 @@ def start():
     register_events(scheduler)
     scheduler.start()
     logger.info("Scheduler started!")
+
+    update_date_visits()
+    update_age_visits()
+    update_chat_visits()
+    update_correct_rate()
