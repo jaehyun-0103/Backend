@@ -40,6 +40,44 @@ class ChatConsumer(AsyncWebsocketConsumer):
         '8': "아직 개발 진행 중인 모델입니다.",
     }
 
+    # url 가져오기
+    url1_map = {
+        '1': 'https://ko.wikipedia.org/wiki/이순신',  # 이순신 위키피디아
+        # 추후 고도화 작업 시 추가.
+        # '2': 'https://ko.wikipedia.org/wiki/세종대왕'),
+        # '3': 'https://ko.wikipedia.org/wiki/장영실'),
+        # '4': 'https://ko.wikipedia.org/wiki/유관순'),
+        # '5': 'https://ko.wikipedia.org/wiki/스티브잡스'),
+        # '6': 'https://ko.wikipedia.org/wiki/나폴레옹'),
+        # '7': 'https://ko.wikipedia.org/wiki/반고흐'),
+        # '8': 'https://ko.wikipedia.org/wiki/아인슈타인'),
+    }
+
+    url2_map = {
+        '1': 'https://ko.wikipedia.org/wiki/거북선',  # 이순신 거북선 위키피디아
+
+    }
+
+    url3_map = {
+        '1': 'https://ko.wikipedia.org/wiki/학익진',  # 이순신 학익진 위키피디아
+    }
+
+    url4_map = {
+        '1': 'https://ko.wikipedia.org/wiki/한산도_대첩',  # 이순신 한산도 대첩 위키피디아
+    }
+
+    url5_map = {
+        '1': 'https://ko.wikipedia.org/wiki/명량_해전',  # 이순신 명량 해전 위키피디아
+    }
+
+    url6_map = {
+        '1': 'https://ko.wikipedia.org/wiki/노량_해전',  # 이순신 노량 해전 위키피디아
+    }
+
+    # 특정 키워드가 포함되었을 때만 RAG 검색
+    search_keywords_map = {
+        '1': ['이순신', '거북선', '학익진', '한산도대첩', '명량해전', '노량해전'],
+    }
     # 비동기식으로 Websocket 연결 되었을 때 로직
     async def connect(self):
         self.story_id = self.scope['url_route']['kwargs']['story_id']
@@ -74,172 +112,48 @@ class ChatConsumer(AsyncWebsocketConsumer):
     # 속도 증진을 위해 웹소켓 연결이 되었을 때 벡터스토어 생성까지 해둔다.
     async def initialize_vectorstore(self):
         try:
-            # url 가져오기
-            url1_map = {
-                '1': 'https://ko.wikipedia.org/wiki/이순신', #이순신 위키피디아
-                # 추후 고도화 작업 시 추가.
-                # '2': 'https://ko.wikipedia.org/wiki/세종대왕'),
-                # '3': 'https://ko.wikipedia.org/wiki/장영실'),
-                # '4': 'https://ko.wikipedia.org/wiki/유관순'),
-                # '5': 'https://ko.wikipedia.org/wiki/스티브잡스'),
-                # '6': 'https://ko.wikipedia.org/wiki/나폴레옹'),
-                # '7': 'https://ko.wikipedia.org/wiki/반고흐'),
-                # '8': 'https://ko.wikipedia.org/wiki/아인슈타인'),
-            }
+            self.story_id = self.scope['url_route']['kwargs']['story_id']
+            self.vectorstores = {}
 
-            url2_map = {
-                '1': 'https://ko.wikipedia.org/wiki/거북선', # 이순신 거북선 위키피디아
-
-            }
-
-            url3_map = {
-                '1': 'https://ko.wikipedia.org/wiki/학익진',  # 이순신 학익진 위키피디아
-            }
-
-            url4_map = {
-                '1': 'https://ko.wikipedia.org/wiki/한산도_대첩',  # 이순신 한산도 대첩 위키피디아
-            }
-
-            url5_map = {
-                '1': 'https://ko.wikipedia.org/wiki/명량_해전',  # 이순신 명량 해전 위키피디아
-            }
-
-            url6_map = {
-                '1': 'https://ko.wikipedia.org/wiki/노량_해전',  # 이순신 노량 해전 위키피디아
-            }
-
-            story_id = self.story_id
-
-            # 단계 1: 문서 로드(Load Documents)
-            # URL에서 내용을 로드하고, 청크로 나누고, 인덱싱합니다.
-            async def load_documents(story_id):
-                url1 = url1_map[story_id]
-                url2 = url2_map[story_id]
-                url3 = url3_map[story_id]
-                url4 = url4_map[story_id]
-                url5 = url5_map[story_id]
-                url6 = url6_map[story_id]
-
-                # 여러 url에서 데이터를 불러오기 위해 각기 다른 bs_kwargs를 설정
-                url1_bs_kwargs = dict(
-                    parse_only=bs4.SoupStrainer(
-                        "div",
-                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+            # url에 따른 문서 로드 및 벡터스토어 생성 함수
+            async def create_vectorstore_for_url(url, key):
+                loader = WebBaseLoader(
+                    web_paths=[url],
+                    bs_kwargs=dict(
+                        parse_only=bs4.SoupStrainer(
+                            "div",
+                            attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                        )
                     )
                 )
+                # 단계 1: 문서 로드(Load Documents)
+                docs = loader.load()
+                logger.info('문서 로드가 완료되었습니다.')
 
-                url2_bs_kwargs = dict(
-                    parse_only=bs4.SoupStrainer(
-                        "div",
-                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
-                    )
-                )
-
-                url3_bs_kwargs = dict(
-                    parse_only=bs4.SoupStrainer(
-                        "div",
-                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
-                    )
-                )
-
-                url4_bs_kwargs = dict(
-                    parse_only=bs4.SoupStrainer(
-                        "div",
-                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
-                    )
-                )
-
-                url5_bs_kwargs = dict(
-                    parse_only=bs4.SoupStrainer(
-                        "div",
-                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
-                    )
-                )
-
-                url6_bs_kwargs = dict(
-                    parse_only=bs4.SoupStrainer(
-                        "div",
-                        attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
-                    )
-                )
-
-                # 각각의 URL에 맞는 bs_kwargs를 사용하여 데이터를 로드
-                url1_loader = WebBaseLoader(
-                    web_paths=[url1],
-                    bs_kwargs=url1_bs_kwargs,
-                )
-
-                url2_loader = WebBaseLoader(
-                    web_paths=[url2],
-                    bs_kwargs=url2_bs_kwargs,
-                )
-
-                url3_loader = WebBaseLoader(
-                    web_paths=[url3],
-                    bs_kwargs=url3_bs_kwargs,
-                )
-
-                url4_loader = WebBaseLoader(
-                    web_paths=[url4],
-                    bs_kwargs=url4_bs_kwargs,
-                )
-
-                url5_loader = WebBaseLoader(
-                    web_paths=[url5],
-                    bs_kwargs=url5_bs_kwargs,
-                )
-
-                url6_loader = WebBaseLoader(
-                    web_paths=[url6],
-                    bs_kwargs=url6_bs_kwargs,
-                )
-
-                # 각각의 문서들을 로드하여 합치기
-                url1_docs = url1_loader.load()
-                url2_docs = url2_loader.load()
-                url3_docs = url3_loader.load()
-                url4_docs = url4_loader.load()
-                url5_docs = url5_loader.load()
-                url6_docs = url6_loader.load()
-
-                docs = url1_docs + url2_docs + url3_docs + url4_docs + url5_docs + url6_docs
-
-                return docs
-
-            # 단계 2: 문서 분할(Split Documents)
-            async def split_documents(docs):
+                # 단계 2: 문서 분할(Split Documents)
                 text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
                 splits = text_splitter.split_documents(docs)
-                return splits
+                logger.info('문서 분할이 완료되었습니다.')
 
-            # 단계 3: 임베딩 & 벡터스토어 생성(Create Vectorstore)
-            # 벡터스토어를 생성합니다.
-            # 속도 개선을 위해 병렬로 처리
-            def create_vectorstore_sync(splits):
+                # 단계 3: 임베딩 & 벡터스토어 생성(Create Vectorstore)
                 embeddings = FastEmbedEmbeddings()
                 vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
-                return vectorstore
+                return key, vectorstore
 
-            async def create_vectorstore(splits):
-                loop = asyncio.get_event_loop()
-                with ThreadPoolExecutor() as pool:
-                    vectorstore = await loop.run_in_executor(pool, partial(create_vectorstore_sync, splits))
-                return vectorstore
+            # 단계별 URL 로드 및 벡터스토어 생성
+            urls = {
+                '1': self.url1_map[self.story_id],
+                '2': self.url2_map.get(self.story_id, ''),
+                '3': self.url3_map.get(self.story_id, ''),
+                '4': self.url4_map.get(self.story_id, ''),
+                '5': self.url5_map.get(self.story_id, ''),
+                '6': self.url6_map.get(self.story_id, ''),
+            }
 
-            # 문서 로드 비동기 실행
-            docs_task = asyncio.create_task(load_documents(story_id))
-            docs = await docs_task
-            logger.info('문서 로드가 완료되었습니다.')
-
-            # 문서 분할 비동기 실행
-            splits_task = asyncio.create_task(split_documents(docs))
-            splits = await splits_task
-            logger.info('문서 분할이 완료되었습니다.')
-
-            # 벡터스토어 생성 비동기 실행
-            vectorstore_task = asyncio.create_task(create_vectorstore(splits))
-            self.vectorstore = await vectorstore_task
-            logger.info('벡터스토어 생성이 완료되었습니다.')
+            tasks = [asyncio.create_task(create_vectorstore_for_url(url, key)) for key, url in urls.items() if url]
+            results = await asyncio.gather(*tasks)
+            self.vectorstores = dict(results)
+            logger.info('벡터스토어가 성공적으로 생성되었습니다.')
 
         except Exception as e:
             logger.error(f"벡터스토어 초기화 중 오류 발생: {str(e)}")
@@ -324,14 +238,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
             #story_id에 따른 모델을 선정하는 로직
             model_map = {
                 '1': "ft:gpt-3.5-turbo-1106:personal::9nQeXXmm",
-                # 파인튜닝 진행될 떄 마다 추가
-                # '2': "gpt-3.5-turbo-1106:personal2",
-                # '3': "gpt-3.5-turbo-1106:personal3",
-                # '4': "gpt-3.5-turbo-1106:personal4",
-                # '5': "gpt-3.5-turbo-1106:personal5",
-                # '6': "gpt-3.5-turbo-1106:personal6",
-                # '7': "gpt-3.5-turbo-1106:personal7",
-                # '8': "gpt-3.5-turbo-1106:personal8",
             }
             # 파인튜닝 인식을 위한 인퍼런스
             studying_content_map = {
@@ -341,10 +247,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             if self.story_id in model_map:
                 model = model_map[self.story_id]
                 studying_content = studying_content_map[self.story_id]
-
-                # 메시지 리스트가 길 경우 자르기
-                while len(messages_history) > 50:
-                    messages_history.pop(0)
+                search_keywords = self.search_keywords_map[self.story_id]
 
                 # "role"이 "user"일 때의 가장 최근 1개의 "content" 추출
                 user_messages_history = [msg["content"] for msg in messages_history if msg["role"] == "user"][-1:]
@@ -352,38 +255,71 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 # "role"이 "assistant"일 때의 가장 최근 1개의 "content" 추출
                 assistant_messages_history = [msg["content"] for msg in messages_history if msg["role"] == "assistant"][-1:]
 
-                 # 단계 4: 검색(Search)
-                # URL에 포함되어 있는 정보를 검색하고 생성합니다.
-                retriever = self.vectorstore.as_retriever(search_kwargs=dict(k=1))
-                retrieved_docs = retriever.get_relevant_documents(user_message)
-                logger.info(f"검색된 문서: {retrieved_docs}")
+                # 특정 키워드가 포함된 경우에만 RAG 검색 실행
+                keywords = search_keywords
+                if any(keyword in user_message for keyword in keywords):
+                    # 특정 키워드에 따라 벡터스토어를 선택하는 로직
+                    def select_vectorstore(user_message):
+                        vectorstores = []
+                        if "이순신" in user_message:
+                            vectorstores.append(self.vectorstores.get('1'))
+                        if "거북선" in user_message:
+                            vectorstores.append(self.vectorstores.get('2'))
+                        if "학익진" in user_message:
+                            vectorstores.append(self.vectorstores.get('3'))
+                        if "한산도대첩" in user_message:
+                            vectorstores.append(self.vectorstores.get('4'))
+                        if "명량해전" in user_message:
+                            vectorstores.append(self.vectorstores.get('5'))
+                        if "노량해전" in user_message:
+                            vectorstores.append(self.vectorstores.get('6'))
+                        return vectorstores
 
-                # 단계 5: 프롬프트 생성(Create Prompt)
-                # 프롬프트를 생성합니다.
-                prompt = hub.pull("rlm/rag-prompt")
-                logger.info('프롬포트 생성이 완료되었습니다.')
+                    # RAG 검색에 사용될 벡터스토어 선택
+                    selected_vectorstores = select_vectorstore(user_message)
 
-                def format_docs(docs):
-                    # 검색한 문서 결과를 하나의 문단으로 합쳐줍니다.
-                    return "\n\n".join(doc.page_content for doc in docs)
-                logger.info('문서 합병이 완료되었습니다.')
+                    if selected_vectorstores:
+                        # 여러 벡터스토어를 합쳐서 검색할 수 있도록 처리
+                        all_retrieved_docs = []
+                        for vectorstore in selected_vectorstores:
+                            retriever = vectorstore.as_retriever(search_kwargs=dict(k=1))
+                            retrieved_docs = retriever.get_relevant_documents(user_message)
+                            all_retrieved_docs.extend(retrieved_docs)
 
-                # 단계 6: LLM 모델 생성 (기존 모델 불러오기)
-                llm = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY)
-                logger.info('LLM 모델 생성이 완료되었습니다.')
+                        # 중복된 문서 제거 (필요한 경우)
+                        unique_retrieved_docs = list({doc.page_content: doc for doc in all_retrieved_docs}.values())
+                        logger.info(f"검색된 문서: {unique_retrieved_docs}")
 
-                # 단계 7: 체인 생성(Create Chain)
-                rag_chain = (
-                        {"context": retriever | format_docs, "question": RunnablePassthrough()}
-                        | prompt
-                        | llm
-                        | StrOutputParser()
-                )
-                logger.info('체인 생성이 완료되었습니다.')
+                        # 단계 5: 프롬프트 생성(Create Prompt)
+                        prompt = hub.pull("rlm/rag-prompt")
+                        logger.info('프롬프트 생성이 완료되었습니다.')
 
-               # 단계 8: 비동기로 체인 실행(Run Chain)
-                rag_response = await asyncio.to_thread(rag_chain.invoke, user_message)
-                logger.info('체인 실행이 완료되었습니다.')
+                        def format_docs(docs):
+                            # 검색한 문서 결과를 하나의 문단으로 합쳐줍니다.
+                            return "\n\n".join(doc.page_content for doc in docs)
+
+                        logger.info('문서 합병이 완료되었습니다.')
+
+                        # 단계 6: LLM 모델 생성 (기존 모델 불러오기)
+                        llm = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY)
+                        logger.info('LLM 모델 생성이 완료되었습니다.')
+
+                        # 단계 7: 체인 생성(Create Chain)
+                        rag_chain = (
+                                {"context": retriever | format_docs, "question": RunnablePassthrough()}
+                                | prompt
+                                | llm
+                                | StrOutputParser()
+                        )
+                        logger.info('체인 생성이 완료되었습니다.')
+
+                        # 단계 8: 비동기로 체인 실행(Run Chain)
+                        rag_response = await asyncio.to_thread(rag_chain.invoke, user_message)
+                        logger.info('체인 실행이 완료되었습니다.')
+                    else:
+                        rag_response = None
+                else:
+                    rag_response = None
 
                 # 메시지 리스트 구성
                 messages = [
