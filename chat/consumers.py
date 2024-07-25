@@ -80,7 +80,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     # 특정 키워드가 포함되었을 때만 RAG 검색
     search_keywords_map = {
-        '1': ['이순신', '거북선', '학익진', '한산도대첩', '명량해전', '노량해전', '난중일기'],
+        '1': ['이순신', '거북선', '학익진', '한산도대첩', '한산도 대첩', '명량해전', '명량 해전', '노량해전', '노량 해전' , '난중일기', '난중 일기'],
     }
     # 비동기식으로 Websocket 연결 되었을 때 로직
     async def connect(self):
@@ -135,7 +135,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 logger.info('문서 로드가 완료되었습니다.')
 
                 # 단계 2: 문서 분할(Split Documents)
-                text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
+                text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=50)
                 splits = text_splitter.split_documents(docs)
                 logger.info('문서 분할이 완료되었습니다.')
 
@@ -267,13 +267,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
                             vectorstores.append(self.vectorstores.get('2'))
                         if "학익진" in user_message:
                             vectorstores.append(self.vectorstores.get('3'))
-                        if "한산도대첩" in user_message:
+                        if "한산도" in user_message:
                             vectorstores.append(self.vectorstores.get('4'))
-                        if "명량해전" in user_message:
+                        if "명량" in user_message:
                             vectorstores.append(self.vectorstores.get('5'))
-                        if "노량해전" in user_message:
+                        if "노량" in user_message:
                             vectorstores.append(self.vectorstores.get('6'))
-                        if "난중일기" in user_message:
+                        if "난중" in user_message:
                             vectorstores.append(self.vectorstores.get('7'))
                         return vectorstores
 
@@ -330,16 +330,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         {"role": "system", "content": "너는 이제부터 이순신이야. 이순신 장군의 말투로 하오체를 사용하여 대답해."},
                         {"role": "system", "content": "모든 대화는 자연스럽게 이어가고, 사용자의 질문에 어울리는 대답해. 해요체를 절대 사용하지 마."},
                         {"role": "system", "content": "이순신 장군의 말투를 유지하고, 절대 자신을 '이순신 챗봇'이나 '이순신에 빙의했다'라고 하지 마."},
-                        {"role": "system", "content": "너의 대답에 '이순신'이라는 단어가 포함되면 이를 '소인'으로 바꿔."},
-                        {"role": "system", "content": "괄호, 한자, 영어를 사용하지 말고, 모든 정보를 자연스럽게 설명해."},
+                        {"role": "system", "content": "너는 이순신 장군에 대한 1인칭으로 답을 해."},
+                        {"role": "system", "content": "괄호, 한자, 영어를 사용하지 말고, 모든 대화를 자연스럽게 이어나가."},
                         # 사용자 메시지
                         {"role": "user", "content": user_message},
                         # 최근 대화 내역
                         {"role": "system", "content": f"나의 최근 질문: '{user_messages_history}'"},
                         {"role": "system", "content": f"너의 최근 답변: '{assistant_messages_history}'"},
                         # RAG에서 얻어온 정보
-                        {"role": "system",
-                         "content": f"이 내용에 대해서 구체적으로 자세하게 설명해. 이순신 장군의 자랑스러운 말투를 사용해.: '{rag_response}'"},
+                        {"role": "system", "content": f"이순신 장군의 말투로 다음 내용을 자연스럽게 변환하여 구체적으로 대답해.: '{rag_response}'"},
                     ]
                 #elif self.story_id == '2':
                     #messages = [
@@ -354,6 +353,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
                 if response and response.choices and len(response.choices) > 0:
                     gpt_response = response.choices[0].message.content
+
+                    #강제 1인칭 처리
+                    def postprocess_response(gpt_response):
+                        if self.story_id == '1':
+                            return gpt_response.replace("이순신", "소인")
+                        #if self.story_id == '2':
+                            #return gpt_response.replace("세종대왕", "임금")
+                    gpt_response = postprocess_response(gpt_response)
+
                     messages_history.append({"role": "assistant", "content": gpt_response})
                     redis_conn.ltrim(cache_key, -6, -1)  # 최근 6개의 대화만 유지
                     redis_conn.rpush(cache_key, json.dumps({"role": "user", "content": user_message}))
