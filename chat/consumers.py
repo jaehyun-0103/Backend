@@ -82,6 +82,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
     search_keywords_map = {
         '1': ['이순신', '거북선', '학익진', '한산도대첩', '한산도 대첩', '명량해전', '명량 해전', '노량해전', '노량 해전' , '난중일기', '난중 일기'],
     }
+
     # 비동기식으로 Websocket 연결 되었을 때 로직
     async def connect(self):
         self.story_id = self.scope['url_route']['kwargs']['story_id']
@@ -135,7 +136,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 logger.info('문서 로드가 완료되었습니다.')
 
                 # 단계 2: 문서 분할(Split Documents)
-                text_splitter = RecursiveCharacterTextSplitter(chunk_size=2000, chunk_overlap=50)
+                text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
                 splits = text_splitter.split_documents(docs)
                 logger.info('문서 분할이 완료되었습니다.')
 
@@ -327,17 +328,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 if self.story_id == '1':
                     #RAG 정보가 있을 때와 없을 때 구분
                     if rag_response is not None:
-                        rag_message = f"이순신 장군의 말투로 자연스럽게 변환하여 구체적으로 자세하게 대답해.: '{rag_response}'"
+                        rag_message = f"다음 내용을 위주로 이순신 장군의 말투로 자연스럽게 변환하여 너가 할 수 있는 최대한으로 자세하게 대답해.: '{rag_response}'"
                     else:
                         rag_message = "이순신 장군의 말투로 사용자와 자연스럽게 간단한 대화를 진행해."
 
                     messages = [
                         # 프롬프트
-                        {"role": "system", "content": "너는 이제부터 이순신이야. 이순신 장군의 말투로 하오체를 사용하여 대답해."},
-                        {"role": "system", "content": "모든 대화는 자연스럽게 이어가고, 사용자의 질문에 어울리는 대답해. 해요체를 절대 사용하지 마."},
-                        {"role": "system", "content": "이순신 장군의 말투를 유지하고, 절대 자신을 '이순신 챗봇'이나 '이순신에 빙의했다'라고 하지 마."},
-                        {"role": "system", "content": "너는 이순신 장군에 대한 1인칭으로 답을 해."},
+                        {"role": "system", "content": "너는 이제부터 이순신이야. 어떠한 상황이라도 이순신 장군의 말투로 하오체를 사용하여 대답해."},
+                        {"role": "system", "content": "이순신 장군의 말투를 유지하고, 1인칭을 유지하며, 절대 자신을 '이순신 챗봇'이나 '이순신에 빙의했다'라고 하지 마."},
                         {"role": "system", "content": "괄호, 한자, 영어를 사용하지 말고, 모든 대화를 자연스럽게 이어나가."},
+                        {"role": "system", "content": "추천 질문은 보내지 말고, 나의 물음에 알맞는 답변만 해. 나한테 되묻는 질문은 하지 마."},
                         # 사용자 메시지
                         {"role": "user", "content": user_message},
                         # 최근 대화 내역
@@ -345,6 +345,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         {"role": "system", "content": f"너의 최근 답변: '{assistant_messages_history}'"},
                         # RAG에서 얻어온 정보
                         {"role": "system", "content": f"'{rag_message}'"},
+                        # 최종 말투 보정
+                        {"role": "system", "content": "너가 이순신임을 절대 잊지 말고, 모든 상황에 이순신의 말투를 적용시키며 하오체로 대답해."},
                     ]
                 #elif self.story_id == '2':
                     # if rag_response is not None:
