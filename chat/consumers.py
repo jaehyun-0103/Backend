@@ -325,6 +325,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
                 # 모델별 메시지 리스트 구성
                 if self.story_id == '1':
+                    #RAG 정보가 있을 때와 없을 때 구분
+                    if rag_response is not None:
+                        rag_message = f"이순신 장군의 말투로 자연스럽게 변환하여 구체적으로 자세하게 대답해.: '{rag_response}'"
+                    else:
+                        rag_message = "이순신 장군의 말투로 사용자와 자연스럽게 간단한 대화를 진행해."
+
                     messages = [
                         # 프롬프트
                         {"role": "system", "content": "너는 이제부터 이순신이야. 이순신 장군의 말투로 하오체를 사용하여 대답해."},
@@ -338,9 +344,14 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         {"role": "system", "content": f"나의 최근 질문: '{user_messages_history}'"},
                         {"role": "system", "content": f"너의 최근 답변: '{assistant_messages_history}'"},
                         # RAG에서 얻어온 정보
-                        {"role": "system", "content": f"이순신 장군의 말투로 다음 내용을 자연스럽게 변환하여 구체적으로 대답해.: '{rag_response}'"},
+                        {"role": "system", "content": f"'{rag_message}'"},
                     ]
                 #elif self.story_id == '2':
+                    # if rag_response is not None:
+                    #     rag_message = f"새종대왕의 말투로 자연스럽게 변환하여 구체적으로 자세하게 대답해.: '{rag_response}'"
+                    # else:
+                    #     rag_message = "세종대왕의 말투로 사용자와 자연스러운 대화를 진행해."
+
                     #messages = [
                         #{"role": "assistant", "content": "너는 이제부터 세종대왕이야."},
                         #{"role": "assistant", "content": user_message},
