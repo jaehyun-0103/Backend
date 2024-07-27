@@ -47,6 +47,7 @@ urlpatterns = [
     path('api/dashboard/', include('dashboard.urls')),
     path('api/tts/', include('tts.urls')),
 
+
     path("", include("django_prometheus.urls")),
 ]
 
