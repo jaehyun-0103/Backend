@@ -39,13 +39,13 @@ urlpatterns = [
     path(r'swagger', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path(r'redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-v1'),
 
-    path("admin/", admin.site.urls),
-    path('users/', include('user.urls')),
-    path('quizzes/', include('quiz.urls')),
-    path('greats/', include('story.urls')),
-    path('chat/', include('chat.urls')),
-    path('dashboard/', include('dashboard.urls')),
-    path('tts/', include('tts.urls')),
+    path("api/admin/", admin.site.urls),
+    path('api/users/', include('user.urls')),
+    path('api/quizzes/', include('quiz.urls')),
+    path('api/greats/', include('story.urls')),
+    path('api/chat/', include('chat.urls')),
+    path('api/dashboard/', include('dashboard.urls')),
+    path('api/tts/', include('tts.urls')),
 
     path("", include("django_prometheus.urls")),
 ]
