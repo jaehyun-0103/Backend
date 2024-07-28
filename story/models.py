@@ -9,7 +9,6 @@ class Story(models.Model):
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=10)
-    silhouette_url = models.CharField(max_length=255)
     front_url = models.CharField(max_length=255)
     back_url = models.CharField(max_length=255)
     saying_url = models.CharField(max_length=255)

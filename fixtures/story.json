@@ -4,7 +4,6 @@
     "pk": 1,
     "fields": {
       "name": "이순신",
-      "silhouette_url": "silhouette/이순신 실루엣.png",
       "front_url": "front/이순신 앞면.png",
       "back_url": "back/이순신 뒷면.png",
       "saying_url": "saying/이순신 명언.png",
@@ -24,7 +23,6 @@
     "pk": 2,
     "fields": {
       "name": "세종대왕",
-      "silhouette_url": "silhouette/세종대왕 실루엣.png",
       "front_url": "front/세종대왕 앞면.png",
       "back_url": "back/세종대왕 뒷면.png",
       "saying_url": "saying/세종대왕 명언.png",
@@ -44,7 +42,6 @@
     "pk": 3,
     "fields": {
       "name": "장영실",
-      "silhouette_url": "silhouette/장영실 실루엣.png",
       "front_url": "front/장영실 앞면.png",
       "back_url": "back/장영실 뒷면.png",
       "saying_url": "saying/장영실 명언.png",
@@ -64,7 +61,6 @@
     "pk": 4,
     "fields": {
       "name": "유관순",
-      "silhouette_url": "silhouette/유관순 실루엣.png",
       "front_url": "front/유관순 앞면.png",
       "back_url": "back/유관순 뒷면.png",
       "saying_url": "saying/유관순 명언.png",
@@ -84,7 +80,6 @@
     "pk": 5,
     "fields": {
       "name": "스티브 잡스",
-      "silhouette_url": "silhouette/스티브 잡스 실루엣.png",
       "front_url": "front/스티브 잡스 앞면.png",
       "back_url": "back/스티브 잡스 뒷면.png",
       "saying_url": "saying/스티브 잡스 명언.png",
@@ -104,7 +99,6 @@
     "pk": 6,
     "fields": {
       "name": "나폴레옹",
-      "silhouette_url": "silhouette/나폴레옹 실루엣.png",
       "front_url": "front/나폴레옹 앞면.png",
       "back_url": "back/나폴레옹 뒷면.png",
       "saying_url": "saying/나폴레옹 명언.png",
@@ -124,7 +118,6 @@
     "pk": 7,
     "fields": {
       "name": "반 고흐",
-      "silhouette_url": "silhouette/반 고흐 실루엣.png",
       "front_url": "front/반 고흐 앞면.png",
       "back_url": "back/반 고흐 뒷면.png",
       "saying_url": "saying/반 고흐 명언.png",
@@ -144,7 +137,6 @@
     "pk": 8,
     "fields": {
       "name": "아인슈타인",
-      "silhouette_url": "silhouette/아인슈타인 실루엣.png",
       "front_url": "front/아인슈타인 앞면.png",
       "back_url": "back/아인슈타인 뒷면.png",
       "saying_url": "saying/아인슈타인 명언.png",

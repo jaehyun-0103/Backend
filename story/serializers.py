@@ -6,14 +6,13 @@ from django.conf import settings
 class GreatsSerializer(serializers.ModelSerializer):
     greatId = serializers.IntegerField(source='id')
     puzzle_cnt = serializers.SerializerMethodField()
-    silhouette_url = serializers.SerializerMethodField()
     front_url = serializers.SerializerMethodField()
     back_url = serializers.SerializerMethodField()
     saying_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Story
-        fields = ['greatId', 'name', 'silhouette_url', 'front_url', 'back_url', 'saying', 'puzzle_cnt', 'saying',
+        fields = ['greatId', 'name', 'front_url', 'back_url', 'saying', 'puzzle_cnt', 'saying',
                   'saying_url', 'nation', 'field']
 
     def get_puzzle_cnt(self, obj):
@@ -23,9 +22,6 @@ class GreatsSerializer(serializers.ModelSerializer):
             if result:
                 return result.puzzle_cnt
         return 0
-
-    def get_silhouette_url(self, obj):
-        return self.get_s3_url(obj.silhouette_url)
 
     def get_front_url(self, obj):
         return self.get_s3_url(obj.front_url)
