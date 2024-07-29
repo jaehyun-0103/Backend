@@ -18,6 +18,9 @@ RUN pip install --upgrade pip
 COPY requirements.txt /backend/
 RUN pip install --no-cache-dir -r requirements.txt
 
+#Fastapi와 Uvicorn 설치
+RUN pip install fastapi uvicorn
+
 # 소스 코드 복사
 COPY . /backend
 
