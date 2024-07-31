@@ -142,12 +142,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
                 # 단계 3: 임베딩 & 벡터스토어 생성(Create Vectorstore)
                 embeddings = FastEmbedEmbeddings()
-                vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
+                vectorstore = await asyncio.to_thread(FAISS.from_documents(documents=splits, embedding=embeddings))
                 return key, vectorstore
 
             # 단계별 URL 로드 및 벡터스토어 생성
             urls = {
-                '1': self.url1_map[self.story_id],
+                '1': self.url1_map.get(self.story_id, ''),
                 '2': self.url2_map.get(self.story_id, ''),
                 '3': self.url3_map.get(self.story_id, ''),
                 '4': self.url4_map.get(self.story_id, ''),
