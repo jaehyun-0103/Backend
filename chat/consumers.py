@@ -83,16 +83,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         '1': ['이순신', '거북선', '학익진', '한산도대첩', '한산도 대첩', '명량해전', '명량 해전', '노량해전', '노량 해전' , '난중일기', '난중 일기'],
     }
 
-    # 비동기식으로 Websocket 연결 되었을 때 로직
-    async def connect(self):
+    # Websocket 연결 되었을 때 로직
+    def connect(self):
         self.story_id = self.scope['url_route']['kwargs']['story_id']
         self.room_group_name = f'chat_{self.story_id}'
 
-        await self.channel_layer.group_add(
-            self.room_group_name,
-            self.channel_name
+        self.channel_layer.group_add(
+        self.room_group_name,
+        self.channel_name
         )
-        await self.accept()
+        self.accept()
 
         logger.info(f'WebSocket connected: Story ID {self.story_id}')
 
@@ -106,12 +106,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
             initial_message = self.initial_message_map[self.story_id]
 
             # 클라이언트에게 초기 인사 메시지 전송
-            await self.send(text_data=json.dumps({
+            self.send(text_data=json.dumps({
                 'message': initial_message
             }))
 
         # 벡터 스토어 생성 작업 비동기 실행
-        await self.initialize_vectorstore()
+        self.initialize_vectorstore()
 
     # 벡터 스토어 초기화 함수
     # 속도 증진을 위해 웹소켓 연결이 되었을 때 벡터스토어 생성까지 해둔다.
@@ -164,11 +164,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         except Exception as e:
             logger.error(f"벡터스토어 초기화 중 오류 발생: {str(e)}")
 
-    # 비동기식으로 Websocket 연결 종료할 때 로직
-    async def disconnect(self, close_code):
-        await self.channel_layer.group_discard(
-            self.room_group_name,
-            self.channel_name
+    # Websocket 연결 종료할 때 로직
+    def disconnect(self, close_code):
+        self.channel_layer.group_discard(
+        self.room_group_name,
+        self.channel_name
         )
 
         logger.info(f'WebSocket disconnected: Story ID {self.story_id}')
