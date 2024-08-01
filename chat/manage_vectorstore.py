@@ -2,7 +2,7 @@
 import asyncio
 from django.conf import settings
 from django_redis import get_redis_connection
-from chat.consumers import ChatConsumer
+from .consumers import ChatConsumer
 
 async def initialize_vectorstore():
     consumer = ChatConsumer()
