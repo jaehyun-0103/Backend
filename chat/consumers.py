@@ -12,6 +12,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain.chat_models import ChatOpenAI
 from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
+import numpy as np
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 logger = logging.getLogger(__name__)
@@ -24,18 +25,30 @@ logger.addHandler(file_handler)
 client = OpenAI(api_key=settings.OPENAI_API_KEY)
 redis_conn = get_redis_connection("default")
 
+
 async def save_vectorstore_to_file(vectorstore, file_path):
     try:
-        with open(file_path, 'wb') as file:
-            pickle.dump(vectorstore, file)
+        # Save the vectors and metadata separately
+        with open(file_path + '_vectors.npy', 'wb') as file:
+            np.save(file, vectorstore.index.reconstruct_n(0, vectorstore.index.ntotal))
+        with open(file_path + '_metadata.json', 'w') as file:
+            json.dump(vectorstore.metadata, file)
         logger.info(f'벡터스토어가 {file_path}에 저장되었습니다.')
     except Exception as e:
         logger.error(f"벡터스토어 파일 저장 중 오류 발생: {str(e)}")
 
+
 async def load_vectorstore_from_file(file_path):
     try:
-        with open(file_path, 'rb') as file:
-            vectorstore = pickle.load(file)
+        with open(file_path + '_vectors.npy', 'rb') as file:
+            vectors = np.load(file)
+        with open(file_path + '_metadata.json', 'r') as file:
+            metadata = json.load(file)
+
+        # Create the vectorstore from vectors and metadata
+        embeddings = FastEmbedEmbeddings()  # Make sure to use the same embeddings
+        vectorstore = FAISS.from_vectors_and_metadata(vectors, metadata, embedding=embeddings)
+
         logger.info(f'벡터스토어가 {file_path}에서 로드되었습니다.')
         return vectorstore
     except Exception as e:
