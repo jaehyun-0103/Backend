@@ -151,12 +151,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 logger.info('문서 분할이 완료되었습니다.')
 
                 # 단계 3: 임베딩 & 벡터스토어 생성(Create Vectorstore)
-                def create_vectorstore(splits):
-                    embeddings = FastEmbedEmbeddings()
-                    return FAISS.from_documents(documents=splits, embedding=embeddings)
-
-                # 벡터스토어 생성 비동기 처리
-                vectorstore = await asyncio.to_thread(create_vectorstore, splits)
+                embeddings = FastEmbedEmbeddings()
+                vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
                 return key, vectorstore
 
             # 단계별 URL 로드 및 벡터스토어 생성
@@ -170,7 +166,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 '7': self.url7_map.get(self.story_id, ''),
             }
 
-            tasks = [create_vectorstore_for_url(url, key) for key, url in urls.items() if url]
+            tasks = [asyncio.create_task(create_vectorstore_for_url(url, key)) for key, url in urls.items() if url]
             results = await asyncio.gather(*tasks)
             self.vectorstores = dict(results)
             logger.info('벡터스토어가 성공적으로 생성되었습니다.')
