@@ -65,62 +65,39 @@ class ChatConsumer(AsyncWebsocketConsumer):
     url7_map = {
         '1': 'https://ko.wikipedia.org/wiki/난중일기', # 이순신 난중일기 위키피디아
     }
-
     # 특정 키워드가 포함되었을 때만 RAG 검색
     search_keywords_map = {
         '1': ['이순신', '거북선', '학익진', '한산도대첩', '한산도 대첩', '명량해전', '명량 해전', '노량해전', '노량 해전' , '난중일기', '난중 일기'],
     }
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.vectorstores = {}
-
     # 비동기식으로 Websocket 연결 되었을 때 로직
     async def connect(self):
         self.story_id = self.scope['url_route']['kwargs']['story_id']
         self.room_group_name = f'chat_{self.story_id}'
-
         await self.channel_layer.group_add(
             self.room_group_name,
             self.channel_name
         )
         await self.accept()
-
         logger.info(f'WebSocket connected: Story ID {self.story_id}')
-
         # Redis 캐시 초기화
         cache_key = f'gptchat_{self.story_id}'
         redis_conn.delete(cache_key)
         logger.info(f'Redis cache reset for Story ID {self.story_id}')
-
         # 초기 인사 메시지 설정
         if self.story_id in self.initial_message_map:
             initial_message = self.initial_message_map[self.story_id]
-
             # 클라이언트에게 초기 인사 메시지 전송
             await self.send(text_data=json.dumps({
                 'message': initial_message
             }))
-
-        # 벡터 스토어 초기화
-        if not self.vectorstores:
-            await self.initialize_vectorstore()
-
+        # 벡터 스토어 생성 작업 비동기 실행
+        await self.initialize_vectorstore()
     # 벡터 스토어 초기화 함수
+    # 속도 증진을 위해 웹소켓 연결이 되었을 때 벡터스토어 생성까지 해둔다.
     async def initialize_vectorstore(self):
         try:
             self.story_id = self.scope['url_route']['kwargs']['story_id']
-            # Redis에 저장된 벡터스토어가 있는지 확인
-            redis_key = f'vectorstore_{self.story_id}'
-            vectorstore_data = redis_conn.get(redis_key)
-
-            if vectorstore_data:
-                logger.info('벡터스토어를 Redis에서 불러왔습니다.')
-                self.vectorstores = json.loads(vectorstore_data)
-                return
-
-            logger.info('벡터스토어가 Redis에 없으므로 새로 생성합니다.')
-
+            self.vectorstores = {}
             # url에 따른 문서 로드 및 벡터스토어 생성 함수
             async def create_vectorstore_for_url(url, key):
                 loader = WebBaseLoader(
@@ -143,7 +120,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 embeddings = FastEmbedEmbeddings()
                 vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
                 return key, vectorstore
-
             # 단계별 URL 로드 및 벡터스토어 생성
             urls = {
                 '1': self.url1_map.get(self.story_id, ''),
@@ -157,11 +133,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             tasks = [asyncio.create_task(create_vectorstore_for_url(url, key)) for key, url in urls.items() if url]
             results = await asyncio.gather(*tasks)
             self.vectorstores = dict(results)
-
-            # Redis에 벡터스토어 저장
-            redis_conn.set(redis_key, json.dumps(self.vectorstores))
             logger.info('벡터스토어가 성공적으로 생성되었습니다.')
-
         except Exception as e:
             logger.error(f"벡터스토어 초기화 중 오류 발생: {str(e)}")
 
