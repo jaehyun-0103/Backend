@@ -12,7 +12,6 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain.chat_models import ChatOpenAI
 from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
-from .manage_vectorstore import global_vectorstores
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 
@@ -110,6 +109,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
             }))
 
         # 미리 생성된 벡터스토어를 불러옴
+        from .manage_vectorstore import global_vectorstores
+        pass
         self.vectorstores = global_vectorstores
         logger.info('Using pre-loaded vectorstores.')
 
