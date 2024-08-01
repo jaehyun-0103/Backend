@@ -1,5 +1,5 @@
 #chat/consumers.py
-import json, logging, requests, base64, bs4, asyncio, pickle
+import json, logging, requests, base64, bs4, asyncio, pickle, faiss
 from channels.generic.websocket import AsyncWebsocketConsumer
 from openai import OpenAI
 from django.conf import settings
@@ -28,29 +28,19 @@ redis_conn = get_redis_connection("default")
 
 async def save_vectorstore_to_file(vectorstore, file_path):
     try:
-        # Save the FAISS index directly to a file
-        vectorstore.index.save(file_path)
-        # Save the metadata as a separate file
-        with open(file_path + '_metadata.json', 'w') as file:
-            json.dump(vectorstore.metadata, file)
-        logger.info(f'벡터스토어가 {file_path}에 저장되었습니다.')
+        index = vectorstore.index  # Assume vectorstore has an attribute 'index'
+        faiss.write_index(index, file_path)
+        logger.info(f'벡터스토어가 파일로 저장되었습니다: {file_path}')
     except Exception as e:
         logger.error(f"벡터스토어 파일 저장 중 오류 발생: {str(e)}")
 
-
 async def load_vectorstore_from_file(file_path):
     try:
-        # Load the FAISS index directly from the file
-        index = FAISS.load(file_path)
-        # Load the metadata
-        with open(file_path + '_metadata.json', 'r') as file:
-            metadata = json.load(file)
-
-        # Create the vectorstore from the index and metadata
-        embeddings = FastEmbedEmbeddings()  # Make sure to use the same embeddings
-        vectorstore = FAISS(index=index, metadata=metadata, embedding=embeddings)
-
-        logger.info(f'벡터스토어가 {file_path}에서 로드되었습니다.')
+        index = faiss.read_index(file_path)
+        # Create vectorstore instance from index
+        # Replace `YourVectorStoreClass` with actual class you are using
+        vectorstore = ChatConsumer(index)
+        logger.info(f'벡터스토어가 파일에서 로드되었습니다: {file_path}')
         return vectorstore
     except Exception as e:
         logger.error(f"벡터스토어 파일 로드 중 오류 발생: {str(e)}")
@@ -192,15 +182,15 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
             tasks = [asyncio.create_task(create_vectorstore_for_url(url, key)) for key, url in urls.items() if url]
             results = await asyncio.gather(*tasks)
-            self.vectorstores = dict(results)
 
-            # 벡터스토어를 파일로 저장
-            await save_vectorstore_to_file(self.vectorstores, vectorstore_file_path)
-            redis_conn.set(redis_key, vectorstore_file_path)
-            logger.info('벡터스토어가 저장되었습니다.')
+            # Save each vectorstore to file and update Redis
+            for key, vectorstore in results:
+                vectorstore_file_path_for_key = f'{vectorstore_file_path}_{key}'
+                await save_vectorstore_to_file(vectorstore, vectorstore_file_path_for_key)
+                redis_conn.set(f'{redis_key}_{key}', vectorstore_file_path_for_key)
+                logger.info(f'벡터스토어 {key}가 저장되었습니다.')
 
-        except Exception as e:
-            logger.error(f"벡터스토어 초기화 중 오류 발생: {str(e)}")
+            self.vectorstores = {key: vectorstore for key, vectorstore in results}
 
     # 비동기식으로 Websocket 연결 종료할 때 로직
     async def disconnect(self, close_code):
