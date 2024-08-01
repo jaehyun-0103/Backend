@@ -1,5 +1,5 @@
 #chat/consumers.py
-import json, logging, requests, base64, bs4, asyncio, os, pickle
+import json, logging, requests, base64, bs4, asyncio
 from channels.generic.websocket import AsyncWebsocketConsumer
 from openai import OpenAI
 from django.conf import settings
@@ -14,22 +14,15 @@ from langchain.chat_models import ChatOpenAI
 from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
-
 logger = logging.getLogger(__name__)
-
 # 파일 핸들러 추가
 file_handler = logging.FileHandler('application.log')
 file_handler.setLevel(logging.INFO)
 formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
 file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
-
 client = OpenAI(api_key=settings.OPENAI_API_KEY)
 redis_conn = get_redis_connection("default")
-
-# 벡터스토어를 메모리에서 직접 로드
-vectorstore_path = 'path_to_vectorstores'  # 벡터스토어 저장 경로 설정
-
 class ChatConsumer(AsyncWebsocketConsumer):
     # 각 모델의 초기 인사, 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
     initial_message_map = {
@@ -42,7 +35,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         '7': "아직 개발 진행 중인 모델입니다.",
         '8': "아직 개발 진행 중인 모델입니다.",
     }
-
     # url 가져오기
     url1_map = {
         '1': 'https://ko.wikipedia.org/wiki/이순신',  # 이순신 위키피디아
@@ -55,28 +47,21 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # '7': 'https://ko.wikipedia.org/wiki/반고흐'),
         # '8': 'https://ko.wikipedia.org/wiki/아인슈타인'),
     }
-
     url2_map = {
         '1': 'https://ko.wikipedia.org/wiki/거북선',  # 이순신 거북선 위키피디아
-
     }
-
     url3_map = {
         '1': 'https://ko.wikipedia.org/wiki/학익진',  # 이순신 학익진 위키피디아
     }
-
     url4_map = {
         '1': 'https://ko.wikipedia.org/wiki/한산도_대첩',  # 이순신 한산도 대첩 위키피디아
     }
-
     url5_map = {
         '1': 'https://ko.wikipedia.org/wiki/명량_해전',  # 이순신 명량 해전 위키피디아
     }
-
     url6_map = {
         '1': 'https://ko.wikipedia.org/wiki/노량_해전',  # 이순신 노량 해전 위키피디아
     }
-
     url7_map = {
         '1': 'https://ko.wikipedia.org/wiki/난중일기', # 이순신 난중일기 위키피디아
     }
@@ -86,19 +71,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         '1': ['이순신', '거북선', '학익진', '한산도대첩', '한산도 대첩', '명량해전', '명량 해전', '노량해전', '노량 해전' , '난중일기', '난중 일기'],
     }
 
-    def load_vectorstores(self):
-        # 벡터스토어를 파일에서 로드하는 함수
-        try:
-            self.vectorstores = {}
-            for key in ['1', '2', '3', '4', '5', '6', '7']:
-                file_path = f'{vectorstore_path}/vectorstore_{key}.pkl'
-                if os.path.exists(file_path):
-                    with open(file_path, 'rb') as f:
-                        self.vectorstores[key] = pickle.load(f)
-                else:
-                    logger.warning(f"벡터스토어 파일이 존재하지 않습니다: {file_path}")
-        except Exception as e:
-            logger.error(f"벡터스토어 로드 중 오류 발생: {str(e)}")
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.vectorstores = {}
 
     # 비동기식으로 Websocket 연결 되었을 때 로직
     async def connect(self):
@@ -118,9 +93,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         redis_conn.delete(cache_key)
         logger.info(f'Redis cache reset for Story ID {self.story_id}')
 
-        # 벡터스토어를 메모리에서 로드
-        self.load_vectorstores()
-
         # 초기 인사 메시지 설정
         if self.story_id in self.initial_message_map:
             initial_message = self.initial_message_map[self.story_id]
@@ -130,18 +102,24 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'message': initial_message
             }))
 
-        # 벡터스토어가 아직 로드되지 않은 경우, 로드 시도
-        if self.story_id not in self.vectorstores:
+        # 벡터 스토어 초기화
+        if not self.vectorstores:
             await self.initialize_vectorstore()
-            # 벡터스토어를 파일로 저장
-            self.save_vectorstores()
 
     # 벡터 스토어 초기화 함수
-    # 속도 증진을 위해 웹소켓 연결이 되었을 때 벡터스토어 생성까지 해둔다.
     async def initialize_vectorstore(self):
         try:
             self.story_id = self.scope['url_route']['kwargs']['story_id']
-            self.vectorstores = {}
+            # Redis에 저장된 벡터스토어가 있는지 확인
+            redis_key = f'vectorstore_{self.story_id}'
+            vectorstore_data = redis_conn.get(redis_key)
+
+            if vectorstore_data:
+                logger.info('벡터스토어를 Redis에서 불러왔습니다.')
+                self.vectorstores = json.loads(vectorstore_data)
+                return
+
+            logger.info('벡터스토어가 Redis에 없으므로 새로 생성합니다.')
 
             # url에 따른 문서 로드 및 벡터스토어 생성 함수
             async def create_vectorstore_for_url(url, key):
@@ -157,12 +135,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 # 단계 1: 문서 로드(Load Documents)
                 docs = loader.load()
                 logger.info('문서 로드가 완료되었습니다.')
-
                 # 단계 2: 문서 분할(Split Documents)
                 text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
                 splits = text_splitter.split_documents(docs)
                 logger.info('문서 분할이 완료되었습니다.')
-
                 # 단계 3: 임베딩 & 벡터스토어 생성(Create Vectorstore)
                 embeddings = FastEmbedEmbeddings()
                 vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
@@ -178,25 +154,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 '6': self.url6_map.get(self.story_id, ''),
                 '7': self.url7_map.get(self.story_id, ''),
             }
-
             tasks = [asyncio.create_task(create_vectorstore_for_url(url, key)) for key, url in urls.items() if url]
             results = await asyncio.gather(*tasks)
             self.vectorstores = dict(results)
+
+            # Redis에 벡터스토어 저장
+            redis_conn.set(redis_key, json.dumps(self.vectorstores))
             logger.info('벡터스토어가 성공적으로 생성되었습니다.')
 
         except Exception as e:
             logger.error(f"벡터스토어 초기화 중 오류 발생: {str(e)}")
-
-    def save_vectorstores(self):
-        try:
-            os.makedirs(vectorstore_path, exist_ok=True)
-            for key, vectorstore in self.vectorstores.items():
-                file_path = f'{vectorstore_path}/vectorstore_{key}.pkl'
-                with open(file_path, 'wb') as f:
-                    pickle.dump(vectorstore, f)
-            logger.info('벡터스토어가 성공적으로 저장되었습니다.')
-        except Exception as e:
-            logger.error(f"벡터스토어 저장 중 오류 발생: {str(e)}")
 
     # 비동기식으로 Websocket 연결 종료할 때 로직
     async def disconnect(self, close_code):
@@ -220,10 +187,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         try:
             text_data_json = json.loads(text_data)
             user_message = text_data_json.get('message', '')
-
             if user_message:
                 logger.info(f'Received message from user (Story ID {self.story_id}): {user_message}')
-
                 gpt_response = await self.get_gpt_response(user_message)
                 await self.send(text_data=json.dumps({
                     'message': gpt_response
@@ -231,25 +196,21 @@ class ChatConsumer(AsyncWebsocketConsumer):
         except json.JSONDecodeError:
             logger.error("Invalid JSON format received from client.")
             return
-
     #stt 처리 로직
     async def stt_process(self, speech_data):
         try:
             # Base64 디코딩
             audio_data = base64.b64decode(speech_data)
-
             # STT 처리를 위한 API 호출 (여기서는 네이버 STT API 예시)
             # 네이버 STT API 연동 코드
             client_id = settings.NAVER_CLIENT_ID
             client_secret = settings.NAVER_CLIENT_SECRET
             stt_url = 'https://naveropenapi.apigw.ntruss.com/recog/v1/stt'
-
             headers = {
                 'Content-Type': 'application/octet-stream',
                 'X-NCP-APIGW-API-KEY-ID': client_id,
                 'X-NCP-APIGW-API-KEY': client_secret,
             }
-
             response = requests.post(stt_url, headers=headers, data=audio_data)
             if response.status_code == 200:
                 stt_text = response.json()['text']
@@ -257,47 +218,38 @@ class ChatConsumer(AsyncWebsocketConsumer):
             else:
                 logger.error(f"STT API request failed with status code: {response.status_code}")
                 return None
-
         except Exception as e:
             logger.error(f"Error during STT processing: {str(e)}")
             return None
-
     async def get_gpt_response(self, user_message):
         logger.info(f'Generating GPT response for user message (Story ID {self.story_id}): {user_message}')
         # redis를 통해 캐시에 대화 내용을 저장하기 위한 로직
         cache_key = f'gptchat_{self.story_id}'
         chat_history = redis_conn.lrange(cache_key, 0, -1)
-
         if not chat_history:
             chat_history = []
-
         # 대화 기록을 구조화하여 메시지 리스트로 변환
         messages_history = []
         for item in chat_history:
             message = json.loads(item)
             messages_history.append({"role": message["role"], "content": message["content"]})
-
         # 사용자 메시지 추가
         messages_history.append({"role": "user", "content": user_message})
         # 첫 인사 메시지 추가
         messages_history.append({"role": "system", "content": self.initial_message_map[self.story_id]})
-
         try:
             #story_id에 따른 모델을 선정하는 로직
             model_map = {
                 '1': "ft:gpt-3.5-turbo-1106:personal::9nQeXXmm",
             }
-
             if self.story_id in model_map:
                 model = model_map[self.story_id]
                 search_keywords = self.search_keywords_map[self.story_id]
-
                 # # "role"이 "user"일 때의 가장 최근 1개의 "content" 추출
                 # user_messages_history = [msg["content"] for msg in messages_history if msg["role"] == "user"][-1:]
                 #
                 # # "role"이 "assistant"일 때의 가장 최근 1개의 "content" 추출
                 # assistant_messages_history = [msg["content"] for msg in messages_history if msg["role"] == "assistant"][-1:]
-
                 # 특정 키워드가 포함된 경우에만 RAG 검색 실행
                 keywords = search_keywords
                 if any(keyword in user_message for keyword in keywords):
@@ -319,10 +271,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         if "난중" in user_message:
                             vectorstores.append(self.vectorstores.get('7'))
                         return vectorstores
-
                     # RAG 검색에 사용될 벡터스토어 선택
                     selected_vectorstores = select_vectorstore(user_message)
-
                     if selected_vectorstores:
                         # 여러 벡터스토어를 합쳐서 검색할 수 있도록 처리
                         all_retrieved_docs = []
@@ -330,25 +280,19 @@ class ChatConsumer(AsyncWebsocketConsumer):
                             retriever = vectorstore.as_retriever(search_kwargs=dict(k=1))
                             retrieved_docs = retriever.get_relevant_documents(user_message)
                             all_retrieved_docs.extend(retrieved_docs)
-
                         # 중복된 문서 제거 (필요한 경우)
                         unique_retrieved_docs = list({doc.page_content: doc for doc in all_retrieved_docs}.values())
                         logger.info(f"검색된 문서: {unique_retrieved_docs}")
-
                         # 단계 5: 프롬프트 생성(Create Prompt)
                         prompt = hub.pull("rlm/rag-prompt")
                         logger.info('프롬프트 생성이 완료되었습니다.')
-
                         def format_docs(docs):
                             # 검색한 문서 결과를 하나의 문단으로 합쳐줍니다.
                             return "\n\n".join(doc.page_content for doc in docs)
-
                         logger.info('문서 합병이 완료되었습니다.')
-
                         # 단계 6: LLM 모델 생성 (기존 모델 불러오기)
                         llm = ChatOpenAI(openai_api_key=settings.OPENAI_API_KEY)
                         logger.info('LLM 모델 생성이 완료되었습니다.')
-
                         # 단계 7: 체인 생성(Create Chain)
                         rag_chain = (
                                 {"context": retriever | format_docs, "question": RunnablePassthrough()}
@@ -357,7 +301,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                                 | StrOutputParser()
                         )
                         logger.info('체인 생성이 완료되었습니다.')
-
                         # 단계 8: 비동기로 체인 실행(Run Chain)
                         rag_response = await asyncio.to_thread(rag_chain.invoke, user_message)
                         logger.info('체인 실행이 완료되었습니다.')
@@ -365,7 +308,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         rag_response = None
                 else:
                     rag_response = None
-
                 # 모델별 메시지 리스트 구성
                 if self.story_id == '1':
                     # RAG 정보가 있을 때와 없을 때 구분
@@ -373,7 +315,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         rag_message = f"이 내용을 이순신의 말투로 변환하여 최대한 자세하게 설명해.:'{rag_response}'"
                     else:
                         rag_message = ""
-
                     messages = [
                         # 프롬프트
                         {"role": "system", "content":
@@ -408,20 +349,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     #     rag_message = f"새종대왕의 말투로 자연스럽게 변환하여 구체적으로 자세하게 대답해.: '{rag_response}'"
                     # else:
                     #     rag_message = "세종대왕의 말투로 사용자와 자연스러운 대화를 진행해."
-
                     #messages = [
                         #{"role": "assistant", "content": "너는 이제부터 세종대왕이야."},
                         #{"role": "assistant", "content": user_message},
                     #]
-
                 response = client.chat.completions.create(
                     model=model,
                     messages=messages
                 )
-
                 if response and response.choices and len(response.choices) > 0:
                     gpt_response = response.choices[0].message.content
-
                     #강제 1인칭 처리
                     def postprocess_response(gpt_response):
                         if self.story_id == '1':
@@ -429,25 +366,20 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         #if self.story_id == '2':
                             #return gpt_response.replace("세종대왕", "임금")
                     gpt_response = postprocess_response(gpt_response)
-
                     messages_history.append({"role": "assistant", "content": gpt_response})
                     redis_conn.ltrim(cache_key, -6, -1)  # 최근 6개의 대화만 유지
                     redis_conn.rpush(cache_key, json.dumps({"role": "user", "content": user_message}))
                     redis_conn.rpush(cache_key, json.dumps({"role": "assistant", "content": gpt_response}))
                 else:
                     gpt_response = "답변 생성이 불가능 합니다."
-
             #story_id를 할당하지 못했을 때 빈 객체 값으로 반환
             else:
                 gpt_response = f"아직 개발이 완료되지 않은 모델 story_id:{self.story_id}입니다."
                 return gpt_response
-
         except KeyError as ke:
             logger.error(f"OpenAI API 응답 처리 중 KeyError: {str(ke)}가 발생했습니다.")
             gpt_response = "GPT가 예상하지 못한 응답 형식입니다."
-
         except Exception as e:
             logger.error(f"OpenAI API를 호출하는 중 Error: {str(e)}가 발생했습니다")
             gpt_response = f"GPT에서 응답 생성 중 오류가 발생했습니다: {str(e)}"
-
         return gpt_response
