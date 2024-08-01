@@ -142,12 +142,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 logger.info('문서 로드가 완료되었습니다.')
 
                 # 단계 2: 문서 분할(Split Documents)
-                def split_documents(docs):
-                    text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
-                    return text_splitter.split_documents(docs)
-
-                # 문서 분할 비동기 처리
-                splits = await asyncio.to_thread(split_documents, docs)
+                text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
+                splits = text_splitter.split_documents(docs)
                 logger.info('문서 분할이 완료되었습니다.')
 
                 # 단계 3: 임베딩 & 벡터스토어 생성(Create Vectorstore)
