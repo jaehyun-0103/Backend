@@ -119,7 +119,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             logger.info('벡터스토어가 Redis에 없으므로 새로 생성합니다.')
 
             # URL에 따른 문서 로드 및 벡터스토어 생성 함수
-            def create_vectorstore_for_url(url, key):
+            async def create_vectorstore_for_url(url, key):
                 loader = WebBaseLoader(
                     web_paths=[url],
                     bs_kwargs=dict(
