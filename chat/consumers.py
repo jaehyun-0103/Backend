@@ -1,5 +1,5 @@
 #chat/consumers.py
-import json, logging, requests, base64, bs4, asyncio
+import json, logging, requests, base64, bs4, asyncio, pickle
 from channels.generic.websocket import AsyncWebsocketConsumer
 from openai import OpenAI
 from django.conf import settings
@@ -23,6 +23,25 @@ file_handler.setFormatter(formatter)
 logger.addHandler(file_handler)
 client = OpenAI(api_key=settings.OPENAI_API_KEY)
 redis_conn = get_redis_connection("default")
+
+async def save_vectorstore_to_file(vectorstore, file_path):
+    try:
+        with open(file_path, 'wb') as file:
+            pickle.dump(vectorstore, file)
+        logger.info(f'벡터스토어가 {file_path}에 저장되었습니다.')
+    except Exception as e:
+        logger.error(f"벡터스토어 파일 저장 중 오류 발생: {str(e)}")
+
+async def load_vectorstore_from_file(file_path):
+    try:
+        with open(file_path, 'rb') as file:
+            vectorstore = pickle.load(file)
+        logger.info(f'벡터스토어가 {file_path}에서 로드되었습니다.')
+        return vectorstore
+    except Exception as e:
+        logger.error(f"벡터스토어 파일 로드 중 오류 발생: {str(e)}")
+        return None
+
 class ChatConsumer(AsyncWebsocketConsumer):
     # 각 모델의 초기 인사, 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
     initial_message_map = {
@@ -103,20 +122,22 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # 벡터 스토어 초기화
         if not self.vectorstores:
             await self.initialize_vectorstore()
+
     # 벡터 스토어 초기화 함수
-    # 속도 증진을 위해 웹소켓 연결이 되었을 때 벡터스토어 생성까지 해둔다.
     async def initialize_vectorstore(self):
         try:
-            # Redis에 저장된 벡터스토어가 있는지 확인
             redis_key = f'vectorstore_{self.story_id}'
+            vectorstore_file_path = f'vectorstore_{self.story_id}.pkl'
             vectorstore_data = redis_conn.get(redis_key)
 
             if vectorstore_data:
-                logger.info('벡터스토어를 Redis에서 불러왔습니다.')
-                self.vectorstores = json.loads(vectorstore_data)
-                return
+                logger.info('벡터스토어를 불러왔습니다.')
+                vectorstore = await load_vectorstore_from_file(vectorstore_file_path)
+                if vectorstore:
+                    self.vectorstores = vectorstore
+                    return
 
-            logger.info('벡터스토어가 Redis에 없으므로 새로 생성합니다.')
+            logger.info('벡터스토어가 없으므로 새로 생성합니다.')
 
             # URL에 따른 문서 로드 및 벡터스토어 생성 함수
             async def create_vectorstore_for_url(url, key):
@@ -158,9 +179,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
             results = await asyncio.gather(*tasks)
             self.vectorstores = dict(results)
 
-            # Redis에 벡터스토어 저장
-            redis_conn.set(redis_key, json.dumps(self.vectorstores))
-            logger.info('벡터스토어가 Redis에 저장되었습니다.')
+            # 벡터스토어를 파일로 저장
+            await save_vectorstore_to_file(self.vectorstores, vectorstore_file_path)
+            redis_conn.set(redis_key, vectorstore_file_path)
+            logger.info('벡터스토어가 저장되었습니다.')
 
         except Exception as e:
             logger.error(f"벡터스토어 초기화 중 오류 발생: {str(e)}")
