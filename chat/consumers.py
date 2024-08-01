@@ -28,7 +28,6 @@ client = OpenAI(api_key=settings.OPENAI_API_KEY)
 redis_conn = get_redis_connection("default")
 
 vectorstores = {}
-
 async def initialize_global_vectorstore():
     try:
         global vectorstores
