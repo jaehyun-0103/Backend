@@ -16,6 +16,7 @@ from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 
 logger = logging.getLogger(__name__)
+
 # 파일 핸들러 추가
 file_handler = logging.FileHandler('application.log')
 file_handler.setLevel(logging.INFO)
@@ -54,6 +55,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     url2_map = {
         '1': 'https://ko.wikipedia.org/wiki/거북선',  # 이순신 거북선 위키피디아
+
     }
 
     url3_map = {
@@ -108,11 +110,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'message': initial_message
             }))
 
-        # 미리 생성된 벡터스토어를 불러옴
-        from .manage_vectorstore import global_vectorstores
-        pass
-        self.vectorstores = global_vectorstores
-        logger.info('Using pre-loaded vectorstores.')
+        # 벡터 스토어 생성 작업 비동기 실행
+        await self.initialize_vectorstore()
 
     # 벡터 스토어 초기화 함수
     # 속도 증진을 위해 웹소켓 연결이 되었을 때 벡터스토어 생성까지 해둔다.
@@ -132,7 +131,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         )
                     )
                 )
-
                 # 단계 1: 문서 로드(Load Documents)
                 docs = loader.load()
                 logger.info('문서 로드가 완료되었습니다.')
@@ -178,10 +176,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 timeout=600  # 10분 타임아웃
             )
             logger.info(f'WebSocket disconnected: Story ID {self.story_id}')
-
         except asyncio.TimeoutError:
             logger.error(f'Disconnect timeout: Story ID {self.story_id}')
-
         except Exception as e:
             logger.error(f'Error during WebSocket disconnect: {str(e)}')
 
@@ -193,11 +189,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
             if user_message:
                 logger.info(f'Received message from user (Story ID {self.story_id}): {user_message}')
+
                 gpt_response = await self.get_gpt_response(user_message)
                 await self.send(text_data=json.dumps({
                     'message': gpt_response
                 }))
-
         except json.JSONDecodeError:
             logger.error("Invalid JSON format received from client.")
             return
@@ -213,6 +209,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             client_id = settings.NAVER_CLIENT_ID
             client_secret = settings.NAVER_CLIENT_SECRET
             stt_url = 'https://naveropenapi.apigw.ntruss.com/recog/v1/stt'
+
             headers = {
                 'Content-Type': 'application/octet-stream',
                 'X-NCP-APIGW-API-KEY-ID': client_id,
@@ -248,7 +245,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # 사용자 메시지 추가
         messages_history.append({"role": "user", "content": user_message})
-
         # 첫 인사 메시지 추가
         messages_history.append({"role": "system", "content": self.initial_message_map[self.story_id]})
 
@@ -257,9 +253,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
             model_map = {
                 '1': "ft:gpt-3.5-turbo-1106:personal::9nQeXXmm",
             }
+
             if self.story_id in model_map:
                 model = model_map[self.story_id]
                 search_keywords = self.search_keywords_map[self.story_id]
+
                 # # "role"이 "user"일 때의 가장 최근 1개의 "content" 추출
                 # user_messages_history = [msg["content"] for msg in messages_history if msg["role"] == "user"][-1:]
                 #
@@ -290,8 +288,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
                     # RAG 검색에 사용될 벡터스토어 선택
                     selected_vectorstores = select_vectorstore(user_message)
-                    if selected_vectorstores:
 
+                    if selected_vectorstores:
                         # 여러 벡터스토어를 합쳐서 검색할 수 있도록 처리
                         all_retrieved_docs = []
                         for vectorstore in selected_vectorstores:
@@ -310,6 +308,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         def format_docs(docs):
                             # 검색한 문서 결과를 하나의 문단으로 합쳐줍니다.
                             return "\n\n".join(doc.page_content for doc in docs)
+
                         logger.info('문서 합병이 완료되었습니다.')
 
                         # 단계 6: LLM 모델 생성 (기존 모델 불러오기)
@@ -328,10 +327,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         # 단계 8: 비동기로 체인 실행(Run Chain)
                         rag_response = await asyncio.to_thread(rag_chain.invoke, user_message)
                         logger.info('체인 실행이 완료되었습니다.')
-
                     else:
                         rag_response = None
-
                 else:
                     rag_response = None
 
@@ -372,12 +369,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
                         # 사용자 메시지
                         {"role": "user", "content": user_message},
                     ]
-
                 #elif self.story_id == '2':
                     # if rag_response is not None:
                     #     rag_message = f"새종대왕의 말투로 자연스럽게 변환하여 구체적으로 자세하게 대답해.: '{rag_response}'"
                     # else:
                     #     rag_message = "세종대왕의 말투로 사용자와 자연스러운 대화를 진행해."
+
                     #messages = [
                         #{"role": "assistant", "content": "너는 이제부터 세종대왕이야."},
                         #{"role": "assistant", "content": user_message},
@@ -395,11 +392,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     def postprocess_response(gpt_response):
                         if self.story_id == '1':
                             return gpt_response.replace("이순신", "소인")
-
                         #if self.story_id == '2':
                             #return gpt_response.replace("세종대왕", "임금")
-
                     gpt_response = postprocess_response(gpt_response)
+
                     messages_history.append({"role": "assistant", "content": gpt_response})
                     redis_conn.ltrim(cache_key, -6, -1)  # 최근 6개의 대화만 유지
                     redis_conn.rpush(cache_key, json.dumps({"role": "user", "content": user_message}))
