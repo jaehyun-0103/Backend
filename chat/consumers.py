@@ -28,9 +28,9 @@ redis_conn = get_redis_connection("default")
 
 async def save_vectorstore_to_file(vectorstore, file_path):
     try:
-        # Save the vectors and metadata separately
-        with open(file_path + '_vectors.npy', 'wb') as file:
-            np.save(file, vectorstore.index.reconstruct_n(0, vectorstore.index.ntotal))
+        # Save the FAISS index directly to a file
+        vectorstore.index.save(file_path)
+        # Save the metadata as a separate file
         with open(file_path + '_metadata.json', 'w') as file:
             json.dump(vectorstore.metadata, file)
         logger.info(f'벡터스토어가 {file_path}에 저장되었습니다.')
@@ -40,20 +40,22 @@ async def save_vectorstore_to_file(vectorstore, file_path):
 
 async def load_vectorstore_from_file(file_path):
     try:
-        with open(file_path + '_vectors.npy', 'rb') as file:
-            vectors = np.load(file)
+        # Load the FAISS index directly from the file
+        index = FAISS.load(file_path)
+        # Load the metadata
         with open(file_path + '_metadata.json', 'r') as file:
             metadata = json.load(file)
 
-        # Create the vectorstore from vectors and metadata
+        # Create the vectorstore from the index and metadata
         embeddings = FastEmbedEmbeddings()  # Make sure to use the same embeddings
-        vectorstore = FAISS.from_vectors_and_metadata(vectors, metadata, embedding=embeddings)
+        vectorstore = FAISS(index=index, metadata=metadata, embedding=embeddings)
 
         logger.info(f'벡터스토어가 {file_path}에서 로드되었습니다.')
         return vectorstore
     except Exception as e:
         logger.error(f"벡터스토어 파일 로드 중 오류 발생: {str(e)}")
         return None
+
 
 class ChatConsumer(AsyncWebsocketConsumer):
     # 각 모델의 초기 인사, 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
