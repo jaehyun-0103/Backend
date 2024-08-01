@@ -12,7 +12,7 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain.chat_models import ChatOpenAI
 from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
-from manage_vectorstore import global_vectorstores
+from .manage_vectorstore import global_vectorstores
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 
