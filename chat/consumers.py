@@ -166,12 +166,20 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     # 비동기식으로 Websocket 연결 종료할 때 로직
     async def disconnect(self, close_code):
-        await self.channel_layer.group_discard(
-            self.room_group_name,
-            self.channel_name
-        )
-
-        logger.info(f'WebSocket disconnected: Story ID {self.story_id}')
+        try:
+            # 최대 10분 동안 대기
+            await asyncio.wait_for(
+                self.channel_layer.group_discard(
+                    self.room_group_name,
+                    self.channel_name
+                ),
+                timeout=600  # 10분 타임아웃
+            )
+            logger.info(f'WebSocket disconnected: Story ID {self.story_id}')
+        except asyncio.TimeoutError:
+            logger.error(f'Disconnect timeout: Story ID {self.story_id}')
+        except Exception as e:
+            logger.error(f'Error during WebSocket disconnect: {str(e)}')
 
     #사용자가 JSON 형식으로 메시지를 보내면 호출
     async def receive(self, text_data):
