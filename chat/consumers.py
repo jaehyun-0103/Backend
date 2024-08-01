@@ -122,22 +122,32 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
             # url에 따른 문서 로드 및 벡터스토어 생성 함수
             async def create_vectorstore_for_url(url, key):
-                loader = WebBaseLoader(
-                    web_paths=[url],
-                    bs_kwargs=dict(
-                        parse_only=bs4.SoupStrainer(
-                            "div",
-                            attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                loop = asyncio.get_event_loop()
+
+                # 단계 1: 문서 로드(Load Documents)
+                def load_documents():
+                    loader = WebBaseLoader(
+                        web_paths=[url],
+                        bs_kwargs=dict(
+                            parse_only=bs4.SoupStrainer(
+                                "div",
+                                attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                            )
                         )
                     )
-                )
-                # 단계 1: 문서 로드(Load Documents)
-                docs = loader.load()
+                    return loader.load()
+
+                # 문서 로드 비동기 처리
+                docs = await asyncio.to_thread(load_documents)
                 logger.info('문서 로드가 완료되었습니다.')
 
                 # 단계 2: 문서 분할(Split Documents)
-                text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
-                splits = text_splitter.split_documents(docs)
+                def split_documents(docs):
+                    text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
+                    return text_splitter.split_documents(docs)
+
+                # 문서 분할 비동기 처리
+                splits = await asyncio.to_thread(split_documents, docs)
                 logger.info('문서 분할이 완료되었습니다.')
 
                 # 단계 3: 임베딩 & 벡터스토어 생성(Create Vectorstore)
