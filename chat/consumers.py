@@ -1,5 +1,5 @@
 #chat/consumers.py
-import json, logging, requests, base64, bs4, asyncio
+import json, logging, requests, base64, bs4, asyncio, os, pickle
 from channels.generic.websocket import AsyncWebsocketConsumer
 from openai import OpenAI
 from django.conf import settings
@@ -27,59 +27,8 @@ logger.addHandler(file_handler)
 client = OpenAI(api_key=settings.OPENAI_API_KEY)
 redis_conn = get_redis_connection("default")
 
-vectorstores = {}
-vectorstores_initialized = asyncio.Event()
-
-async def initialize_global_vectorstore(story_id):
-    if vectorstores_initialized.is_set():
-        return
-
-    try:
-        global vectorstores
-        if not vectorstores:  # 벡터스토어가 비어 있을 경우에만 초기화 진행
-            urls_map = {
-                '1': {
-                    '1': 'https://ko.wikipedia.org/wiki/이순신',
-                    '2': 'https://ko.wikipedia.org/wiki/거북선',
-                    '3': 'https://ko.wikipedia.org/wiki/학익진',
-                    '4': 'https://ko.wikipedia.org/wiki/한산도_대첩',
-                    '5': 'https://ko.wikipedia.org/wiki/명량_해전',
-                    '6': 'https://ko.wikipedia.org/wiki/노량_해전',
-                    '7': 'https://ko.wikipedia.org/wiki/난중일기',
-                }
-                # 다른 story_id에 따른 URL을 추가합니다.
-            }
-
-            async def create_vectorstore_for_url(url, key):
-                loader = WebBaseLoader(
-                    web_paths=[url],
-                    bs_kwargs=dict(
-                        parse_only=bs4.SoupStrainer(
-                            "div",
-                            attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
-                        )
-                    )
-                )
-                docs = loader.load()
-                text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
-                splits = text_splitter.split_documents(docs)
-                embeddings = FastEmbedEmbeddings()
-                vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
-                return key, vectorstore
-
-            if story_id in urls_map:
-                urls = urls_map[story_id]
-                tasks = [asyncio.create_task(create_vectorstore_for_url(url, key)) for key, url in urls.items() if url]
-                results = await asyncio.gather(*tasks)
-                vectorstores = dict(results)
-                logger.info(f'글로벌 벡터스토어가 성공적으로 생성되었습니다. (story_id: {story_id})')
-                vectorstores_initialized.set()
-            else:
-                logger.error(f"지원되지 않는 story_id: {story_id}")
-
-    except Exception as e:
-        logger.error(f"글로벌 벡터스토어 초기화 중 오류 발생: {str(e)}")
-        vectorstores_initialized.set()
+# 벡터스토어를 메모리에서 직접 로드
+vectorstore_path = 'path_to_vectorstores'  # 벡터스토어 저장 경로 설정
 
 class ChatConsumer(AsyncWebsocketConsumer):
     # 각 모델의 초기 인사, 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
@@ -94,11 +43,64 @@ class ChatConsumer(AsyncWebsocketConsumer):
         '8': "아직 개발 진행 중인 모델입니다.",
     }
 
+    # url 가져오기
+    url1_map = {
+        '1': 'https://ko.wikipedia.org/wiki/이순신',  # 이순신 위키피디아
+        # 추후 고도화 작업 시 추가.
+        # '2': 'https://ko.wikipedia.org/wiki/세종대왕'),
+        # '3': 'https://ko.wikipedia.org/wiki/장영실'),
+        # '4': 'https://ko.wikipedia.org/wiki/유관순'),
+        # '5': 'https://ko.wikipedia.org/wiki/스티브잡스'),
+        # '6': 'https://ko.wikipedia.org/wiki/나폴레옹'),
+        # '7': 'https://ko.wikipedia.org/wiki/반고흐'),
+        # '8': 'https://ko.wikipedia.org/wiki/아인슈타인'),
+    }
+
+    url2_map = {
+        '1': 'https://ko.wikipedia.org/wiki/거북선',  # 이순신 거북선 위키피디아
+
+    }
+
+    url3_map = {
+        '1': 'https://ko.wikipedia.org/wiki/학익진',  # 이순신 학익진 위키피디아
+    }
+
+    url4_map = {
+        '1': 'https://ko.wikipedia.org/wiki/한산도_대첩',  # 이순신 한산도 대첩 위키피디아
+    }
+
+    url5_map = {
+        '1': 'https://ko.wikipedia.org/wiki/명량_해전',  # 이순신 명량 해전 위키피디아
+    }
+
+    url6_map = {
+        '1': 'https://ko.wikipedia.org/wiki/노량_해전',  # 이순신 노량 해전 위키피디아
+    }
+
+    url7_map = {
+        '1': 'https://ko.wikipedia.org/wiki/난중일기', # 이순신 난중일기 위키피디아
+    }
+
     # 특정 키워드가 포함되었을 때만 RAG 검색
     search_keywords_map = {
         '1': ['이순신', '거북선', '학익진', '한산도대첩', '한산도 대첩', '명량해전', '명량 해전', '노량해전', '노량 해전' , '난중일기', '난중 일기'],
     }
 
+    def load_vectorstores(self):
+        # 벡터스토어를 파일에서 로드하는 함수
+        try:
+            self.vectorstores = {}
+            for key in ['1', '2', '3', '4', '5', '6', '7']:
+                file_path = f'{vectorstore_path}/vectorstore_{key}.pkl'
+                if os.path.exists(file_path):
+                    with open(file_path, 'rb') as f:
+                        self.vectorstores[key] = pickle.load(f)
+                else:
+                    logger.warning(f"벡터스토어 파일이 존재하지 않습니다: {file_path}")
+        except Exception as e:
+            logger.error(f"벡터스토어 로드 중 오류 발생: {str(e)}")
+
+    # 비동기식으로 Websocket 연결 되었을 때 로직
     async def connect(self):
         self.story_id = self.scope['url_route']['kwargs']['story_id']
         self.room_group_name = f'chat_{self.story_id}'
@@ -116,6 +118,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
         redis_conn.delete(cache_key)
         logger.info(f'Redis cache reset for Story ID {self.story_id}')
 
+        # 벡터스토어를 메모리에서 로드
+        self.load_vectorstores()
+
         # 초기 인사 메시지 설정
         if self.story_id in self.initial_message_map:
             initial_message = self.initial_message_map[self.story_id]
@@ -125,17 +130,73 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'message': initial_message
             }))
 
-        # 벡터스토어 초기화 확인
-        await self.initialize_vectorstore()
+        # 벡터스토어가 아직 로드되지 않은 경우, 로드 시도
+        if self.story_id not in self.vectorstores:
+            await self.initialize_vectorstore()
+            # 벡터스토어를 파일로 저장
+            self.save_vectorstores()
 
+    # 벡터 스토어 초기화 함수
+    # 속도 증진을 위해 웹소켓 연결이 되었을 때 벡터스토어 생성까지 해둔다.
     async def initialize_vectorstore(self):
-        global vectorstores
-        if not vectorstores:
-            logger.error("벡터스토어가 초기화되지 않았습니다.")
-            await self.close()  # 연결 종료 또는 재시도 로직 추가 가능
-            return
-        self.vectorstores = vectorstores
-        logger.info('벡터스토어가 성공적으로 설정되었습니다.')
+        try:
+            self.story_id = self.scope['url_route']['kwargs']['story_id']
+            self.vectorstores = {}
+
+            # url에 따른 문서 로드 및 벡터스토어 생성 함수
+            async def create_vectorstore_for_url(url, key):
+                loader = WebBaseLoader(
+                    web_paths=[url],
+                    bs_kwargs=dict(
+                        parse_only=bs4.SoupStrainer(
+                            "div",
+                            attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                        )
+                    )
+                )
+                # 단계 1: 문서 로드(Load Documents)
+                docs = loader.load()
+                logger.info('문서 로드가 완료되었습니다.')
+
+                # 단계 2: 문서 분할(Split Documents)
+                text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
+                splits = text_splitter.split_documents(docs)
+                logger.info('문서 분할이 완료되었습니다.')
+
+                # 단계 3: 임베딩 & 벡터스토어 생성(Create Vectorstore)
+                embeddings = FastEmbedEmbeddings()
+                vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
+                return key, vectorstore
+
+            # 단계별 URL 로드 및 벡터스토어 생성
+            urls = {
+                '1': self.url1_map.get(self.story_id, ''),
+                '2': self.url2_map.get(self.story_id, ''),
+                '3': self.url3_map.get(self.story_id, ''),
+                '4': self.url4_map.get(self.story_id, ''),
+                '5': self.url5_map.get(self.story_id, ''),
+                '6': self.url6_map.get(self.story_id, ''),
+                '7': self.url7_map.get(self.story_id, ''),
+            }
+
+            tasks = [asyncio.create_task(create_vectorstore_for_url(url, key)) for key, url in urls.items() if url]
+            results = await asyncio.gather(*tasks)
+            self.vectorstores = dict(results)
+            logger.info('벡터스토어가 성공적으로 생성되었습니다.')
+
+        except Exception as e:
+            logger.error(f"벡터스토어 초기화 중 오류 발생: {str(e)}")
+
+    def save_vectorstores(self):
+        try:
+            os.makedirs(vectorstore_path, exist_ok=True)
+            for key, vectorstore in self.vectorstores.items():
+                file_path = f'{vectorstore_path}/vectorstore_{key}.pkl'
+                with open(file_path, 'wb') as f:
+                    pickle.dump(vectorstore, f)
+            logger.info('벡터스토어가 성공적으로 저장되었습니다.')
+        except Exception as e:
+            logger.error(f"벡터스토어 저장 중 오류 발생: {str(e)}")
 
     # 비동기식으로 Websocket 연결 종료할 때 로직
     async def disconnect(self, close_code):
@@ -243,21 +304,20 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     # 특정 키워드에 따라 벡터스토어를 선택하는 로직
                     def select_vectorstore(user_message):
                         vectorstores = []
-                        for keyword, key in [
-                            ("이순신", '1'),
-                            ("거북선", '2'),
-                            ("학익진", '3'),
-                            ("한산도", '4'),
-                            ("명량", '5'),
-                            ("노량", '6'),
-                            ("난중", '7')
-                        ]:
-                            if keyword in user_message:
-                                vectorstore = self.vectorstores.get(key)
-                                if vectorstore is not None:
-                                    vectorstores.append(vectorstore)
-                                else:
-                                    logger.warning(f"벡터스토어가 없거나 None인 항목이 발견되었습니다: {key}")
+                        if "이순신" in user_message:
+                            vectorstores.append(self.vectorstores.get('1'))
+                        if "거북선" in user_message:
+                            vectorstores.append(self.vectorstores.get('2'))
+                        if "학익진" in user_message:
+                            vectorstores.append(self.vectorstores.get('3'))
+                        if "한산도" in user_message:
+                            vectorstores.append(self.vectorstores.get('4'))
+                        if "명량" in user_message:
+                            vectorstores.append(self.vectorstores.get('5'))
+                        if "노량" in user_message:
+                            vectorstores.append(self.vectorstores.get('6'))
+                        if "난중" in user_message:
+                            vectorstores.append(self.vectorstores.get('7'))
                         return vectorstores
 
                     # RAG 검색에 사용될 벡터스토어 선택
