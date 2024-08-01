@@ -81,15 +81,6 @@ async def initialize_global_vectorstore(story_id):
         logger.error(f"글로벌 벡터스토어 초기화 중 오류 발생: {str(e)}")
         vectorstores_initialized.set()
 
-# Django 어플리케이션 시작 시 글로벌 벡터스토어 초기화
-async def main(scope):
-    story_id = scope['url_route']['kwargs'].get('story_id', '1')  # 기본값 '1' 설정
-    await initialize_global_vectorstore(story_id)
-
-if __name__ == "__main__":
-    # 예시로 scope를 직접 넘겨주는 부분은 ASGI 서버 환경에서 자동으로 처리됩니다.
-    asyncio.run(main({'url_route': {'kwargs': {'story_id': '1'}}}))
-
 class ChatConsumer(AsyncWebsocketConsumer):
     # 각 모델의 초기 인사, 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
     initial_message_map = {
