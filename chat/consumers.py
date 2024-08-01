@@ -130,13 +130,18 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.initialize_vectorstore()
 
     async def initialize_vectorstore(self):
-        global vectorstores
         try:
+            global vectorstores
+            if not vectorstores:
+                await initialize_global_vectorstore(self.story_id)
             self.vectorstores = vectorstores
+            if not self.vectorstores:
+                logger.warning("벡터스토어가 비어 있습니다. 추가 확인이 필요합니다.")
+                raise ValueError("벡터스토어가 초기화되지 않았습니다.")
             logger.info('벡터스토어가 성공적으로 설정되었습니다.')
-
         except Exception as e:
             logger.error(f"벡터스토어 설정 중 오류 발생: {str(e)}")
+            self.vectorstores = {}
 
     # 비동기식으로 Websocket 연결 종료할 때 로직
     async def disconnect(self, close_code):
@@ -244,20 +249,21 @@ class ChatConsumer(AsyncWebsocketConsumer):
                     # 특정 키워드에 따라 벡터스토어를 선택하는 로직
                     def select_vectorstore(user_message):
                         vectorstores = []
-                        if "이순신" in user_message:
-                            vectorstores.append(self.vectorstores.get('1'))
-                        if "거북선" in user_message:
-                            vectorstores.append(self.vectorstores.get('2'))
-                        if "학익진" in user_message:
-                            vectorstores.append(self.vectorstores.get('3'))
-                        if "한산도" in user_message:
-                            vectorstores.append(self.vectorstores.get('4'))
-                        if "명량" in user_message:
-                            vectorstores.append(self.vectorstores.get('5'))
-                        if "노량" in user_message:
-                            vectorstores.append(self.vectorstores.get('6'))
-                        if "난중" in user_message:
-                            vectorstores.append(self.vectorstores.get('7'))
+                        for keyword, key in [
+                            ("이순신", '1'),
+                            ("거북선", '2'),
+                            ("학익진", '3'),
+                            ("한산도", '4'),
+                            ("명량", '5'),
+                            ("노량", '6'),
+                            ("난중", '7')
+                        ]:
+                            if keyword in user_message:
+                                vectorstore = self.vectorstores.get(key)
+                                if vectorstore is not None:
+                                    vectorstores.append(vectorstore)
+                                else:
+                                    logger.warning(f"벡터스토어가 없거나 None인 항목이 발견되었습니다: {key}")
                         return vectorstores
 
                     # RAG 검색에 사용될 벡터스토어 선택
