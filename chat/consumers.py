@@ -192,6 +192,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
             self.vectorstores = {key: vectorstore for key, vectorstore in results}
 
+        except Exception as e:
+            logger.error(f"벡터스토어 초기화 중 오류 발생: {str(e)}")
+
     # 비동기식으로 Websocket 연결 종료할 때 로직
     async def disconnect(self, close_code):
         try:
