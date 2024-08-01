@@ -28,7 +28,12 @@ client = OpenAI(api_key=settings.OPENAI_API_KEY)
 redis_conn = get_redis_connection("default")
 
 vectorstores = {}
-async def initialize_global_vectorstore():
+vectorstores_initialized = asyncio.Event()
+
+async def initialize_global_vectorstore(story_id):
+    if vectorstores_initialized.is_set():
+        return
+
     try:
         global vectorstores
         if not vectorstores:  # 벡터스토어가 비어 있을 경우에만 초기화 진행
@@ -62,23 +67,28 @@ async def initialize_global_vectorstore():
                 vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
                 return key, vectorstore
 
-            # 초기화 시 사용할 기본 story_id 설정
-            story_id = '1'
-
             if story_id in urls_map:
                 urls = urls_map[story_id]
                 tasks = [asyncio.create_task(create_vectorstore_for_url(url, key)) for key, url in urls.items() if url]
                 results = await asyncio.gather(*tasks)
                 vectorstores = dict(results)
-                logger.info('글로벌 벡터스토어가 성공적으로 생성되었습니다.')
+                logger.info(f'글로벌 벡터스토어가 성공적으로 생성되었습니다. (story_id: {story_id})')
+                vectorstores_initialized.set()
             else:
                 logger.error(f"지원되지 않는 story_id: {story_id}")
 
     except Exception as e:
         logger.error(f"글로벌 벡터스토어 초기화 중 오류 발생: {str(e)}")
+        vectorstores_initialized.set()
 
 # Django 어플리케이션 시작 시 글로벌 벡터스토어 초기화
-asyncio.run(initialize_global_vectorstore())
+async def main(scope):
+    story_id = scope['url_route']['kwargs'].get('story_id', '1')  # 기본값 '1' 설정
+    await initialize_global_vectorstore(story_id)
+
+if __name__ == "__main__":
+    # 예시로 scope를 직접 넘겨주는 부분은 ASGI 서버 환경에서 자동으로 처리됩니다.
+    asyncio.run(main({'url_route': {'kwargs': {'story_id': '1'}}}))
 
 class ChatConsumer(AsyncWebsocketConsumer):
     # 각 모델의 초기 인사, 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
