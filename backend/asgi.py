@@ -4,6 +4,7 @@ from channels.auth import AuthMiddlewareStack
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.security.websocket import AllowedHostsOriginValidator
 import chat.routing
+from chat.vectorstore_initializer import run_initialization
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.settings')
 
@@ -20,3 +21,6 @@ application = ProtocolTypeRouter({
             ),
         ),
 })
+
+# 벡터스토어 초기화
+run_initialization()

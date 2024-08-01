@@ -99,7 +99,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         '1': ['이순신', '거북선', '학익진', '한산도대첩', '한산도 대첩', '명량해전', '명량 해전', '노량해전', '노량 해전' , '난중일기', '난중 일기'],
     }
 
-    # 웹소켓 연결 시 글로벌 벡터스토어 사용
     async def connect(self):
         self.story_id = self.scope['url_route']['kwargs']['story_id']
         self.room_group_name = f'chat_{self.story_id}'
@@ -126,22 +125,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 'message': initial_message
             }))
 
-        # 벡터 스토어 초기화
+        # 벡터스토어 초기화 확인
         await self.initialize_vectorstore()
 
     async def initialize_vectorstore(self):
-        try:
-            global vectorstores
-            if not vectorstores:
-                await initialize_global_vectorstore(self.story_id)
-            self.vectorstores = vectorstores
-            if not self.vectorstores:
-                logger.warning("벡터스토어가 비어 있습니다. 추가 확인이 필요합니다.")
-                raise ValueError("벡터스토어가 초기화되지 않았습니다.")
-            logger.info('벡터스토어가 성공적으로 설정되었습니다.')
-        except Exception as e:
-            logger.error(f"벡터스토어 설정 중 오류 발생: {str(e)}")
-            self.vectorstores = {}
+        global vectorstores
+        if not vectorstores:
+            logger.error("벡터스토어가 초기화되지 않았습니다.")
+            await self.close()  # 연결 종료 또는 재시도 로직 추가 가능
+            return
+        self.vectorstores = vectorstores
+        logger.info('벡터스토어가 성공적으로 설정되었습니다.')
 
     # 비동기식으로 Websocket 연결 종료할 때 로직
     async def disconnect(self, close_code):
