@@ -29,10 +29,10 @@ redis_conn = get_redis_connection("default")
 
 vectorstores = {}
 
-async def initialize_global_vectorstore(story_id):
+async def initialize_global_vectorstore():
     try:
         global vectorstores
-        if story_id not in vectorstores:  # 해당 story_id에 대한 벡터스토어가 없을 경우에만 초기화 진행
+        if not vectorstores:  # 벡터스토어가 비어 있을 경우에만 초기화 진행
             urls_map = {
                 '1': {
                     '1': 'https://ko.wikipedia.org/wiki/이순신',
@@ -42,37 +42,44 @@ async def initialize_global_vectorstore(story_id):
                     '5': 'https://ko.wikipedia.org/wiki/명량_해전',
                     '6': 'https://ko.wikipedia.org/wiki/노량_해전',
                     '7': 'https://ko.wikipedia.org/wiki/난중일기',
-                },
-                # 다른 story_id에 대한 URL 매핑 추가 가능
+                }
+                # 다른 story_id에 따른 URL을 추가합니다.
             }
+
+            async def create_vectorstore_for_url(url, key):
+                loader = WebBaseLoader(
+                    web_paths=[url],
+                    bs_kwargs=dict(
+                        parse_only=bs4.SoupStrainer(
+                            "div",
+                            attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
+                        )
+                    )
+                )
+                docs = loader.load()
+                text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
+                splits = text_splitter.split_documents(docs)
+                embeddings = FastEmbedEmbeddings()
+                vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
+                return key, vectorstore
+
+            # 초기화 시 사용할 기본 story_id 설정
+            story_id = '1'
 
             if story_id in urls_map:
                 urls = urls_map[story_id]
-
-                async def create_vectorstore_for_url(url, key):
-                    loader = WebBaseLoader(
-                        web_paths=[url],
-                        bs_kwargs=dict(
-                            parse_only=bs4.SoupStrainer(
-                                "div",
-                                attrs={"class": ["mw-content-ltr mw-parser-output"], "lang": ["ko"], "dir": ["ltr"]}
-                            )
-                        )
-                    )
-                    docs = loader.load()
-                    text_splitter = RecursiveCharacterTextSplitter(chunk_size=5000, chunk_overlap=50)
-                    splits = text_splitter.split_documents(docs)
-                    embeddings = FastEmbedEmbeddings()
-                    vectorstore = FAISS.from_documents(documents=splits, embedding=embeddings)
-                    return key, vectorstore
-
                 tasks = [asyncio.create_task(create_vectorstore_for_url(url, key)) for key, url in urls.items() if url]
                 results = await asyncio.gather(*tasks)
-                vectorstores[story_id] = dict(results)
-                logger.info(f'글로벌 벡터스토어가 성공적으로 생성되었습니다. story_id: {story_id}')
+                vectorstores = dict(results)
+                logger.info('글로벌 벡터스토어가 성공적으로 생성되었습니다.')
+            else:
+                logger.error(f"지원되지 않는 story_id: {story_id}")
 
     except Exception as e:
         logger.error(f"글로벌 벡터스토어 초기화 중 오류 발생: {str(e)}")
+
+# Django 어플리케이션 시작 시 글로벌 벡터스토어 초기화
+asyncio.run(initialize_global_vectorstore())
 
 class ChatConsumer(AsyncWebsocketConsumer):
     # 각 모델의 초기 인사, 파인튜닝이 되지 않은 경우 "아직 개발중인 모델입니다." 메시지 설정
